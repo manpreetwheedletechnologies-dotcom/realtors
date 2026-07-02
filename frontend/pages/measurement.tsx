@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useRef, ReactNode, ChangeEvent } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import PageHero from '../components/Pagehero';
@@ -7,7 +7,7 @@ import Testimonials from '../components/Testimonials';
 import CTASection from '../components/Ctasection';
 
 // ---- Unit conversion helpers -------------------------------------------
-const LENGTH_TO_FT = { ft: 1, m: 3.28084, yd: 3, in: 1 / 12 };
+const LENGTH_TO_FT: Record<string, number> = { ft: 1, m: 3.28084, yd: 3, in: 1 / 12 };
 const LENGTH_UNITS = [
   { value: 'ft', label: 'Feet (ft)' },
   { value: 'm', label: 'Meters (m)' },
@@ -15,9 +15,9 @@ const LENGTH_UNITS = [
   { value: 'in', label: 'Inches (in)' }
 ];
 
-const toFt = (value, unit) => (parseFloat(value) || 0) * (LENGTH_TO_FT[unit] || 1);
+const toFt = (value: string, unit: string): number => (parseFloat(value) || 0) * (LENGTH_TO_FT[unit] || 1);
 
-const areaFromSqFt = (sqft) => ({
+const areaFromSqFt = (sqft: number) => ({
   sqft: sqft,
   sqyd: sqft / 9,
   sqm: sqft / 10.7639,
@@ -26,12 +26,12 @@ const areaFromSqFt = (sqft) => ({
   sqkm: sqft / 10763910
 });
 
-const fmt = (n, decimals = 2) => {
+const fmt = (n: number, decimals = 2): string => {
   if (!isFinite(n)) return '0';
   return n.toLocaleString('en-IN', { maximumFractionDigits: decimals, minimumFractionDigits: 0 });
 };
 
-const DISTANCE_TO_FT = { ft: 1, m: 3.28084, yd: 3, km: 3280.84, mi: 5280 };
+const DISTANCE_TO_FT: Record<string, number> = { ft: 1, m: 3.28084, yd: 3, km: 3280.84, mi: 5280 };
 const DISTANCE_UNITS = [
   { value: 'ft', label: 'Feet' },
   { value: 'm', label: 'Meters' },
@@ -48,10 +48,10 @@ const tools = [
 ];
 
 export default function MeasurementTools() {
-  const [activeTool, setActiveTool] = useState('area');
-  const calculatorRef = useRef(null);
+  const [activeTool, setActiveTool] = useState<string>('area');
+  const calculatorRef = useRef<HTMLDivElement>(null);
 
-  const selectTool = (id) => {
+  const selectTool = (id: string) => {
     setActiveTool(id);
     calculatorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -124,8 +124,16 @@ export default function MeasurementTools() {
   );
 }
 
+// ---------------------------------------------------------------------
 // Shared card wrapper for consistent transitions
-function ToolCard({ title, icon, children }) {
+// ---------------------------------------------------------------------
+interface ToolCardProps {
+  title: string;
+  icon: string;
+  children: ReactNode;
+}
+
+function ToolCard({ title, icon, children }: ToolCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -148,7 +156,7 @@ function ToolCard({ title, icon, children }) {
   );
 }
 
-function exportReport(title, lines) {
+function exportReport(title: string, lines: string[]) {
   const content = [
     `PGI Land Realtors — ${title}`,
     `Generated: ${new Date().toLocaleString('en-IN')}`,
@@ -173,12 +181,23 @@ function exportReport(title, lines) {
 // ---------------------------------------------------------------------
 // AREA CALCULATOR
 // ---------------------------------------------------------------------
-function AreaCalculator() {
-  const [shape, setShape] = useState('rectangle');
-  const [unit, setUnit] = useState('ft');
-  const [dims, setDims] = useState({ length: '', width: '', side: '', radius: '', base: '', height: '' });
+type Shape = 'rectangle' | 'square' | 'circle' | 'triangle';
 
-  const set = (key) => (e) => setDims({ ...dims, [key]: e.target.value });
+interface AreaDims {
+  length: string;
+  width: string;
+  side: string;
+  radius: string;
+  base: string;
+  height: string;
+}
+
+function AreaCalculator() {
+  const [shape, setShape] = useState<Shape>('rectangle');
+  const [unit, setUnit] = useState<string>('ft');
+  const [dims, setDims] = useState<AreaDims>({ length: '', width: '', side: '', radius: '', base: '', height: '' });
+
+  const set = (key: keyof AreaDims) => (e: ChangeEvent<HTMLInputElement>) => setDims({ ...dims, [key]: e.target.value });
 
   const { areaFt, perimeterFt, hasInput } = useMemo(() => {
     const l = toFt(dims.length, unit);
@@ -190,15 +209,15 @@ function AreaCalculator() {
 
     switch (shape) {
       case 'rectangle':
-        return { areaFt: l * w, perimeterFt: 2 * (l + w), hasInput: l > 0 && w > 0 };
+        return { areaFt: l * w, perimeterFt: 2 * (l + w) as number | null, hasInput: l > 0 && w > 0 };
       case 'square':
-        return { areaFt: s * s, perimeterFt: 4 * s, hasInput: s > 0 };
+        return { areaFt: s * s, perimeterFt: 4 * s as number | null, hasInput: s > 0 };
       case 'circle':
-        return { areaFt: Math.PI * r * r, perimeterFt: 2 * Math.PI * r, hasInput: r > 0 };
+        return { areaFt: Math.PI * r * r, perimeterFt: 2 * Math.PI * r as number | null, hasInput: r > 0 };
       case 'triangle':
-        return { areaFt: 0.5 * b * h, perimeterFt: null, hasInput: b > 0 && h > 0 };
+        return { areaFt: 0.5 * b * h, perimeterFt: null as number | null, hasInput: b > 0 && h > 0 };
       default:
-        return { areaFt: 0, perimeterFt: 0, hasInput: false };
+        return { areaFt: 0, perimeterFt: 0 as number | null, hasInput: false };
     }
   }, [shape, dims, unit]);
 
@@ -219,11 +238,6 @@ function AreaCalculator() {
     ].filter(Boolean));
   };
 
-  const getShapeIcon = () => {
-    const icons = { rectangle: '▭', square: '▢', circle: '◯', triangle: '△' };
-    return icons[shape] || '📐';
-  };
-
   return (
     <ToolCard title="Area Calculator" icon="📐">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -231,7 +245,7 @@ function AreaCalculator() {
           <div>
             <label className="text-sm font-semibold text-gray-700 block mb-2">📐 Select Shape</label>
             <div className="flex flex-wrap gap-2">
-              {['rectangle', 'square', 'circle', 'triangle'].map((s) => (
+              {(['rectangle', 'square', 'circle', 'triangle'] as Shape[]).map((s) => (
                 <motion.button
                   key={s}
                   whileHover={{ scale: 1.05 }}
@@ -315,11 +329,11 @@ function AreaCalculator() {
 // DISTANCE & PERIMETER
 // ---------------------------------------------------------------------
 function DistancePerimeterCalculator() {
-  const [mode, setMode] = useState('convert');
+  const [mode, setMode] = useState<'convert' | 'perimeter'>('convert');
 
   // Convert mode
-  const [value, setValue] = useState('');
-  const [fromUnit, setFromUnit] = useState('ft');
+  const [value, setValue] = useState<string>('');
+  const [fromUnit, setFromUnit] = useState<string>('ft');
 
   const convertedFt = (parseFloat(value) || 0) * (DISTANCE_TO_FT[fromUnit] || 1);
   const conversions = {
@@ -331,12 +345,12 @@ function DistancePerimeterCalculator() {
   };
 
   // Perimeter mode
-  const [sides, setSides] = useState(['', '', '', '']);
-  const [sideUnit, setSideUnit] = useState('ft');
+  const [sides, setSides] = useState<string[]>(['', '', '', '']);
+  const [sideUnit, setSideUnit] = useState<string>('ft');
   const totalFt = sides.reduce((sum, s) => sum + toFt(s, sideUnit), 0);
   const addSide = () => setSides([...sides, '']);
-  const removeSide = (i) => setSides(sides.filter((_, idx) => idx !== i));
-  const updateSide = (i, val) => setSides(sides.map((s, idx) => (idx === i ? val : s)));
+  const removeSide = (i: number) => setSides(sides.filter((_, idx) => idx !== i));
+  const updateSide = (i: number, val: string) => setSides(sides.map((s, idx) => (idx === i ? val : s)));
 
   const handleExportConvert = () => {
     exportReport('Distance Conversion', [
@@ -486,9 +500,9 @@ function DistancePerimeterCalculator() {
 // ELEVATION / SLOPE
 // ---------------------------------------------------------------------
 function ElevationCalculator() {
-  const [rise, setRise] = useState('');
-  const [run, setRun] = useState('');
-  const [unit, setUnit] = useState('ft');
+  const [rise, setRise] = useState<string>('');
+  const [run, setRun] = useState<string>('');
+  const [unit, setUnit] = useState<string>('ft');
 
   const riseFt = toFt(rise, unit);
   const runFt = toFt(run, unit);
@@ -572,9 +586,9 @@ function ElevationCalculator() {
 // CONSTRUCTION ESTIMATOR
 // ---------------------------------------------------------------------
 function ConstructionEstimator() {
-  const [area, setArea] = useState('');
-  const [rate, setRate] = useState('1800');
-  const [floors, setFloors] = useState('1');
+  const [area, setArea] = useState<string>('');
+  const [rate, setRate] = useState<string>('1800');
+  const [floors, setFloors] = useState<string>('1');
 
   const a = parseFloat(area) || 0;
   const r = parseFloat(rate) || 0;
@@ -651,7 +665,13 @@ function ConstructionEstimator() {
 // ---------------------------------------------------------------------
 // Shared small UI pieces
 // ---------------------------------------------------------------------
-function NumberField({ label, value, onChange }) {
+interface NumberFieldProps {
+  label: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+function NumberField({ label, value, onChange }: NumberFieldProps) {
   return (
     <div className="mb-3">
       <label className="text-sm font-medium text-gray-700 block mb-1.5">{label}</label>
@@ -668,7 +688,13 @@ function NumberField({ label, value, onChange }) {
   );
 }
 
-function ResultsPanel({ hasInput, children, shape }) {
+interface ResultsPanelProps {
+  hasInput: boolean;
+  children: ReactNode;
+  shape?: string;
+}
+
+function ResultsPanel({ hasInput, children }: ResultsPanelProps) {
   return (
     <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-2xl border-2 border-emerald-200 h-fit shadow-inner">
       <div className="flex items-center gap-2 mb-4">
@@ -693,7 +719,14 @@ function ResultsPanel({ hasInput, children, shape }) {
   );
 }
 
-function ResultRow({ label, value, highlight, small }) {
+interface ResultRowProps {
+  label: string;
+  value: string;
+  highlight?: boolean;
+  small?: boolean;
+}
+
+function ResultRow({ label, value, highlight, small }: ResultRowProps) {
   return (
     <div className="flex justify-between items-center py-1.5 px-2 rounded-lg hover:bg-white/50 transition-colors">
       <span className={`${small ? 'text-xs' : 'text-sm'} text-gray-600 font-medium`}>{label}</span>
@@ -704,7 +737,12 @@ function ResultRow({ label, value, highlight, small }) {
   );
 }
 
-function ExportButton({ onClick, disabled }) {
+interface ExportButtonProps {
+  onClick: () => void;
+  disabled?: boolean;
+}
+
+function ExportButton({ onClick, disabled }: ExportButtonProps) {
   return (
     <motion.button
       whileHover={!disabled ? { scale: 1.02 } : {}}
