@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
-import PageHero from '../components/PageHero';
+import PageHero from '../components/Pagehero';
 import FAQ from '../components/FAQ';
 import Testimonials from '../components/Testimonials';
 import CTASection from '../components/Ctasection';

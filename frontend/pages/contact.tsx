@@ -34,14 +34,32 @@ const faqs = [
   }
 ];
 
-export default function Contact() {
-  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', phone: '', queryType: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [openFaq, setOpenFaq] = useState(null);
+interface ContactForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  queryType: string;
+  message: string;
+}
 
-  const validate = () => {
-    const e = {};
+type FormErrors = Partial<Record<keyof ContactForm, string>>;
+
+export default function Contact() {
+  const [form, setForm] = useState<ContactForm>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    queryType: '',
+    message: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const validate = (): FormErrors => {
+    const e: FormErrors = {};
     if (!form.firstName.trim()) e.firstName = 'Please enter your first name';
     if (!/^\S+@\S+\.\S+$/.test(form.email)) e.email = 'Please enter a valid email';
     if (!form.phone.trim()) e.phone = 'Please enter a phone number';
@@ -50,7 +68,7 @@ export default function Contact() {
     return e;
   };
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const e = validate();
     setErrors(e);
@@ -61,7 +79,7 @@ export default function Contact() {
     }
   };
 
-  const inputClass = (field) =>
+  const inputClass = (field: keyof ContactForm) =>
     `w-full px-4 py-2.5 rounded-lg border outline-none transition-all bg-white ${
       errors[field] ? 'border-red-300' : 'border-gray-200 focus:border-emerald-500'
     }`;
