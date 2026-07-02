@@ -1,764 +1,719 @@
+import { useState, useMemo, useRef } from 'react';
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Ruler, ArrowUp, ArrowRight, Gauge, Box, Columns, 
-  Train, Building, MapPin, ChevronLeft, ChevronRight,
-  ZoomIn, Download, Share2, Eye, Layers, Grid3x3,
-  Maximize2, Minimize2, TrendingUp, TrendingDown,
-  Clock, CheckCircle, AlertCircle, Activity
-} from 'lucide-react';
+import PageHero from '../components/Pagehero';
+import FAQ from '../components/FAQ';
+import Testimonials from '../components/Testimonials';
+import CTASection from '../components/Ctasection';
 
-const MEASUREMENT_DATA: any = {
-  Railway: {
-    icon: Train,
-    count: 14,
-    color: 'from-emerald-600 to-green-700',
-    bgColor: 'bg-emerald-50',
-    subTabs: [
-      { name: 'OHE Mask measurement', count: 4, icon: '⚡' },
-      { name: 'Track', count: 3, icon: '🛤️' },
-      { name: 'Station', count: 7, icon: '🏠' }
-    ],
-    items: [
-      { id: 'ohe-pole', tab: 'OHE Mask measurement', title: 'OHE Pole Measurements', desc: 'Distance between catenary and contact wire with precision tracking', url: 'https://images.pexels.com/photos/14887794/pexels-photo-14887794.jpeg?auto=compress&cs=tinysrgb&w=1260', accuracy: '±0.01mm', status: 'Active' },
-      { id: 'cat-rail', tab: 'OHE Mask measurement', title: 'Catenary to Rail', desc: 'Distance between catenary and contact wire for optimal performance', url: 'https://images.pexels.com/photos/27617424/pexels-photo-27617424.jpeg?auto=compress&cs=tinysrgb&w=1260', accuracy: '±0.02mm', status: 'Active' },
-      { id: 'cont-rail', tab: 'OHE Mask measurement', title: 'Contact to Rail', desc: 'Distance between catenary and contact wire ensuring safety', url: 'https://images.pexels.com/photos/27617417/pexels-photo-27617417.jpeg?auto=compress&cs=tinysrgb&w=1260', accuracy: '±0.015mm', status: 'Active' },
-      { id: 'cat-cont', tab: 'OHE Mask measurement', title: 'Catenary to Contact', desc: 'Distance between catenary and contact wire with advanced analytics', url: 'https://images.pexels.com/photos/27617416/pexels-photo-27617416.jpeg?auto=compress&cs=tinysrgb&w=1260', accuracy: '±0.01mm', status: 'Active' }
-    ]
-  },
-  Bridge: {
-    icon: Building,
-    count: 5,
-    color: 'from-blue-600 to-emerald-700',
-    bgColor: 'bg-blue-50',
-    subTabs: [
-      { name: 'Pillars', count: 2, icon: '🏛️' },
-      { name: 'Deck', count: 3, icon: '🌉' }
-    ],
-    items: [
-      { id: 'bridge-1', tab: 'Pillars', title: 'Pillar Verticality', desc: 'Pillar alignment analysis for structural integrity', url: 'https://images.pexels.com/photos/19099247/pexels-photo-19099247.jpeg?auto=compress&cs=tinysrgb&w=1260', accuracy: '±0.05mm', status: 'Monitoring' },
-      { id: 'bridge-2', tab: 'Pillars', title: 'Pillar Load Analysis', desc: 'Load distribution analysis across pillars', url: 'https://images.pexels.com/photos/7107980/pexels-photo-7107980.jpeg?auto=compress&cs=tinysrgb&w=1260', accuracy: '±0.03mm', status: 'Active' }
-    ]
-  },
-  Road: {
-    icon: MapPin,
-    count: 4,
-    color: 'from-amber-600 to-emerald-700',
-    bgColor: 'bg-amber-50',
-    subTabs: [
-      { name: 'Surface', count: 2, icon: '🛣️' },
-      { name: 'Drainage', count: 2, icon: '💧' }
-    ],
-    items: [
-      { id: 'road-1', tab: 'Surface', title: 'Asphalt Volume', desc: 'Surface volume calculation for road construction', url: 'https://images.pexels.com/photos/7910082/pexels-photo-7910082.jpeg?auto=compress&cs=tinysrgb&w=1260', accuracy: '±0.02mm', status: 'Active' },
-      { id: 'road-2', tab: 'Surface', title: 'Road Roughness', desc: 'Surface roughness analysis for quality control', url: 'https://images.pexels.com/photos/29213468/pexels-photo-29213468.jpeg?auto=compress&cs=tinysrgb&w=1260', accuracy: '±0.04mm', status: 'Review' }
-    ]
-  }
+// ---- Unit conversion helpers -------------------------------------------
+const LENGTH_TO_FT = { ft: 1, m: 3.28084, yd: 3, in: 1 / 12 };
+const LENGTH_UNITS = [
+  { value: 'ft', label: 'Feet (ft)' },
+  { value: 'm', label: 'Meters (m)' },
+  { value: 'yd', label: 'Yards (yd)' },
+  { value: 'in', label: 'Inches (in)' }
+];
+
+const toFt = (value, unit) => (parseFloat(value) || 0) * (LENGTH_TO_FT[unit] || 1);
+
+const areaFromSqFt = (sqft) => ({
+  sqft: sqft,
+  sqyd: sqft / 9,
+  sqm: sqft / 10.7639,
+  acres: sqft / 43560,
+  hectares: sqft / 107639,
+  sqkm: sqft / 10763910
+});
+
+const fmt = (n, decimals = 2) => {
+  if (!isFinite(n)) return '0';
+  return n.toLocaleString('en-IN', { maximumFractionDigits: decimals, minimumFractionDigits: 0 });
 };
 
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { 
-      duration: 0.7,
-      ease: [0.6, -0.05, 0.01, 0.99],
-      staggerChildren: 0.1
-    }
-  }
-};
+const DISTANCE_TO_FT = { ft: 1, m: 3.28084, yd: 3, km: 3280.84, mi: 5280 };
+const DISTANCE_UNITS = [
+  { value: 'ft', label: 'Feet' },
+  { value: 'm', label: 'Meters' },
+  { value: 'yd', label: 'Yards' },
+  { value: 'km', label: 'Kilometers' },
+  { value: 'mi', label: 'Miles' }
+];
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { 
-      duration: 0.6,
-      type: "spring",
-      stiffness: 120,
-      damping: 15
-    }
-  }
-};
+const tools = [
+  { id: 'area', name: 'Area Calculator', icon: '📐', description: 'Calculate land area for any shape' },
+  { id: 'distance', name: 'Distance & Perimeter', icon: '📏', description: 'Convert distances and add up boundary lengths' },
+  { id: 'elevation', name: 'Elevation Analysis', icon: '⛰️', description: 'Analyze slope, grade, and elevation change' },
+  { id: 'construction', name: 'Construction Estimator', icon: '🏗️', description: 'Estimate construction costs and materials' }
+];
 
-const slideInLeft = {
-  hidden: { opacity: 0, x: -60 },
-  visible: { 
-    opacity: 1, 
-    x: 0,
-    transition: { 
-      duration: 0.7,
-      ease: [0.6, -0.05, 0.01, 0.99]
-    }
-  }
-};
+export default function MeasurementTools() {
+  const [activeTool, setActiveTool] = useState('area');
+  const calculatorRef = useRef(null);
 
-const slideInRight = {
-  hidden: { opacity: 0, x: 60 },
-  visible: { 
-    opacity: 1, 
-    x: 0,
-    transition: { 
-      duration: 0.7,
-      ease: [0.6, -0.05, 0.01, 0.99]
-    }
-  }
-};
-
-export default function Measurement() {
-  const [activeCategory, setActiveCategory] = useState('Railway');
-  const [activeSubTab, setActiveSubTab] = useState('OHE Mask measurement');
-  const [activeImageId, setActiveImageId] = useState('cat-cont');
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isZoomed, setIsZoomed] = useState(false);
-  const [showStats, setShowStats] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const currentCategoryData = MEASUREMENT_DATA[activeCategory];
-  const filteredItems = currentCategoryData?.items.filter((item: any) => item.tab === activeSubTab) || [];
-  const activeImage = filteredItems.find((img: any) => img.id === activeImageId) || filteredItems[0];
-
-  useEffect(() => {
-    if (activeImage) {
-      setIsLoading(true);
-      setTimeout(() => setIsLoading(false), 500);
-    }
-  }, [activeImage]);
-
-  const handleCategoryChange = (cat: string) => {
-    setActiveCategory(cat);
-    const firstTab = MEASUREMENT_DATA[cat].subTabs[0].name;
-    setActiveSubTab(firstTab);
-    const firstImg = MEASUREMENT_DATA[cat].items.filter((item: any) => item.tab === firstTab)[0];
-    if (firstImg) setActiveImageId(firstImg.id);
-  };
-
-  const handleSubTabChange = (tab: string) => {
-    setActiveSubTab(tab);
-    const firstImg = currentCategoryData.items.filter((item: any) => item.tab === tab)[0];
-    if (firstImg) setActiveImageId(firstImg.id);
-  };
-
-  const handlePrevImage = () => {
-    if(!filteredItems.length) return;
-    const idx = filteredItems.findIndex((img: any) => img.id === activeImageId);
-    if (idx > 0) setActiveImageId(filteredItems[idx - 1].id);
-  };
-
-  const handleNextImage = () => {
-    if(!filteredItems.length) return;
-    const idx = filteredItems.findIndex((img: any) => img.id === activeImageId);
-    if (idx < filteredItems.length - 1) setActiveImageId(filteredItems[idx + 1].id);
-  };
-
-  const getStatusColor = (status: string) => {
-    switch(status) {
-      case 'Active': return 'text-emerald-400 bg-emerald-500/20';
-      case 'Monitoring': return 'text-blue-400 bg-blue-500/20';
-      case 'Review': return 'text-amber-400 bg-amber-500/20';
-      default: return 'text-gray-400 bg-gray-500/20';
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch(status) {
-      case 'Active': return <CheckCircle className="w-4 h-4" />;
-      case 'Monitoring': return <Activity className="w-4 h-4" />;
-      case 'Review': return <AlertCircle className="w-4 h-4" />;
-      default: return <Clock className="w-4 h-4" />;
-    }
+  const selectTool = (id) => {
+    setActiveTool(id);
+    calculatorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
     <>
       <Head>
-        <title>Advanced Measurement Analytics - PGI Land Realtors</title>
-        <meta name="description" content="Precision measurement analytics for Railway, Bridge, and Road infrastructure with sub-millimeter accuracy." />
+        <title>Measurement Tools | PGI Land Realtors</title>
+        <meta name="description" content="Professional land measurement tools — area calculator, distance & perimeter converter, elevation analysis, and construction cost estimator." />
       </Head>
-      
-      <main className="min-h-screen bg-white text-gray-800 transition-colors duration-300">
-        
-        {/* HERO SECTION */}
-        <motion.section 
-          className="relative min-h-[85vh] overflow-hidden pt-20"
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-        >
-          <div className="absolute inset-0 z-0">
-            <img 
-              alt="Precision Measurement" 
-              className="w-full h-full object-cover" 
-              src="https://www.shutterstock.com/image-photo/hightech-environment-featuring-hand-interacting-600nw-2591732581.jpg" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
-          </div>
-          
-          <div className="absolute inset-0 z-[1]">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-            <motion.div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[conic-gradient(var(--tw-gradient-stops))] from-emerald-500/15 via-green-600/10 via-50% to-emerald-500/15 rounded-full blur-3xl opacity-40"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-gray-800">
+        <PageHero
+          image="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?w=1600"
+          badge="🛠️ Advanced Tools"
+          titleLine1="Land Measurement"
+          titleLine2="& Analysis"
+          subtitle="Four working calculators for area, distance, elevation, and construction cost — all in one place."
+        />
 
-          {/* FLOATING ICONS */}
-          <div className="absolute inset-0 z-[2] pointer-events-none overflow-hidden hidden lg:block">
-            {[
-              { icon: Ruler, left: '10%', top: '15%', delay: 0 },
-              { icon: ArrowUp, left: '25%', top: '40%', delay: 1 },
-              { icon: ArrowRight, left: '40%', top: '20%', delay: 2 },
-              { icon: Gauge, left: '55%', top: '8%', delay: 0.5 },
-              { icon: Box, left: '70%', top: '12%', delay: 1.5 },
-              { icon: Columns, left: '85%', top: '38%', delay: 2.5 },
-              { icon: Layers, left: '15%', top: '55%', delay: 1.8 },
-              { icon: Grid3x3, left: '78%', top: '55%', delay: 0.8 }
-            ].map((item, index) => (
-              <motion.div 
-                key={index}
-                className="absolute"
-                style={{ left: item.left, top: item.top }}
-                animate={{ 
-                  y: [0, -15, 0],
-                  rotate: [0, 5, -5, 0]
-                }}
-                transition={{ 
-                  duration: 4 + Math.random() * 3,
-                  repeat: Infinity,
-                  delay: item.delay,
-                  ease: "easeInOut"
-                }}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
+          {/* Tool selector cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {tools.map((tool, i) => (
+              <motion.button
+                key={tool.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -5, boxShadow: '0 20px 50px rgba(16,185,129,0.2)' }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => selectTool(tool.id)}
+                className={`text-left p-6 bg-white rounded-2xl shadow-lg transition-all duration-300 cursor-pointer ${
+                  activeTool === tool.id 
+                    ? 'border-2 border-emerald-500 ring-4 ring-emerald-100 shadow-emerald-100 transform scale-105' 
+                    : 'border-2 border-transparent hover:border-emerald-300 hover:shadow-xl'
+                }`}
               >
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-700/30 to-green-800/30 border border-emerald-400/25 backdrop-blur-md flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
-                  <item.icon className="w-7 h-7 text-emerald-200" />
-                </div>
-              </motion.div>
+                <div className="text-4xl mb-3">{tool.icon}</div>
+                <h4 className="text-base font-bold mb-2 text-gray-800">{tool.name}</h4>
+                <p className="text-sm text-gray-500 leading-relaxed">{tool.description}</p>
+                {activeTool === tool.id && (
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="mt-3 text-emerald-600 text-xs font-semibold"
+                  >
+                    ● Active
+                  </motion.div>
+                )}
+              </motion.button>
             ))}
           </div>
 
-          <div className="relative z-10 text-center py-24 px-4 max-w-5xl mx-auto">
-            <motion.div 
-              className="inline-flex items-center gap-3 mb-8 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-700/30 to-green-800/30 border border-emerald-400/30 backdrop-blur-md"
-              variants={scaleIn}
-            >
-              <motion.div 
-                className="relative"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <span className="absolute inset-0 w-3 h-3 rounded-full bg-white/60 blur-sm animate-ping"></span>
-                <span className="relative block w-3 h-3 rounded-full bg-white"></span>
-              </motion.div>
-              <span className="text-sm font-semibold text-gray-200 uppercase tracking-widest">Precision Engineering</span>
-              <div className="w-px h-5 bg-emerald-300/40"></div>
-              <motion.span 
-                className="text-xs font-medium text-emerald-300"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                ±0.001mm Accuracy
-              </motion.span>
-            </motion.div>
-
-            <motion.h2 
-              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
-              variants={fadeInUp}
-            >
-              <span className="relative inline-block">
-                <span className="relative z-10 text-white drop-shadow-lg">Measurement</span>
-                <motion.span 
-                  className="absolute -bottom-2 left-0 right-0 h-4 bg-gradient-to-r from-emerald-400/40 to-green-400/40 blur-xl"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                />
-              </span>
-              <br/>
-              <motion.span 
-                className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-400 to-emerald-500"
-                variants={fadeInUp}
-              >
-                Analytics Hub
-              </motion.span>
-            </motion.h2>
-
-            <motion.p 
-              className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12 font-medium"
-              variants={fadeInUp}
-            >
-              Advanced 3D measurement capabilities delivering 
-              <motion.span 
-                className="text-white font-bold underline decoration-emerald-400/50 underline-offset-4 mx-2"
-                whileHover={{ scale: 1.05 }}
-              >
-                sub-millimeter precision
-              </motion.span>
-              for Railway, Bridge, and Road infrastructure analysis with real-time monitoring.
-            </motion.p>
-
-            <motion.div 
-              className="flex flex-wrap items-center justify-center gap-4"
-              variants={fadeInUp}
-            >
-              <div className="flex gap-2">
-                {['LiDAR', 'Point Cloud', '3D Scanning', 'AI Analytics'].map((tech, i) => (
-                  <motion.span 
-                    key={i}
-                    className="px-4 py-2 text-xs font-semibold text-emerald-100 bg-emerald-900/40 rounded-xl border border-emerald-400/20 backdrop-blur-sm shadow-sm cursor-default"
-                    whileHover={{ scale: 1.05, y: -2 }}
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </div>
-              <div className="w-px h-7 bg-white/20 hidden md:block"></div>
-              <motion.div 
-                className="flex items-center gap-2 text-sm text-gray-400 font-medium"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                <Clock className="w-4 h-4" />
-                <span>Live Updates: Jan 2026</span>
-              </motion.div>
-            </motion.div>
+          {/* Active calculator */}
+          <div ref={calculatorRef} className="scroll-mt-24">
+            <AnimatePresence mode="wait">
+              {activeTool === 'area' && <AreaCalculator key="area" />}
+              {activeTool === 'distance' && <DistancePerimeterCalculator key="distance" />}
+              {activeTool === 'elevation' && <ElevationCalculator key="elevation" />}
+              {activeTool === 'construction' && <ConstructionEstimator key="construction" />}
+            </AnimatePresence>
           </div>
-
-          {/* WAVE SEPARATOR */}
-          <div className="absolute bottom-0 left-0 right-0 z-20">
-            <svg className="w-full h-32" viewBox="0 0 1200 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#4ade80" stopOpacity="0.5"/>
-                  <stop offset="50%" stopColor="#ffffff" stopOpacity="0.9"/>
-                  <stop offset="100%" stopColor="#4ade80" stopOpacity="0.5"/>
-                </linearGradient>
-                <linearGradient id="waveFill" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="transparent"/>
-                  <stop offset="40%" stopColor="#15351F" stopOpacity="0.08"/>
-                  <stop offset="100%" stopColor="#F5F3EC" stopOpacity="1"/>
-                </linearGradient>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              <motion.path 
-                d="M0,50 Q200,20 400,50 T800,50 T1200,50 L1200,100 L0,100 Z" 
-                fill="url(#waveFill)"
-                initial={{ y: 20 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1 }}
-              />
-              <motion.path 
-                d="M0,50 Q200,20 400,50 T800,50 T1200,50" 
-                fill="none" 
-                stroke="url(#waveGradient)" 
-                strokeWidth="3" 
-                filter="url(#glow)"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, delay: 0.5 }}
-              />
-              {[0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200].map(x => (
-                x % 200 === 0 ? (
-                  <g key={x}>
-                    <line x1={x} y1="50" x2={x} y2="65" stroke="#86efac" strokeWidth="2" opacity="0.8"/>
-                    <circle cx={x} cy="50" r="4" fill="#ffffff" filter="url(#glow)"/>
-                  </g>
-                ) : (
-                  <line key={x} x1={x} y1="50" x2={x} y2="58" stroke="#86efac" strokeWidth="1" opacity="0.6"/>
-                )
-              ))}
-            </svg>
-
-            {/* Category Quick Access */}
-            <div className="absolute bottom-16 left-0 right-0 flex justify-center gap-24 md:gap-40">
-              {Object.keys(MEASUREMENT_DATA).map((cat) => {
-                const Icon = MEASUREMENT_DATA[cat].icon;
-                const isActive = activeCategory === cat;
-                return (
-                  <motion.div 
-                    key={cat}
-                    className="relative group cursor-pointer"
-                    whileHover={{ y: -8 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleCategoryChange(cat)}
-                  >
-                    <motion.div 
-                      className={`absolute inset-0 w-14 h-14 rounded-2xl blur-xl opacity-50 group-hover:opacity-80 transition-opacity ${
-                        isActive ? 'bg-gradient-to-br from-emerald-400 to-green-500' : 'bg-gradient-to-br from-green-600 to-emerald-800'
-                      }`}
-                      animate={isActive ? { scale: [1, 1.2, 1] } : {}}
-                      transition={{ duration: 2, repeat: isActive ? Infinity : 0 }}
-                    />
-                    <div className={`relative w-14 h-14 rounded-2xl flex items-center justify-center shadow-2xl border transition-all ${
-                      isActive 
-                        ? 'bg-gradient-to-br from-emerald-500 to-green-600 border-emerald-300/50 shadow-emerald-500/50' 
-                        : 'bg-gradient-to-br from-green-700 to-emerald-900 border-green-400/30 shadow-green-700/50 group-hover:shadow-emerald-500/30'
-                    }`}>
-                      <Icon className={`w-7 h-7 ${isActive ? 'text-white' : 'text-white/70 group-hover:text-white'}`} />
-                    </div>
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-0.5 h-8 bg-gradient-to-b from-emerald-400 to-transparent"></div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </motion.section>
-
-        {/* CONTENT SECTION */}
-        <motion.section 
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
-        >
-          {/* Category Stats */}
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12"
-            variants={fadeInUp}
-          >
-            <motion.div 
-              className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-2xl border border-emerald-200"
-              whileHover={{ scale: 1.02, boxShadow: "0 10px 40px rgba(16,185,129,0.1)" }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <Ruler className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Total Measurements</p>
-                  <p className="text-2xl font-bold text-gray-900">23</p>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div 
-              className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-2xl border border-emerald-200"
-              whileHover={{ scale: 1.02, boxShadow: "0 10px 40px rgba(16,185,129,0.1)" }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Active Measurements</p>
-                  <p className="text-2xl font-bold text-emerald-600">18</p>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div 
-              className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-2xl border border-emerald-200"
-              whileHover={{ scale: 1.02, boxShadow: "0 10px 40px rgba(16,185,129,0.1)" }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Accuracy Rate</p>
-                  <p className="text-2xl font-bold text-gray-900">99.8%</p>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div 
-              className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-2xl border border-emerald-200"
-              whileHover={{ scale: 1.02, boxShadow: "0 10px 40px rgba(16,185,129,0.1)" }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <Activity className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Live Projects</p>
-                  <p className="text-2xl font-bold text-gray-900">12</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Main Category Tabs */}
-          <motion.div 
-            className="flex flex-wrap justify-center gap-4 mb-12"
-            variants={fadeInUp}
-          >
-            {Object.keys(MEASUREMENT_DATA).map((cat) => {
-              const isActive = activeCategory === cat;
-              const Icon = MEASUREMENT_DATA[cat].icon;
-              const color = MEASUREMENT_DATA[cat].color;
-              return (
-                <motion.button 
-                  key={cat}
-                  onClick={() => handleCategoryChange(cat)}
-                  className={`flex items-center gap-3 px-7 py-4 rounded-2xl font-semibold text-sm transition-all duration-300 cursor-pointer ${
-                    isActive 
-                      ? `bg-gradient-to-r ${color} text-white shadow-lg shadow-emerald-500/30 -translate-y-1` 
-                      : 'bg-white text-gray-600 border-2 border-gray-200 hover:border-emerald-300 hover:shadow-lg hover:-translate-y-0.5'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Icon className="w-5 h-5" />
-                  <span>{cat}</span>
-                  <span className={`px-2.5 py-0.5 rounded-lg text-xs ${
-                    isActive ? 'bg-white/20' : 'bg-gray-100 text-gray-600'
-                  }`}>
-                    {MEASUREMENT_DATA[cat].count}
-                  </span>
-                </motion.button>
-              )
-            })}
-          </motion.div>
-
-          <div>
-            {/* Sub Tabs */}
-            <motion.div 
-              className="flex flex-wrap justify-start mb-8 gap-3"
-              variants={fadeInUp}
-            >
-              {currentCategoryData?.subTabs.map((tabObj: any) => {
-                const isActive = activeSubTab === tabObj.name;
-                return (
-                  <motion.button 
-                    key={tabObj.name}
-                    onClick={() => handleSubTabChange(tabObj.name)}
-                    className={`flex items-center gap-2 px-5 py-3 font-medium text-sm transition-all duration-300 cursor-pointer rounded-xl ${
-                      isActive 
-                        ? 'bg-gradient-to-r from-emerald-600 to-green-600 text-white shadow-md shadow-emerald-500/20 -translate-y-0.5' 
-                        : 'bg-white text-gray-600 border-2 border-gray-200 hover:border-emerald-300 hover:shadow-lg'
-                    }`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span>{tabObj.icon}</span>
-                    {tabObj.name}
-                    <span className={`px-2 py-0.5 rounded-lg text-xs ${
-                      isActive ? 'bg-white/20' : 'bg-gray-100 text-gray-600'
-                    }`}>
-                      {tabObj.count}
-                    </span>
-                  </motion.button>
-                )
-              })}
-            </motion.div>
-
-            {/* Gallery Viewer */}
-            {filteredItems.length > 0 ? (
-              <motion.div 
-                className="flex flex-col gap-6"
-                variants={fadeInUp}
-              >
-                <motion.div 
-                  className="relative rounded-3xl overflow-hidden lg:h-[80vh] bg-black aspect-video group"
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  layout
-                >
-                  <AnimatePresence mode="wait">
-                    <motion.img 
-                      key={activeImageId}
-                      alt={activeImage?.title} 
-                      className="w-full h-full object-cover cursor-pointer" 
-                      src={activeImage?.url}
-                      initial={{ opacity: 0, scale: 1.1 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.5, ease: "easeInOut" }}
-                    />
-                  </AnimatePresence>
-
-                  {/* Loading Overlay */}
-                  {isLoading && (
-                    <motion.div 
-                      className="absolute inset-0 bg-black/50 flex items-center justify-center z-20"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <motion.div 
-                        className="w-16 h-16 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      />
-                    </motion.div>
-                  )}
-
-                  {/* Image Controls */}
-                  <div className="absolute top-4 right-4 flex gap-2 z-10">
-                    <motion.button 
-                      className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/70 transition-all"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setIsZoomed(!isZoomed)}
-                    >
-                      {isZoomed ? <Minimize2 className="w-4 h-4" /> : <ZoomIn className="w-4 h-4" />}
-                    </motion.button>
-                    <motion.button 
-                      className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/70 transition-all"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Download className="w-4 h-4" />
-                    </motion.button>
-                    <motion.button 
-                      className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/70 transition-all"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Share2 className="w-4 h-4" />
-                    </motion.button>
-                  </div>
-                  
-                  {/* Navigation Buttons */}
-                  <motion.button 
-                    onClick={handlePrevImage} 
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 hover:bg-white flex items-center justify-center text-gray-900 shadow-lg transition-all z-10 opacity-0 group-hover:opacity-100"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </motion.button>
-                  
-                  <motion.button 
-                    onClick={handleNextImage} 
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 hover:bg-white flex items-center justify-center text-gray-900 shadow-lg transition-all z-10 opacity-0 group-hover:opacity-100"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </motion.button>
-                  
-                  {/* Image Info Overlay */}
-                  <motion.div 
-                    className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center justify-between text-white"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <div className="flex items-center gap-4">
-                      <motion.div 
-                        className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-600 to-green-700 flex items-center justify-center flex-shrink-0"
-                        whileHover={{ rotate: 10, scale: 1.05 }}
-                      >
-                        <Ruler className="w-7 h-7" />
-                      </motion.div>
-                      <div>
-                        <h3 className="text-2xl font-bold mb-1">{activeImage?.title}</h3>
-                        <p className="text-white/70">{activeImage?.desc}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 text-xs font-medium ${getStatusColor(activeImage?.status)}`}>
-                        {getStatusIcon(activeImage?.status)}
-                        {activeImage?.status}
-                      </div>
-                      <div className="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-medium">
-                        ±{activeImage?.accuracy}
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Image Counter */}
-                  <div className="absolute bottom-24 right-4 px-3 py-1.5 rounded-lg bg-black/50 backdrop-blur-md text-white text-xs font-medium">
-                    {filteredItems.findIndex((img: any) => img.id === activeImageId) + 1} / {filteredItems.length}
-                  </div>
-                </motion.div>
-
-                {/* Thumbnail Gallery */}
-                <motion.div 
-                  className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide"
-                  variants={fadeInUp}
-                >
-                  {filteredItems.map((item: any) => {
-                    const isActive = activeImageId === item.id;
-                    return (
-                      <motion.button 
-                        key={item.id}
-                        onClick={() => setActiveImageId(item.id)}
-                        className={`flex-shrink-0 w-40 rounded-xl overflow-hidden border-2 transition-all duration-300 ${
-                          isActive ? 'border-emerald-500 shadow-lg shadow-emerald-500/40 -translate-y-1' : 'border-transparent hover:border-emerald-300'
-                        }`}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <img alt={item.title} className="w-full h-24 object-cover" src={item.url} />
-                        <div className={`p-2 text-xs font-medium text-center truncate ${
-                          isActive ? 'bg-emerald-600 text-white' : 'bg-gray-900 text-white/80'
-                        }`}>
-                          {item.title}
-                        </div>
-                      </motion.button>
-                    )
-                  })}
-                </motion.div>
-
-                {/* Measurement Details */}
-                <motion.div 
-                  className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4"
-                  variants={fadeInUp}
-                >
-                  <motion.div 
-                    className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-xl border border-emerald-200"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">📐</span>
-                      <div>
-                        <p className="text-xs text-gray-500">Measurement Type</p>
-                        <p className="font-semibold text-gray-900">{activeImage?.tab}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                  <motion.div 
-                    className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-xl border border-emerald-200"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">🎯</span>
-                      <div>
-                        <p className="text-xs text-gray-500">Accuracy</p>
-                        <p className="font-semibold text-emerald-600">±{activeImage?.accuracy}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                  <motion.div 
-                    className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-xl border border-emerald-200"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">📊</span>
-                      <div>
-                        <p className="text-xs text-gray-500">Status</p>
-                        <p className={`font-semibold ${activeImage?.status === 'Active' ? 'text-emerald-600' : 'text-amber-600'}`}>
-                          {activeImage?.status}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-            ) : (
-              <motion.div 
-                className="h-64 flex items-center justify-center text-gray-500 border-2 border-dashed border-gray-300 rounded-3xl"
-                variants={fadeInUp}
-              >
-                <div className="text-center">
-                  <Ruler className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-                  <p className="font-medium">No measurement data available for {activeSubTab}</p>
-                  <p className="text-sm text-gray-400">Please select another category or sub-tab</p>
-                </div>
-              </motion.div>
-            )}
-          </div>
-        </motion.section>
+        </div>
+        <FAQ/>
+        <Testimonials/>
+        <CTASection/>
       </main>
     </>
+  );
+}
+
+// Shared card wrapper for consistent transitions
+function ToolCard({ title, icon, children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 hover:shadow-3xl transition-shadow duration-300"
+    >
+      <div className="flex items-center gap-3 mb-8 pb-4 border-b-2 border-emerald-100">
+        <span className="text-4xl">{icon}</span>
+        <h3 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
+          {title}
+        </h3>
+        <span className="ml-auto text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-medium">
+          Live Calculator
+        </span>
+      </div>
+      {children}
+    </motion.div>
+  );
+}
+
+function exportReport(title, lines) {
+  const content = [
+    `PGI Land Realtors — ${title}`,
+    `Generated: ${new Date().toLocaleString('en-IN')}`,
+    '='.repeat(50),
+    '',
+    ...lines,
+    '',
+    '='.repeat(50),
+    'Note: figures are estimates for planning purposes only.'
+  ].join('\n');
+  const blob = new Blob([content], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${title.toLowerCase().replace(/\s+/g, '-')}-report.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ---------------------------------------------------------------------
+// AREA CALCULATOR
+// ---------------------------------------------------------------------
+function AreaCalculator() {
+  const [shape, setShape] = useState('rectangle');
+  const [unit, setUnit] = useState('ft');
+  const [dims, setDims] = useState({ length: '', width: '', side: '', radius: '', base: '', height: '' });
+
+  const set = (key) => (e) => setDims({ ...dims, [key]: e.target.value });
+
+  const { areaFt, perimeterFt, hasInput } = useMemo(() => {
+    const l = toFt(dims.length, unit);
+    const w = toFt(dims.width, unit);
+    const s = toFt(dims.side, unit);
+    const r = toFt(dims.radius, unit);
+    const b = toFt(dims.base, unit);
+    const h = toFt(dims.height, unit);
+
+    switch (shape) {
+      case 'rectangle':
+        return { areaFt: l * w, perimeterFt: 2 * (l + w), hasInput: l > 0 && w > 0 };
+      case 'square':
+        return { areaFt: s * s, perimeterFt: 4 * s, hasInput: s > 0 };
+      case 'circle':
+        return { areaFt: Math.PI * r * r, perimeterFt: 2 * Math.PI * r, hasInput: r > 0 };
+      case 'triangle':
+        return { areaFt: 0.5 * b * h, perimeterFt: null, hasInput: b > 0 && h > 0 };
+      default:
+        return { areaFt: 0, perimeterFt: 0, hasInput: false };
+    }
+  }, [shape, dims, unit]);
+
+  const areas = areaFromSqFt(areaFt);
+
+  const handleExport = () => {
+    exportReport('Area Calculation', [
+      `Shape: ${shape.charAt(0).toUpperCase() + shape.slice(1)}`,
+      `Unit: ${unit}`,
+      '',
+      `📐 Area Results:`,
+      `  • ${fmt(areas.sqft)} sq.ft`,
+      `  • ${fmt(areas.sqyd)} sq.yds`,
+      `  • ${fmt(areas.sqm)} sq.m`,
+      `  • ${fmt(areas.acres, 4)} acres`,
+      `  • ${fmt(areas.hectares, 4)} hectares`,
+      perimeterFt !== null ? `  • ${fmt(perimeterFt)} ft (perimeter)` : ''
+    ].filter(Boolean));
+  };
+
+  const getShapeIcon = () => {
+    const icons = { rectangle: '▭', square: '▢', circle: '◯', triangle: '△' };
+    return icons[shape] || '📐';
+  };
+
+  return (
+    <ToolCard title="Area Calculator" icon="📐">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-6">
+          <div>
+            <label className="text-sm font-semibold text-gray-700 block mb-2">📐 Select Shape</label>
+            <div className="flex flex-wrap gap-2">
+              {['rectangle', 'square', 'circle', 'triangle'].map((s) => (
+                <motion.button
+                  key={s}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShape(s)}
+                  className={`px-5 py-2.5 rounded-xl text-sm font-medium capitalize transition-all duration-200 ${
+                    shape === s 
+                      ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-md' 
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {s === 'rectangle' && '▭ '}
+                  {s === 'square' && '▢ '}
+                  {s === 'circle' && '◯ '}
+                  {s === 'triangle' && '△ '}
+                  {s}
+                </motion.button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="text-sm font-semibold text-gray-700 block mb-2">📏 Unit of Measurement</label>
+            <select
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all duration-200 bg-white"
+              value={unit}
+              onChange={(e) => setUnit(e.target.value)}
+            >
+              {LENGTH_UNITS.map((u) => (
+                <option key={u.value} value={u.value}>{u.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="bg-gray-50 rounded-xl p-4">
+            <p className="text-xs text-gray-500 mb-3 font-medium">📝 Enter Dimensions</p>
+            {shape === 'rectangle' && (
+              <div className="grid grid-cols-2 gap-3">
+                <NumberField label={`Length (${unit})`} value={dims.length} onChange={set('length')} />
+                <NumberField label={`Width (${unit})`} value={dims.width} onChange={set('width')} />
+              </div>
+            )}
+            {shape === 'square' && (
+              <NumberField label={`Side Length (${unit})`} value={dims.side} onChange={set('side')} />
+            )}
+            {shape === 'circle' && (
+              <NumberField label={`Radius (${unit})`} value={dims.radius} onChange={set('radius')} />
+            )}
+            {shape === 'triangle' && (
+              <div className="grid grid-cols-2 gap-3">
+                <NumberField label={`Base (${unit})`} value={dims.base} onChange={set('base')} />
+                <NumberField label={`Height (${unit})`} value={dims.height} onChange={set('height')} />
+              </div>
+            )}
+          </div>
+        </div>
+
+        <ResultsPanel hasInput={hasInput} shape={shape}>
+          <div className="space-y-3">
+            <ResultRow label="Square Feet" value={`${fmt(areas.sqft)} sq.ft`} highlight />
+            <ResultRow label="Square Yards" value={`${fmt(areas.sqyd)} sq.yds`} />
+            <ResultRow label="Square Meters" value={`${fmt(areas.sqm)} sq.m`} />
+            <ResultRow label="Acres" value={`${fmt(areas.acres, 4)} acres`} />
+            <ResultRow label="Hectares" value={`${fmt(areas.hectares, 4)} ha`} />
+            {perimeterFt !== null && (
+              <ResultRow 
+                label={shape === 'circle' ? 'Circumference' : 'Perimeter'} 
+                value={`${fmt(perimeterFt)} ft`} 
+                highlight 
+              />
+            )}
+          </div>
+          <ExportButton onClick={handleExport} disabled={!hasInput} />
+        </ResultsPanel>
+      </div>
+    </ToolCard>
+  );
+}
+
+// ---------------------------------------------------------------------
+// DISTANCE & PERIMETER
+// ---------------------------------------------------------------------
+function DistancePerimeterCalculator() {
+  const [mode, setMode] = useState('convert');
+
+  // Convert mode
+  const [value, setValue] = useState('');
+  const [fromUnit, setFromUnit] = useState('ft');
+
+  const convertedFt = (parseFloat(value) || 0) * (DISTANCE_TO_FT[fromUnit] || 1);
+  const conversions = {
+    ft: convertedFt,
+    m: convertedFt / 3.28084,
+    yd: convertedFt / 3,
+    km: convertedFt / 3280.84,
+    mi: convertedFt / 5280
+  };
+
+  // Perimeter mode
+  const [sides, setSides] = useState(['', '', '', '']);
+  const [sideUnit, setSideUnit] = useState('ft');
+  const totalFt = sides.reduce((sum, s) => sum + toFt(s, sideUnit), 0);
+  const addSide = () => setSides([...sides, '']);
+  const removeSide = (i) => setSides(sides.filter((_, idx) => idx !== i));
+  const updateSide = (i, val) => setSides(sides.map((s, idx) => (idx === i ? val : s)));
+
+  const handleExportConvert = () => {
+    exportReport('Distance Conversion', [
+      `Input: ${value || 0} ${fromUnit}`,
+      '',
+      '📏 Converted Values:',
+      `  • ${fmt(conversions.ft)} feet`,
+      `  • ${fmt(conversions.m)} meters`,
+      `  • ${fmt(conversions.yd)} yards`,
+      `  • ${fmt(conversions.km, 4)} kilometers`,
+      `  • ${fmt(conversions.mi, 4)} miles`
+    ]);
+  };
+
+  const handleExportPerimeter = () => {
+    exportReport('Perimeter Calculation', [
+      `Sides (${sideUnit}): ${sides.filter(Boolean).join(', ') || 'none entered'}`,
+      '',
+      '📏 Perimeter Results:',
+      `  • ${fmt(totalFt)} feet`,
+      `  • ${fmt(totalFt / 3.28084)} meters`,
+      `  • ${fmt(totalFt / 3)} yards`
+    ]);
+  };
+
+  return (
+    <ToolCard title="Distance & Perimeter" icon="📏">
+      <div className="flex gap-2 mb-6">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setMode('convert')}
+          className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+            mode === 'convert' ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          🔄 Unit Converter
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setMode('perimeter')}
+          className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+            mode === 'perimeter' ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          📐 Boundary Perimeter
+        </motion.button>
+      </div>
+
+      {mode === 'convert' ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <div className="bg-gray-50 rounded-xl p-4">
+              <NumberField label="📝 Enter Distance" value={value} onChange={(e) => setValue(e.target.value)} />
+            </div>
+            <div>
+              <label className="text-sm font-semibold text-gray-700 block mb-2">📏 Convert From</label>
+              <select
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all duration-200 bg-white"
+                value={fromUnit}
+                onChange={(e) => setFromUnit(e.target.value)}
+              >
+                {DISTANCE_UNITS.map((u) => (
+                  <option key={u.value} value={u.value}>{u.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <ResultsPanel hasInput={!!value}>
+            <div className="space-y-3">
+              <ResultRow label="Feet" value={`${fmt(conversions.ft)} ft`} />
+              <ResultRow label="Meters" value={`${fmt(conversions.m)} m`} />
+              <ResultRow label="Yards" value={`${fmt(conversions.yd)} yd`} />
+              <ResultRow label="Kilometers" value={`${fmt(conversions.km, 4)} km`} />
+              <ResultRow label="Miles" value={`${fmt(conversions.mi, 4)} mi`} highlight />
+            </div>
+            <ExportButton onClick={handleExportConvert} disabled={!value} />
+          </ResultsPanel>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-semibold text-gray-700 block mb-2">📏 Unit</label>
+              <select
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all duration-200 bg-white"
+                value={sideUnit}
+                onChange={(e) => setSideUnit(e.target.value)}
+              >
+                {LENGTH_UNITS.map((u) => (
+                  <option key={u.value} value={u.value}>{u.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-4">
+              <p className="text-xs text-gray-500 mb-3 font-medium">📝 Enter Side Lengths</p>
+              <div className="space-y-2">
+                {sides.map((s, i) => (
+                  <div key={i} className="flex gap-2 items-center">
+                    <input
+                      type="number"
+                      className="flex-1 px-3 py-2.5 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all duration-200 bg-white"
+                      value={s}
+                      onChange={(e) => updateSide(i, e.target.value)}
+                      placeholder={`Side ${i + 1}`}
+                    />
+                    {sides.length > 2 && (
+                      <motion.button 
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => removeSide(i)} 
+                        className="text-gray-400 hover:text-red-500 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors"
+                        aria-label="Remove side"
+                      >
+                        ✕
+                      </motion.button>
+                    )}
+                  </div>
+                ))}
+                <motion.button 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={addSide} 
+                  className="text-sm text-emerald-600 font-semibold hover:text-emerald-700 transition-colors"
+                >
+                  + Add Side
+                </motion.button>
+              </div>
+            </div>
+          </div>
+          <ResultsPanel hasInput={sides.some(Boolean)}>
+            <div className="space-y-3">
+              <ResultRow label="Total (feet)" value={`${fmt(totalFt)} ft`} highlight />
+              <ResultRow label="Total (meters)" value={`${fmt(totalFt / 3.28084)} m`} />
+              <ResultRow label="Total (yards)" value={`${fmt(totalFt / 3)} yd`} />
+            </div>
+            <ExportButton onClick={handleExportPerimeter} disabled={!sides.some(Boolean)} />
+          </ResultsPanel>
+        </div>
+      )}
+    </ToolCard>
+  );
+}
+
+// ---------------------------------------------------------------------
+// ELEVATION / SLOPE
+// ---------------------------------------------------------------------
+function ElevationCalculator() {
+  const [rise, setRise] = useState('');
+  const [run, setRun] = useState('');
+  const [unit, setUnit] = useState('ft');
+
+  const riseFt = toFt(rise, unit);
+  const runFt = toFt(run, unit);
+  const hasInput = riseFt > 0 && runFt > 0;
+
+  const slopePercent = hasInput ? (riseFt / runFt) * 100 : 0;
+  const angleDeg = hasInput ? Math.atan(riseFt / runFt) * (180 / Math.PI) : 0;
+  const ratio = hasInput ? runFt / riseFt : 0;
+
+  let grading = 'N/A';
+  let gradingColor = 'text-gray-400';
+  if (hasInput) {
+    if (slopePercent < 2) { grading = '✅ Flat — minimal grading needed'; gradingColor = 'text-green-600'; }
+    else if (slopePercent < 8) { grading = '🟡 Gentle slope — standard grading'; gradingColor = 'text-yellow-600'; }
+    else if (slopePercent < 15) { grading = '🟠 Moderate slope — retaining may help'; gradingColor = 'text-orange-600'; }
+    else { grading = '🔴 Steep — engineering review recommended'; gradingColor = 'text-red-600'; }
+  }
+
+  const handleExport = () => {
+    exportReport('Elevation & Slope Analysis', [
+      `Rise: ${rise || 0} ${unit}`,
+      `Run: ${run || 0} ${unit}`,
+      '',
+      '📊 Analysis Results:',
+      `  • Slope: ${fmt(slopePercent)}%`,
+      `  • Angle: ${fmt(angleDeg)}°`,
+      `  • Ratio: 1 in ${fmt(ratio)}`,
+      `  • Assessment: ${grading.replace(/[✅🟡🟠🔴]\s*/, '')}`
+    ]);
+  };
+
+  return (
+    <ToolCard title="Elevation & Slope Analysis" icon="⛰️">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-6">
+          <div>
+            <label className="text-sm font-semibold text-gray-700 block mb-2">📏 Unit</label>
+            <select
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all duration-200 bg-white"
+              value={unit}
+              onChange={(e) => setUnit(e.target.value)}
+            >
+              {LENGTH_UNITS.map((u) => (
+                <option key={u.value} value={u.value}>{u.label}</option>
+              ))}
+            </select>
+          </div>
+          <div className="bg-gray-50 rounded-xl p-4">
+            <p className="text-xs text-gray-500 mb-3 font-medium">📝 Enter Measurements</p>
+            <div className="grid grid-cols-2 gap-3">
+              <NumberField label={`⬆ Rise (${unit})`} value={rise} onChange={(e) => setRise(e.target.value)} />
+              <NumberField label={`➡ Run (${unit})`} value={run} onChange={(e) => setRun(e.target.value)} />
+            </div>
+          </div>
+          <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
+            <p className="text-xs text-gray-600 leading-relaxed">
+              💡 <span className="font-semibold">Rise</span> is the vertical elevation difference between two points; 
+              <span className="font-semibold"> Run</span> is the horizontal distance between them.
+            </p>
+          </div>
+        </div>
+        <ResultsPanel hasInput={hasInput}>
+          <div className="space-y-3">
+            <ResultRow label="Slope" value={`${fmt(slopePercent)}%`} highlight />
+            <ResultRow label="Angle" value={`${fmt(angleDeg)}°`} />
+            <ResultRow label="Ratio" value={`1 in ${fmt(ratio)}`} />
+          </div>
+          <div className="pt-4 mt-4 border-t-2 border-emerald-200">
+            <p className={`text-sm font-semibold ${gradingColor}`}>
+              {hasInput ? grading : '📊 Enter rise and run to see assessment'}
+            </p>
+          </div>
+          <ExportButton onClick={handleExport} disabled={!hasInput} />
+        </ResultsPanel>
+      </div>
+    </ToolCard>
+  );
+}
+
+// ---------------------------------------------------------------------
+// CONSTRUCTION ESTIMATOR
+// ---------------------------------------------------------------------
+function ConstructionEstimator() {
+  const [area, setArea] = useState('');
+  const [rate, setRate] = useState('1800');
+  const [floors, setFloors] = useState('1');
+
+  const a = parseFloat(area) || 0;
+  const r = parseFloat(rate) || 0;
+  const f = parseFloat(floors) || 1;
+  const hasInput = a > 0 && r > 0;
+
+  const totalArea = a * f;
+  const totalCost = totalArea * r;
+  const breakdown = {
+    materials: totalCost * 0.55,
+    labor: totalCost * 0.3,
+    finishing: totalCost * 0.1,
+    other: totalCost * 0.05
+  };
+
+  const handleExport = () => {
+    exportReport('Construction Cost Estimate', [
+      `Built-up area per floor: ${fmt(a)} sq.ft`,
+      `Floors: ${f}`,
+      `Rate: ₹${fmt(r)} / sq.ft`,
+      '',
+      '📊 Cost Summary:',
+      `  • Total built-up area: ${fmt(totalArea)} sq.ft`,
+      `  • Estimated total cost: ₹${fmt(totalCost)}`,
+      '',
+      '💰 Cost Breakdown:',
+      `  • Materials (55%): ₹${fmt(breakdown.materials)}`,
+      `  • Labor (30%): ₹${fmt(breakdown.labor)}`,
+      `  • Finishing (10%): ₹${fmt(breakdown.finishing)}`,
+      `  • Other (5%): ₹${fmt(breakdown.other)}`
+    ]);
+  };
+
+  return (
+    <ToolCard title="Construction Cost Estimator" icon="🏗️">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-6">
+          <div className="bg-gray-50 rounded-xl p-4">
+            <p className="text-xs text-gray-500 mb-3 font-medium">📝 Project Details</p>
+            <NumberField label="Built-up area per floor (sq.ft)" value={area} onChange={(e) => setArea(e.target.value)} />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <NumberField label="Number of floors" value={floors} onChange={(e) => setFloors(e.target.value)} />
+            <NumberField label="Rate (₹ / sq.ft)" value={rate} onChange={(e) => setRate(e.target.value)} />
+          </div>
+          <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
+            <p className="text-xs text-gray-600 leading-relaxed">
+              💡 Default rate (₹1,800/sq.ft) is a rough mid-range construction estimate for India — 
+              adjust based on your city, material grade, and finish level.
+            </p>
+          </div>
+        </div>
+        <ResultsPanel hasInput={hasInput}>
+          <div className="space-y-3">
+            <ResultRow label="Total built-up area" value={`${fmt(totalArea)} sq.ft`} />
+            <ResultRow label="Estimated total cost" value={`₹${fmt(totalCost)}`} highlight />
+          </div>
+          <div className="pt-4 mt-4 border-t-2 border-emerald-200">
+            <p className="text-xs font-semibold text-gray-600 mb-2">💰 Cost Breakdown</p>
+            <div className="space-y-1.5">
+              <ResultRow label="Materials (55%)" value={`₹${fmt(breakdown.materials)}`} small />
+              <ResultRow label="Labor (30%)" value={`₹${fmt(breakdown.labor)}`} small />
+              <ResultRow label="Finishing (10%)" value={`₹${fmt(breakdown.finishing)}`} small />
+              <ResultRow label="Other (5%)" value={`₹${fmt(breakdown.other)}`} small />
+            </div>
+          </div>
+          <ExportButton onClick={handleExport} disabled={!hasInput} />
+        </ResultsPanel>
+      </div>
+    </ToolCard>
+  );
+}
+
+// ---------------------------------------------------------------------
+// Shared small UI pieces
+// ---------------------------------------------------------------------
+function NumberField({ label, value, onChange }) {
+  return (
+    <div className="mb-3">
+      <label className="text-sm font-medium text-gray-700 block mb-1.5">{label}</label>
+      <input
+        type="number"
+        min="0"
+        step="any"
+        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all duration-200 bg-white"
+        value={value}
+        onChange={onChange}
+        placeholder="Enter value"
+      />
+    </div>
+  );
+}
+
+function ResultsPanel({ hasInput, children, shape }) {
+  return (
+    <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-2xl border-2 border-emerald-200 h-fit shadow-inner">
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-lg">📊</span>
+        <h4 className="text-sm font-bold text-gray-700">Results</h4>
+        {hasInput && (
+          <span className="ml-auto text-xs bg-green-200 text-green-700 px-2 py-0.5 rounded-full font-medium">
+            Live
+          </span>
+        )}
+      </div>
+      {hasInput ? (
+        <div className="space-y-3">{children}</div>
+      ) : (
+        <div className="flex flex-col items-center justify-center py-8 text-center">
+          <span className="text-4xl mb-3">📝</span>
+          <p className="text-sm text-gray-400">Enter values to see live results</p>
+          <p className="text-xs text-gray-300 mt-1">All calculations update in real-time</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ResultRow({ label, value, highlight, small }) {
+  return (
+    <div className="flex justify-between items-center py-1.5 px-2 rounded-lg hover:bg-white/50 transition-colors">
+      <span className={`${small ? 'text-xs' : 'text-sm'} text-gray-600 font-medium`}>{label}</span>
+      <span className={`font-bold ${highlight ? 'text-emerald-700 text-lg' : small ? 'text-xs text-gray-700' : 'text-emerald-600'}`}>
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function ExportButton({ onClick, disabled }) {
+  return (
+    <motion.button
+      whileHover={!disabled ? { scale: 1.02 } : {}}
+      whileTap={!disabled ? { scale: 0.98 } : {}}
+      onClick={onClick}
+      disabled={disabled}
+      className="w-full mt-4 px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl font-bold shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-md"
+    >
+      📄 Export Report
+    </motion.button>
   );
 }
