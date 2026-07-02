@@ -1,12 +1,17 @@
 import { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import { motion, useAnimation, useInView, AnimatePresence } from 'framer-motion';
+import FeaturedLandPlotsSection from '../components/Featuredlandplotssection';
+import Link from 'next/link';
+import Testimonials from '../components/Testimonials';
+import FAQ from '../components/FAQ';
+import CTASection from '../components/Ctasection';
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
   const controls = useAnimation();
   const ref = useRef(null);
-  const inView = useInView(ref, { 
+  const inView = useInView(ref, {
     once: true,
     amount: 0.1,
     margin: "-50px"
@@ -24,11 +29,11 @@ const useScrollAnimation = () => {
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 70 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { 
-      duration: 0.9, 
+    transition: {
+      duration: 0.9,
       ease: [0.6, -0.05, 0.01, 0.99],
       staggerChildren: 0.15
     }
@@ -37,10 +42,10 @@ const fadeInUp = {
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.7 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
-    transition: { 
+    transition: {
       duration: 0.8,
       type: "spring",
       stiffness: 120,
@@ -316,6 +321,42 @@ const landUsefulies = [
   'Hospitality Project'
 ];
 
+// FAQ Data
+const faqs = [
+  {
+    question: 'What types of land plots are available on PGI Land Realtors?',
+    answer: 'We offer a wide variety of land plots including Residential Land, Commercial Land, Agricultural Land, Industrial Land, Mixed-Use Land, Plotted Development, Farm Land, Hill View Plot, Waterfront Land, and Corner Plots across 50+ cities in India.'
+  },
+  {
+    question: 'How can I verify the legal status of a land plot?',
+    answer: 'Each land listing on our platform goes through a rigorous verification process. We provide complete legal documentation including title deeds, encumbrance certificates, zoning approvals, and DTCP/RERA registrations. You can also schedule a legal consultation through our platform.'
+  },
+  {
+    question: 'What measurement tools are available on the platform?',
+    answer: 'PGI Land Realtors offers advanced measurement tools including Area Calculator for sq.ft, sq.yds, acres, and hectares conversion; Distance Measurement with GPS integration; Elevation Analysis with contour mapping; and Construction Estimator for cost and material calculations.'
+  },
+  {
+    question: 'How do I schedule a site visit for a land plot?',
+    answer: 'You can schedule a site visit directly through the land listing page. Simply click on "Schedule Visit" and choose your preferred date and time. Our team will coordinate with the owner and accompany you during the visit for a seamless experience.'
+  },
+  {
+    question: 'What financing options are available for land purchase?',
+    answer: 'We have partnerships with leading banks and financial institutions offering land purchase loans. Our EMI calculator helps you estimate monthly payments based on loan amount, interest rate, and tenure. We also provide assistance with loan documentation and processing.'
+  },
+  {
+    question: 'Can I list my land plot for sale on your platform?',
+    answer: 'Yes, absolutely! You can list your land plot by clicking on "List Your Land Plot" button. Our team will verify your property details, legal documents, and coordinate with potential buyers. We provide professional photography, virtual tours, and marketing support for your listing.'
+  },
+  {
+    question: 'What is the process of buying land through your platform?',
+    answer: 'The process is simple: 1) Search and filter land plots based on your requirements, 2) Verify the land details, legal documents, and zoning regulations, 3) Schedule a site visit, 4) Connect with the owner for price negotiation, 5) Complete the legal documentation and registration with our assistance, 6) Get possession of your land.'
+  },
+  {
+    question: 'Do you offer virtual tours for land properties?',
+    answer: 'Yes, we provide 360° immersive virtual tours for select properties. These interactive tours allow you to experience the property remotely with features like VR compatibility, voice guide, night mode, and measurement tools integrated into the tour experience.'
+  }
+];
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [activeVideo, setActiveVideo] = useState(0);
@@ -343,6 +384,7 @@ export default function Home() {
     height: '',
     unit: 'ft'
   });
+  const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const videoRef = useRef(null);
 
   // EMI Calculator
@@ -359,11 +401,11 @@ export default function Home() {
     const l = parseFloat(length) || 0;
     const w = parseFloat(width) || 0;
     const h = parseFloat(height) || 0;
-    
+
     const area = l * w;
     const perimeter = 2 * (l + w);
     const volume = l * w * h;
-    
+
     return {
       area: area.toFixed(2),
       perimeter: perimeter.toFixed(2),
@@ -390,9 +432,9 @@ export default function Home() {
       </Head>
 
       <main className="min-h-screen bg-white text-gray-800 transition-colors duration-300">
-        
+
         {/* HERO SECTION */}
-        <motion.section 
+        <motion.section
           className="relative pt-24 min-h-screen flex items-center justify-center overflow-hidden bg-black"
           initial="hidden"
           whileInView="visible"
@@ -407,77 +449,48 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.1 }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
-                autoPlay 
-                muted 
-                playsInline 
-                preload="auto" 
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
                 className="absolute inset-0 w-full h-full object-cover"
                 src={activeVideo === 0 ? "https://3dbharat.com/video/header-video1.mp4" : "https://3dbharat.com/video/header-video2.mp4"}
                 onEnded={() => setActiveVideo(activeVideo === 0 ? 1 : 0)}
               />
             </AnimatePresence>
-            
-            <motion.div 
+
+            <motion.div
               className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90 z-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.5 }}
             />
-            <motion.div 
+            <motion.div
               className="absolute inset-0 bg-gradient-to-r from-emerald-900/40 via-transparent to-emerald-900/40 z-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 2 }}
             />
           </div>
-          
+
           <div className="relative z-20 text-center px-4 max-w-6xl mx-auto w-full">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {/* <motion.div 
-                className="inline-flex items-center gap-3 px-8 py-3 rounded-2xl bg-gradient-to-r from-emerald-500/90 via-green-500/90 to-emerald-600/90 border-2 border-emerald-400/40 backdrop-blur-xl shadow-[0_0_60px_rgba(47,158,91,0.5)] mb-8"
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 0 80px rgba(47,158,91,0.7)",
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <motion.span 
-                  className="text-white text-xl md:text-2xl font-bold tracking-wider drop-shadow-lg"
-                  animate={floatingAnimation}
-                >
-                  🌳 Advanced Land Aggregator
-                </motion.span>
-                <motion.span 
-                  className="w-2 h-2 rounded-full bg-emerald-400"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1]
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                <span className="text-white text-sm font-medium">5,000+ Verified Plots</span>
-              </motion.div> */}
-              
-              <motion.h1 
+              <motion.h1
                 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                <motion.span 
+                <motion.span
                   className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-400 to-emerald-500"
-                  animate={{ 
+                  animate={{
                     backgroundPosition: ["0%", "200%", "0%"],
                   }}
-                  transition={{ 
+                  transition={{
                     duration: 6,
                     repeat: Infinity,
                     ease: "linear"
@@ -486,7 +499,7 @@ export default function Home() {
                 >
                   India's Premier
                 </motion.span>
-                <motion.span 
+                <motion.span
                   className="block text-white drop-shadow-2xl"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -496,25 +509,25 @@ export default function Home() {
                 </motion.span>
               </motion.h1>
             </motion.div>
-            
-            <motion.p 
+
+            <motion.p
               className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-10 leading-relaxed backdrop-blur-sm p-4 rounded-xl bg-black/30 border border-white/10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              Discover 5,000+ verified land plots with advanced measurement tools, 360° virtual tours, 
+              Discover 5,000+ verified land plots with advanced measurement tools, 360° virtual tours,
               and real-time construction monitoring across 50+ cities.
             </motion.p>
-            
+
             {/* Advanced Search Bar */}
-            <motion.div 
+            <motion.div
               className="max-w-5xl mx-auto bg-white/10 backdrop-blur-2xl rounded-3xl p-6 border border-white/20 shadow-2xl"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="relative">
                   <input
                     type="text"
@@ -524,9 +537,9 @@ export default function Home() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
-                
+
                 <div className="relative">
-                  <select 
+                  <select
                     className="w-full px-4 py-3 rounded-xl bg-white/90 text-gray-900 border-2 border-transparent focus:border-emerald-500 outline-none transition-all appearance-none cursor-pointer"
                     value={selectedLandType}
                     onChange={(e) => setSelectedLandType(e.target.value)}
@@ -537,22 +550,8 @@ export default function Home() {
                     ))}
                   </select>
                 </div>
-                
-                <div className="relative">
-                  <select 
-                    className="w-full px-4 py-3 rounded-xl bg-white/90 text-gray-900 border-2 border-transparent focus:border-emerald-500 outline-none transition-all appearance-none cursor-pointer"
-                    value={priceRange.max}
-                    onChange={(e) => setPriceRange({ ...priceRange, max: parseInt(e.target.value) })}
-                  >
-                    <option value="5000000">💰 Under ₹50L</option>
-                    <option value="10000000">💰 Under ₹1Cr</option>
-                    <option value="20000000">💰 Under ₹2Cr</option>
-                    <option value="50000000">💰 Under ₹5Cr</option>
-                    <option value="100000000">💰 Any Budget</option>
-                  </select>
-                </div>
-                
-                <motion.button 
+
+                <motion.button
                   className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold shadow-lg hover:shadow-emerald-500/30 transition-all"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -560,10 +559,10 @@ export default function Home() {
                   🔍 Search Land
                 </motion.button>
               </div>
-              
+
               {/* Advanced Filters */}
               <div className="flex flex-wrap gap-2 justify-center mt-4">
-                <select 
+                <select
                   className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/10 outline-none cursor-pointer hover:bg-white/30 transition-all"
                   value={selectedZoning}
                   onChange={(e) => setSelectedZoning(e.target.value)}
@@ -573,8 +572,8 @@ export default function Home() {
                     <option key={zone} value={zone} className="text-gray-900">{zone}</option>
                   ))}
                 </select>
-                
-                <select 
+
+                <select
                   className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/10 outline-none cursor-pointer hover:bg-white/30 transition-all"
                   value={selectedFacing}
                   onChange={(e) => setSelectedFacing(e.target.value)}
@@ -585,7 +584,7 @@ export default function Home() {
                   ))}
                 </select>
 
-                <select 
+                <select
                   className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/10 outline-none cursor-pointer hover:bg-white/30 transition-all"
                   value={verificationStatus}
                   onChange={(e) => setVerificationStatus(e.target.value)}
@@ -596,7 +595,7 @@ export default function Home() {
                   <option value="Pending" className="text-gray-900">⏳ Pending</option>
                 </select>
 
-                <motion.span 
+                <motion.span
                   className="px-3 py-1.5 bg-emerald-500/30 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-emerald-400/30 cursor-pointer flex items-center gap-1"
                   whileHover={{ scale: 1.1 }}
                 >
@@ -604,9 +603,9 @@ export default function Home() {
                 </motion.span>
               </div>
             </motion.div>
-            
+
             {/* Quick Stats */}
-            <motion.div 
+            <motion.div
               className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -618,7 +617,7 @@ export default function Home() {
                 { label: 'Verified Owners', value: '1,200+' },
                 { label: 'Happy Buyers', value: '15,000+' }
               ].map((stat, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   className="text-center p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/5"
                   whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }}
@@ -629,7 +628,7 @@ export default function Home() {
               ))}
             </motion.div>
           </div>
-          
+
           {/* Decorative floating particles */}
           <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
             {[...Array(8)].map((_, i) => (
@@ -658,141 +657,10 @@ export default function Home() {
         </motion.section>
 
         {/* FEATURED LAND PLOTS SECTION with Measurements */}
-        <motion.section 
-          className="relative py-32 bg-gradient-to-b from-white via-emerald-50/30 to-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
-        >
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div 
-              className="text-center mb-12"
-              variants={fadeInUp}
-            >
-              <motion.div 
-                className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-200 mb-6"
-                whileHover={{ scale: 1.05 }}
-              >
-                <span className="text-2xl">🌳</span>
-                <span className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Featured Land Plots with Measurements</span>
-              </motion.div>
-              
-              <motion.h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                <span className="text-gray-900">Prime </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-700">
-                  Land Properties
-                </span>
-              </motion.h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Discover premium land plots with precise measurements and complete verification
-              </p>
-            </motion.div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {featuredLands.map((land, index) => (
-                <motion.div
-                  key={land.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100"
-                  whileHover={{ y: -10 }}
-                >
-                  <div className="relative h-56 overflow-hidden">
-                    <img 
-                      src={land.image} 
-                      alt={land.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <motion.div 
-                      className="absolute top-3 left-3 px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-full"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      {land.type}
-                    </motion.div>
-                    <div className="absolute top-3 right-3 flex gap-1">
-                      <motion.div 
-                        className="px-2 py-1 bg-emerald-400/90 backdrop-blur-sm text-xs font-bold rounded flex items-center gap-1"
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        ⭐ {land.rating}
-                      </motion.div>
-                      <motion.div 
-                        className="px-2 py-1 bg-green-500/90 backdrop-blur-sm text-white text-[10px] font-bold rounded flex items-center gap-1"
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        ✅ {land.verification}
-                      </motion.div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
-                      <div className="flex items-center gap-4 text-white text-xs">
-                        <span>{land.size}</span>
-                        <span>•</span>
-                        <span>🧭 {land.facing}</span>
-                        <span>•</span>
-                        <span>📐 {land.dimensions}</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">{land.title}</h3>
-                    <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">
-                      📍 {land.location}
-                    </p>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xl font-bold text-emerald-600">{land.price}</span>
-                      <span className="text-xs text-gray-500">{land.measurement}</span>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {land.amenities.slice(0, 3).map((amenity, i) => (
-                        <span key={i} className="text-[10px] px-2 py-1 bg-gray-100 rounded-full text-gray-600">
-                          {amenity}
-                        </span>
-                      ))}
-                      {land.amenities.length > 3 && (
-                        <span className="text-[10px] px-2 py-1 bg-gray-100 rounded-full text-gray-600">
-                          +{land.amenities.length - 3}
-                        </span>
-                      )}
-                    </div>
-                    
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-600">👤 {land.owner}</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <motion.button 
-                          className="px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl text-xs font-bold hover:shadow-lg transition-all"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          View Details
-                        </motion.button>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            <motion.div className="text-center mt-12">
-              <motion.button 
-                className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-2xl font-bold shadow-xl hover:shadow-emerald-500/30 transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View All 5,000+ Land Plots →
-              </motion.button>
-            </motion.div>
-          </div>
-        </motion.section>
+        <FeaturedLandPlotsSection />
 
         {/* ADVANCED MEASUREMENT TOOLS SECTION */}
-        <motion.section 
+        <motion.section
           className="relative py-32 bg-gradient-to-b from-emerald-50/30 via-white to-green-50/30"
           initial="hidden"
           whileInView="visible"
@@ -801,7 +669,7 @@ export default function Home() {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span 
+              <motion.span
                 className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
               >
                 🛠️ Advanced Tools
@@ -829,7 +697,7 @@ export default function Home() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ delay: i * 0.1, duration: 0.5 }}
                       viewport={{ once: true }}
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.05,
                         boxShadow: "0 10px 40px rgba(16,185,129,0.15)"
                       }}
@@ -850,14 +718,14 @@ export default function Home() {
               </div>
 
               {/* Live Measurement Calculator */}
-              <motion.div 
+              <motion.div
                 className="bg-white rounded-3xl p-8 border-2 border-emerald-200 shadow-xl"
                 variants={scaleIn}
               >
                 <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <span className="text-3xl">📐</span> Live Measurement Tool
+                  <span className="text-3xl">📐</span>Measurement Tool
                 </h3>
-                
+
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-gray-700 block mb-1">Select Measurement Type</label>
@@ -865,11 +733,10 @@ export default function Home() {
                       {['area', 'perimeter', 'volume'].map((type) => (
                         <motion.button
                           key={type}
-                          className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                            measurementType === type 
-                              ? 'bg-emerald-500 text-white' 
-                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                          }`}
+                          className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${measurementType === type
+                            ? 'bg-emerald-500 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            }`}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => setMeasurementType(type)}
@@ -887,7 +754,7 @@ export default function Home() {
                         type="number"
                         className="w-full px-3 py-2 rounded-xl border border-gray-200 focus:border-emerald-500 outline-none"
                         value={measurementInputs.length}
-                        onChange={(e) => setMeasurementInputs({...measurementInputs, length: e.target.value})}
+                        onChange={(e) => setMeasurementInputs({ ...measurementInputs, length: e.target.value })}
                         placeholder="Enter length"
                       />
                     </div>
@@ -897,7 +764,7 @@ export default function Home() {
                         type="number"
                         className="w-full px-3 py-2 rounded-xl border border-gray-200 focus:border-emerald-500 outline-none"
                         value={measurementInputs.width}
-                        onChange={(e) => setMeasurementInputs({...measurementInputs, width: e.target.value})}
+                        onChange={(e) => setMeasurementInputs({ ...measurementInputs, width: e.target.value })}
                         placeholder="Enter width"
                       />
                     </div>
@@ -910,13 +777,13 @@ export default function Home() {
                         type="number"
                         className="w-full px-3 py-2 rounded-xl border border-gray-200 focus:border-emerald-500 outline-none"
                         value={measurementInputs.height}
-                        onChange={(e) => setMeasurementInputs({...measurementInputs, height: e.target.value})}
+                        onChange={(e) => setMeasurementInputs({ ...measurementInputs, height: e.target.value })}
                         placeholder="Enter height"
                       />
                     </div>
                   )}
 
-                  <motion.div 
+                  <motion.div
                     className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-2xl border border-emerald-200"
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300 }}
@@ -944,186 +811,27 @@ export default function Home() {
                       );
                     })()}
                   </motion.div>
+                  <div>
+                    <Link href="/measurement">
+                      <motion.button
+                        className="w-full px-6 py-3 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl font-bold"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
 
-                  <motion.button 
-                    className="w-full px-6 py-3 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl font-bold"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Export Measurement Report
-                  </motion.button>
+                        Go To Live Measurment Tool
+
+                      </motion.button>
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             </div>
           </div>
         </motion.section>
 
-        {/* 360° VIRTUAL TOURS SECTION
-        <motion.section 
-          className="relative py-32 bg-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span 
-                className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
-              >
-                🎥 Virtual Reality
-              </motion.span>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mt-6 mb-4">
-                <span className="text-gray-900">360° </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-700">
-                  Virtual Tours
-                </span>
-              </motion.h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Experience properties through immersive 360° tours and interactive walkthroughs
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {virtualTours.map((tour, i) => (
-                <motion.div
-                  key={i}
-                  className="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-gray-100"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10 }}
-                >
-                  <div className="relative h-64 overflow-hidden">
-                    <img src={tour.image} alt={tour.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h4 className="text-white font-bold text-lg">{tour.title}</h4>
-                      <p className="text-white/80 text-sm">{tour.location}</p>
-                    </div>
-                    <div className="absolute top-3 right-3 bg-emerald-500/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
-                      {tour.duration}
-                    </div>
-                    <motion.div 
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white/30 backdrop-blur-xl rounded-full flex items-center justify-center border-2 border-white"
-                      whileHover={{ scale: 1.2 }}
-                    >
-                      <span className="text-2xl">▶️</span>
-                    </motion.div>
-                  </div>
-                  <div className="p-4">
-                    <div className="flex flex-wrap gap-1">
-                      {tour.features.map((feature, j) => (
-                        <span key={j} className="text-[10px] px-2 py-1 bg-emerald-50 text-emerald-700 rounded-full">
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.section> */}
-
-        {/* CONSTRUCTION PROJECT MONITORING */}
-        {/* <motion.section 
-          className="relative py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span 
-                className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
-              >
-                🏗️ Live Projects
-              </motion.span>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mt-6 mb-4">
-                <span className="text-gray-900">Railway & Highway </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-700">
-                  Construction Monitoring
-                </span>
-              </motion.h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Real-time tracking of major infrastructure projects across India
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {constructionProjects.map((project, i) => (
-                <motion.div
-                  key={i}
-                  className="bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10, boxShadow: "0 25px 60px rgba(16,185,129,0.15)" }}
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img src={project.image} alt={project.name} className="w-full h-full object-cover" />
-                    <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-full">
-                      {project.status}
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-xl font-bold mb-1">{project.name}</h3>
-                    <p className="text-sm text-gray-500 mb-2">{project.type}</p>
-                    <p className="text-sm text-gray-600 mb-3">📍 {project.location}</p>
-                    
-                    <div className="space-y-2">
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span className="text-gray-600">Progress</span>
-                          <span className="font-bold text-emerald-600">{project.progress}%</span>
-                        </div>
-                        <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <motion.div 
-                            className="h-full bg-gradient-to-r from-emerald-500 to-green-600 rounded-full"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${project.progress}%` }}
-                            transition={{ duration: 1.5, delay: 0.5 }}
-                            viewport={{ once: true }}
-                          />
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div>
-                          <span className="text-gray-500">Length:</span>
-                          <span className="font-bold ml-1">{project.length}</span>
-                        </div>
-                        <div>
-                          <span className="text-gray-500">Completion:</span>
-                          <span className="font-bold ml-1">{project.estimatedCompletion}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="text-xs text-gray-500 bg-gray-50 p-2 rounded-xl">
-                        📐 {project.measurement}
-                      </div>
-                    </div>
-                    
-                    <motion.button 
-                      className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl font-bold hover:shadow-lg transition-all"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      View Live Monitoring
-                    </motion.button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.section> */}
-
         {/* VIDEO WALKTHROUGH SECTION */}
-        <motion.section 
+        <motion.section
           className="relative py-32 bg-gradient-to-b from-white via-green-50/20 to-white"
           initial="hidden"
           whileInView="visible"
@@ -1132,7 +840,7 @@ export default function Home() {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span 
+              <motion.span
                 className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
               >
                 🎬 Video Walkthroughs
@@ -1149,12 +857,12 @@ export default function Home() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div 
+              <motion.div
                 className="bg-black rounded-3xl overflow-hidden aspect-video relative group"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <video 
+                <video
                   className="w-full h-full object-cover"
                   autoPlay
                   loop
@@ -1173,12 +881,12 @@ export default function Home() {
               </motion.div>
 
               <div className="grid grid-cols-1 gap-4">
-                <motion.div 
+                <motion.div
                   className="bg-black rounded-3xl overflow-hidden aspect-[2/1] relative group"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <video 
+                  <video
                     className="w-full h-full object-cover"
                     autoPlay
                     loop
@@ -1192,13 +900,13 @@ export default function Home() {
                     <p className="text-white/80 text-xs">Mumbai • Premium Office Space</p>
                   </div>
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                   className="bg-black rounded-3xl overflow-hidden aspect-[2/1] relative group"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <video 
+                  <video
                     className="w-full h-full object-cover"
                     autoPlay
                     loop
@@ -1218,7 +926,7 @@ export default function Home() {
         </motion.section>
 
         {/* LAND TYPES & ZONING SECTION */}
-        <motion.section 
+        <motion.section
           className="relative py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white"
           initial="hidden"
           whileInView="visible"
@@ -1227,7 +935,7 @@ export default function Home() {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span 
+              <motion.span
                 className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
                 animate={{
                   boxShadow: ["0 0 0 0 rgba(16,185,129,0.2)", "0 0 20px 10px rgba(16,185,129,0.1)", "0 0 0 0 rgba(16,185,129,0.2)"],
@@ -1250,7 +958,7 @@ export default function Home() {
                 Browse through various land categories and zoning classifications
               </p>
             </motion.div>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {landTypes.slice(0, 10).map((type, i) => (
                 <motion.div
@@ -1260,22 +968,22 @@ export default function Home() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.05, duration: 0.4 }}
                   viewport={{ once: true }}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
                     boxShadow: "0 10px 40px rgba(16,185,129,0.15)"
                   }}
                 >
                   <div className="text-3xl mb-2">
-                    {type.includes('Residential') ? '🏠' : 
-                     type.includes('Commercial') ? '🏢' :
-                     type.includes('Agricultural') ? '🌾' :
-                     type.includes('Industrial') ? '🏭' :
-                     type.includes('Mixed') ? '🏘️' :
-                     type.includes('Plotted') ? '📐' :
-                     type.includes('Farm') ? '🌿' :
-                     type.includes('Hill') ? '⛰️' :
-                     type.includes('Waterfront') ? '🏖️' :
-                     '📍'}
+                    {type.includes('Residential') ? '🏠' :
+                      type.includes('Commercial') ? '🏢' :
+                        type.includes('Agricultural') ? '🌾' :
+                          type.includes('Industrial') ? '🏭' :
+                            type.includes('Mixed') ? '🏘️' :
+                              type.includes('Plotted') ? '📐' :
+                                type.includes('Farm') ? '🌿' :
+                                  type.includes('Hill') ? '⛰️' :
+                                    type.includes('Waterfront') ? '🏖️' :
+                                      '📍'}
                   </div>
                   <h4 className="text-sm font-bold text-gray-900">{type}</h4>
                 </motion.div>
@@ -1285,7 +993,7 @@ export default function Home() {
         </motion.section>
 
         {/* LAND USEFULIES & FEATURES */}
-        <motion.section 
+        <motion.section
           className="relative py-32 bg-white"
           initial="hidden"
           whileInView="visible"
@@ -1294,7 +1002,7 @@ export default function Home() {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span 
+              <motion.span
                 className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
               >
                 Key Features
@@ -1354,7 +1062,7 @@ export default function Home() {
         </motion.section>
 
         {/* HOW TO BUY LAND SECTION */}
-        <motion.section 
+        <motion.section
           className="relative py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white"
           initial="hidden"
           whileInView="visible"
@@ -1363,7 +1071,7 @@ export default function Home() {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span 
+              <motion.span
                 className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
               >
                 Step by Step Guide
@@ -1375,7 +1083,7 @@ export default function Home() {
                 </span>
               </motion.h2>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
@@ -1418,125 +1126,12 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* EMI CALCULATOR SECTION */}
-        <motion.section 
-          className="relative py-32 bg-gradient-to-br from-emerald-900 via-green-900 to-black text-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
-        >
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div 
-              className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl"
-              animate={{
-                x: [0, -80, 0],
-                y: [0, 50, 0],
-                scale: [1, 1.2, 1]
-              }}
-              transition={{
-                duration: 15,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </div>
-          
-          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div className="text-center mb-12" variants={fadeInUp}>
-              <motion.span className="text-4xl block mb-4">💰</motion.span>
-              <motion.h2 className="text-4xl md:text-5xl font-bold">
-                Land Purchase <span className="text-emerald-400">EMI Calculator</span>
-              </motion.h2>
-              <p className="text-gray-300 mt-4">Plan your land purchase with our easy EMI calculator</p>
-            </motion.div>
-            
-            <motion.div 
-              className="bg-white/10 backdrop-blur-2xl rounded-3xl p-8 border border-white/20"
-              variants={scaleIn}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-6">
-                  <div>
-                    <label className="text-sm font-medium text-gray-300 block mb-2">
-                      Land Loan Amount: ₹{(loanAmount / 100000).toFixed(1)} Lakhs
-                    </label>
-                    <input
-                      type="range"
-                      min="100000"
-                      max="50000000"
-                      step="100000"
-                      value={loanAmount}
-                      onChange={(e) => setLoanAmount(Number(e.target.value))}
-                      className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-emerald-500"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="text-sm font-medium text-gray-300 block mb-2">
-                      Interest Rate: {interestRate}%
-                    </label>
-                    <input
-                      type="range"
-                      min="6"
-                      max="15"
-                      step="0.1"
-                      value={interestRate}
-                      onChange={(e) => setInterestRate(Number(e.target.value))}
-                      className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-emerald-500"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="text-sm font-medium text-gray-300 block mb-2">
-                      Loan Tenure: {loanTenure} Years
-                    </label>
-                    <input
-                      type="range"
-                      min="5"
-                      max="30"
-                      step="1"
-                      value={loanTenure}
-                      onChange={(e) => setLoanTenure(Number(e.target.value))}
-                      className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-emerald-500"
-                    />
-                  </div>
-                </div>
-                
-                <div className="flex flex-col items-center justify-center bg-white/5 rounded-2xl p-6 border border-white/10">
-                  <p className="text-sm text-gray-400 mb-2">Monthly EMI for Land Purchase</p>
-                  <motion.p 
-                    className="text-5xl font-bold text-emerald-400"
-                    key={calculateEMI()}
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                  >
-                    ₹{calculateEMI().toLocaleString()}
-                  </motion.p>
-                  <div className="w-full mt-4 pt-4 border-t border-white/10">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Total Interest</span>
-                      <span className="text-white font-medium">
-                        ₹{(calculateEMI() * loanTenure * 12 - loanAmount).toLocaleString()}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm mt-1">
-                      <span className="text-gray-400">Total Payment</span>
-                      <span className="text-white font-medium">
-                        ₹{(calculateEMI() * loanTenure * 12).toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </motion.section>
+        {/* FAQ SECTION */}
+        <FAQ/>
 
         {/* WHY CHOOSE PGI LAND REALTORS */}
-        <motion.section 
-          className="relative py-32 bg-white"
+        <motion.section
+          className="relative py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
@@ -1544,7 +1139,7 @@ export default function Home() {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span 
+              <motion.span
                 className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
               >
                 Why Choose Us
@@ -1555,7 +1150,7 @@ export default function Home() {
                 </span>
               </motion.h2>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
@@ -1581,15 +1176,15 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1, duration: 0.6 }}
                   viewport={{ once: true }}
-                  whileHover={{ 
+                  whileHover={{
                     y: -10,
                     borderColor: '#10b981',
                     boxShadow: "0 25px 60px rgba(16,185,129,0.1)"
                   }}
                 >
-                  <motion.div 
+                  <motion.div
                     className="text-6xl mb-4"
-                    animate={{ 
+                    animate={{
                       rotate: [0, 5, -5, 0],
                       scale: [1, 1.1, 1]
                     }}
@@ -1611,142 +1206,27 @@ export default function Home() {
         </motion.section>
 
         {/* TESTIMONIALS */}
-        <motion.section 
-          className="relative py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span className="text-4xl block mb-4">💬</motion.span>
-              <motion.h2 className="text-4xl md:text-5xl font-bold">
-                What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-700">Land Buyers Say</span>
-              </motion.h2>
-            </motion.div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: 'Rajesh Kumar',
-                  location: 'Mumbai',
-                  text: 'Found the perfect commercial land in BKC through PGI Land Realtors. Complete legal verification made the process smooth.',
-                  rating: 5,
-                  image: '👨'
-                },
-                {
-                  name: 'Sunita Reddy',
-                  location: 'Bangalore',
-                  text: 'Excellent platform for agricultural land. Found a 2-acre plot with all necessary approvals and clear title.',
-                  rating: 5,
-                  image: '👩'
-                },
-                {
-                  name: 'Vikram Singh',
-                  location: 'Delhi',
-                  text: 'The land zoning information and legal verification gave me confidence to invest. Highly recommended for land buyers.',
-                  rating: 5,
-                  image: '👨'
-                }
-              ].map((testimonial, i) => (
-                <motion.div
-                  key={i}
-                  className="p-8 bg-white rounded-3xl shadow-xl border border-gray-100"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -8, boxShadow: "0 25px 60px rgba(16,185,129,0.12)" }}
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-4xl">{testimonial.image}</span>
-                    <div>
-                      <h4 className="font-bold">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500">{testimonial.location}</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 mb-4">"{testimonial.text}"</p>
-                  <div className="flex gap-1 text-emerald-400">
-                    {'⭐'.repeat(testimonial.rating)}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.section>
+        <Testimonials/>
 
         {/* CTA SECTION */}
-        <motion.section 
-          className="relative py-32 bg-gradient-to-br from-emerald-600 via-green-700 to-black text-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
-        >
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div 
-              className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-emerald-400/20 blur-3xl"
-              animate={{
-                x: [0, 80, 0],
-                y: [0, -50, 0],
-                scale: [1, 1.2, 1]
-              }}
-              transition={{
-                duration: 12,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </div>
-          
-          <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <motion.h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" variants={fadeInUp}>
-              Ready to Find Your{' '}
-              <span className="text-emerald-300">Perfect Land Plot</span>?
-            </motion.h2>
-            <motion.p className="text-xl text-gray-200 mb-10" variants={fadeInUp}>
-              Join 15,000+ happy land owners who found their perfect plot through PGI Land Realtors
-            </motion.p>
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-              variants={fadeInUp}
-            >
-              <motion.button 
-                className="px-10 py-4 bg-white text-emerald-700 rounded-2xl font-bold shadow-2xl hover:shadow-emerald-500/30 transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Start Your Land Search Now →
-              </motion.button>
-              <motion.button 
-                className="px-10 py-4 border-2 border-white/50 text-white rounded-2xl font-medium hover:bg-white/10 transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                List Your Land Plot
-              </motion.button>
-            </motion.div>
-          </div>
-        </motion.section>
-
+         <CTASection/>
         {/* FLOATING LIVE PREVIEW WIDGET */}
-        <motion.div 
+        <motion.div
           className="fixed bottom-6 right-6 z-50 hidden md:block group"
           initial={{ opacity: 0, x: 100, scale: 0.8 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ 
+          transition={{
             type: "spring",
             stiffness: 100,
             damping: 15,
             delay: 0.5
           }}
-          whileHover={{ 
+          whileHover={{
             scale: 1.05,
             transition: { type: "spring", stiffness: 300 }
           }}
         >
-          <motion.div 
+          <motion.div
             className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-green-500 rounded-3xl blur-xl opacity-40 -z-10"
             animate={{
               opacity: [0.4, 0.6, 0.4],
