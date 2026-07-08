@@ -14,8 +14,8 @@ const RegisterModal = dynamic(() => import('./RegisterModal'), { ssr: false });
 // `category.icon` (desktop dropdown + mobile dropdown) but this array never
 // defined it, so every icon slot was rendering blank.
 const landCategories = [
-  { label: 'Residential Land', href: '/lands?type=residential', icon: '🏠' },
-  { label: 'Commercial Land', href: '/lands?type=commercial', icon: '🏢' },
+  { label: 'Residential Land', href: '/residential-land', icon: '🏠' },
+  { label: 'Commercial Land', href: '/commercial-land', icon: '🏢' },
   { label: 'Agricultural Land', href: '/lands?type=agricultural', icon: '🌾' },
   { label: 'Industrial Land', href: '/lands?type=industrial', icon: '🏭' },
   { label: 'Mixed-Use Land', href: '/lands?type=mixed-use', icon: '🏘️' },

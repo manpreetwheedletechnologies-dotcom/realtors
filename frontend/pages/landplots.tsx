@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Head from 'next/head';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import PageHero from '../components/Pagehero';
 
 const fadeInUp = {
@@ -18,7 +18,12 @@ const allLands = [
     type: 'Residential Land',
     facing: 'North-East',
     owner: 'Shree Builders Pvt Ltd',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
+    images: [
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
+      "/residential1.png",
+      "/residential2.png"
+      
+    ],
     rating: 4.9,
     verification: 'Approved',
     measurement: '30ft x 45ft = 1350 sq.ft'
@@ -32,7 +37,15 @@ const allLands = [
     type: 'Agricultural Land',
     facing: 'East',
     owner: 'Green Valley Farms',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
+    images: [
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
+      "/agri1.jpg",
+      "/agri2.jpg",
+      "/agri3.jpg",
+      "/agri4.jpg",
+      "/agri5.jpg",
+      "/agri6.jpg"
+    ],
     rating: 4.7,
     verification: 'Verified',
     measurement: '200ft x 435ft = 87,000 sq.ft'
@@ -46,7 +59,13 @@ const allLands = [
     type: 'Commercial Land',
     facing: 'West',
     owner: 'Bombay Land Developers',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
+    images: [
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
+      "/commercial1.jpg",
+      "/commercial2.jpg",
+      "/commercial3.jpg",
+      "/commercial4.jpg"
+    ],
     rating: 4.8,
     verification: 'Approved',
     measurement: '60ft x 80ft = 4,800 sq.ft'
@@ -60,7 +79,12 @@ const allLands = [
     type: 'Industrial Land',
     facing: 'South',
     owner: 'Industrial Estates Ltd',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
+    images: [
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
+      "/industrial1.jpg",
+      "/industrial2.jpg",
+      "/industrial3.jpg"
+    ],
     rating: 4.6,
     verification: 'Verified',
     measurement: '50ft x 52ft = 2,600 sq.ft'
@@ -74,7 +98,9 @@ const allLands = [
     type: 'Residential Land',
     facing: 'East',
     owner: 'Coastal Estates',
-    image: 'https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=600',
+    images: [
+      'https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=600'
+    ],
     rating: 4.9,
     verification: 'RERA Registered',
     measurement: '40ft x 90ft = 3,600 sq.ft'
@@ -88,7 +114,9 @@ const allLands = [
     type: 'Farm Land',
     facing: 'North',
     owner: 'Sahyadri Farms',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
+    images: [
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600'
+    ],
     rating: 4.5,
     verification: 'Verified',
     measurement: '150ft x 290ft = 43,560 sq.ft'
@@ -96,6 +124,76 @@ const allLands = [
 ];
 
 const landTypes = ['All', 'Residential Land', 'Commercial Land', 'Agricultural Land', 'Industrial Land', 'Farm Land'];
+
+/**
+ * CardImage
+ * Same auto-cycling + crossfade + slow zoom effect as LandPlotCard.
+ * Accepts either `images` (array) or a single `image` (string) —
+ * so old data without an array still works.
+ */
+function CardImage({ land }) {
+  const images =
+    land.images && land.images.length > 0 ? land.images : [land.image];
+  const [activeImg, setActiveImg] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (images.length <= 1 || isHovered) return;
+    timerRef.current = setInterval(() => {
+      setActiveImg((prev) => (prev + 1) % images.length);
+    }, 3800);
+    return () => clearInterval(timerRef.current);
+  }, [images.length, isHovered]);
+
+  return (
+    <div
+      className="relative h-52 overflow-hidden bg-gray-100"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={activeImg}
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.9, ease: 'easeInOut' }}
+        >
+          <motion.img
+            src={images[activeImg]}
+            alt={`${land.title} — view ${activeImg + 1}`}
+            className="w-full h-full object-cover"
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.12 }}
+            transition={{ duration: 4.5, ease: 'linear' }}
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="absolute top-3 left-3 px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-full z-10">
+        {land.type}
+      </div>
+      <div className="absolute top-3 right-3 px-2 py-1 bg-emerald-400/90 backdrop-blur-sm text-xs font-bold rounded z-10">
+        ⭐ {land.rating}
+      </div>
+
+      {images.length > 1 && (
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+          {images.map((_, i) => (
+            <span
+              key={i}
+              className={`h-1.5 rounded-full transition-all ${
+                i === activeImg ? 'w-5 bg-white' : 'w-1.5 bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function LandPlots() {
   const [search, setSearch] = useState('');
@@ -161,15 +259,7 @@ export default function LandPlots() {
                   className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
                   whileHover={{ y: -8 }}
                 >
-                  <div className="relative h-52 overflow-hidden">
-                    <img src={land.image} alt={land.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute top-3 left-3 px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-full">
-                      {land.type}
-                    </div>
-                    <div className="absolute top-3 right-3 px-2 py-1 bg-emerald-400/90 backdrop-blur-sm text-xs font-bold rounded">
-                      ⭐ {land.rating}
-                    </div>
-                  </div>
+                  <CardImage land={land} />
                   <div className="p-5">
                     <h3 className="text-lg font-bold text-gray-900 mb-1">{land.title}</h3>
                     <p className="text-sm text-gray-500 mb-2">📍 {land.location}</p>
