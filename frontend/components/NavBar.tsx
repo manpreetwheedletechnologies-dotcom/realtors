@@ -14,16 +14,16 @@ const RegisterModal = dynamic(() => import('./RegisterModal'), { ssr: false });
 // `category.icon` (desktop dropdown + mobile dropdown) but this array never
 // defined it, so every icon slot was rendering blank.
 const landCategories = [
-  { label: 'Residential Land', href: '/lands?type=residential', icon: '🏠' },
-  { label: 'Commercial Land', href: '/lands?type=commercial', icon: '🏢' },
-  { label: 'Agricultural Land', href: '/lands?type=agricultural', icon: '🌾' },
-  { label: 'Industrial Land', href: '/lands?type=industrial', icon: '🏭' },
-  { label: 'Mixed-Use Land', href: '/lands?type=mixed-use', icon: '🏘️' },
-  { label: 'Plotted Development', href: '/lands?type=plotted', icon: '📐' },
-  { label: 'Farm Land', href: '/lands?type=farm', icon: '🌿' },
-  { label: 'Hill View Plot', href: '/lands?type=hill-view', icon: '⛰️' },
-  { label: 'Waterfront Land', href: '/lands?type=waterfront', icon: '🏖️' },
-  { label: 'Corner Plot', href: '/lands?type=corner', icon: '📍' },
+  { label: 'Residential Land', href: '/land/residential-land', icon: '🏠' },
+  { label: 'Commercial Land', href: '/land/commercial-land', icon: '🏢' },
+  { label: 'Agricultural Land', href: '/land/agricultural-land', icon: '🌾' },
+  { label: 'Industrial Land', href: '/land/industrial-land', icon: '🏭' },
+  { label: 'Mixed-Use Land', href: '/land/mixed-use-land', icon: '🏘️' },
+  { label: 'Plotted Development', href: '/land/plotted-development', icon: '📐' },
+  { label: 'Farm Land', href: '/land/farm-land', icon: '🌿' },
+  { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' },
+  { label: 'Waterfront Land', href: '/land/waterfront-land', icon: '🏖️' },
+  { label: 'Corner Plot', href: '/land/corner-plot', icon: '📍' },
 ];
 
 export default function NavBar() {

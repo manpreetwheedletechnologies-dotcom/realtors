@@ -1,0 +1,1836 @@
+{
+  "residential-land": {
+    "meta": {
+      "title": "Residential Land Plots | PGI Land Realtors",
+      "description": "Browse verified residential land plots across India with exact dimensions, facing direction, and complete legal verification."
+    },
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600",
+      "badge": "\ud83c\udfe1 Residential Land",
+      "titleLine1": "Residential Land",
+      "titleLine2": "Built to Move In On",
+      "subtitle": "1,800+ verified residential plots across India \u2014 exact dimensions, real facing direction, and a clean legal title, every time."
+    },
+    "stats": [
+      { "value": "1,800+", "label": "Residential Plots" },
+      { "value": "35+", "label": "Cities Covered" },
+      { "value": "600+", "label": "RERA Registered" },
+      { "value": "9,200+", "label": "Happy Families" }
+    ],
+    "features": {
+      "badgeIcon": "Home",
+      "badgeLabel": "Why Residential Land, Verified",
+      "titlePrefix": "Every plot, checked",
+      "titleHighlight": "before it's listed",
+      "description": "Not another listings board. Every residential plot goes through the same verification standard before it reaches you.",
+      "list": [
+        {
+          "icon": "Compass",
+          "title": "Verified Facing & Dimensions",
+          "description": "Every plot lists true compass facing and exact boundary measurements, confirmed on-site."
+        },
+        {
+          "icon": "Droplets",
+          "title": "Utility-Ready Plots",
+          "description": "Water, drainage, and sewage access checked before listing \u2014 not promised, verified."
+        },
+        {
+          "icon": "Zap",
+          "title": "Electricity & Road Access",
+          "description": "Grid connection and road-width details included so you know what you're building on."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Clean Title Guarantee",
+          "description": "Legal ownership and encumbrance history checked by our verification team before listing."
+        }
+      ]
+    },
+    "journey": {
+      "badgeLabel": "The Verification Journey",
+      "titlePrefix": "From site visit to",
+      "titleHighlight": "sale-ready",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Site Visit & Photos",
+          "description": "Our team physically walks the plot and captures real, dated photographs \u2014 no stock images.",
+          "icon": "MapPin"
+        },
+        {
+          "step": "02",
+          "title": "Document Check",
+          "description": "Title deed, encumbrance certificate, and mutation records verified against government registries.",
+          "icon": "FileCheck"
+        },
+        {
+          "step": "03",
+          "title": "Measurement Audit",
+          "description": "Exact dimensions and boundaries confirmed on-ground to match the sale deed \u2014 down to the foot.",
+          "icon": "Ruler"
+        },
+        {
+          "step": "04",
+          "title": "Approval Tagging",
+          "description": "Plot is tagged Approved, Verified, or RERA Registered based on what actually checks out.",
+          "icon": "ShieldCheck"
+        }
+      ]
+    },
+    "plots": {
+      "badgeEmoji": "\ud83c\udfe1",
+      "badgeLabel": "Residential Plots Available Now",
+      "titlePrefix": "Plots ready for your",
+      "titleHighlight": "next home",
+      "plots": [
+        {
+          "id": 101,
+          "title": "Prime Residential Plot - South Delhi",
+          "size": "450 sq.yds",
+          "type": "Residential Land",
+          "dimensions": "30ft \u00d7 45ft",
+          "facing": "North-East",
+          "owner": "Shree Builders Pvt Ltd",
+          "images": [
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
+            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Corner Plot", "Wide Road", "Water Supply", "Electricity", "Drainage"],
+          "verification": "Approved",
+          "measurement": "30ft x 45ft = 1350 sq.ft"
+        },
+        {
+          "id": 102,
+          "title": "Waterfront Residential Plot - ECR",
+         
+          "size": "800 sq.yds",
+          "type": "Residential Land",
+          "dimensions": "40ft \u00d7 90ft",
+          "facing": "East",
+          "owner": "Coastal Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=700",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Sea View", "Gated Community", "Water Supply", "Electricity"],
+          "verification": "RERA Registered",
+          "measurement": "40ft x 90ft = 3,600 sq.ft"
+        },
+        {
+          "id": 103,
+          "title": "Gated Community Plot - Whitefield",
+         
+          "size": "600 sq.yds",
+          "type": "Residential Land",
+          "dimensions": "36ft \u00d7 60ft",
+          "facing": "North",
+          "owner": "Green Valley Developers",
+          "images": [
+            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
+            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700"
+          ],
+          "rating": 4.7,
+          "amenities": ["Clubhouse", "Security", "Wide Road", "Park Facing"],
+          "verification": "Verified",
+          "measurement": "36ft x 60ft = 2,160 sq.ft"
+        },
+        {
+          "id": 104,
+          "title": "Hillside Residential Plot - Lonavala",
+         
+          "size": "500 sq.yds",
+          "type": "Residential Land",
+          "dimensions": "32ft \u00d7 50ft",
+          "facing": "South",
+          "owner": "Sahyadri Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
+            "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=700",
+            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["Hill View", "Gated Entry", "Electricity", "Drainage"],
+          "verification": "Approved",
+          "measurement": "32ft x 50ft = 1,600 sq.ft"
+        },
+        {
+          "id": 105,
+          "title": "Premium Plot - Gurugram Sector 108",
+          
+          "size": "520 sq.yds",
+          "type": "Residential Land",
+          "dimensions": "33ft \u00d7 47ft",
+          "facing": "East",
+          "owner": "Capital Land Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
+            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["RERA Registered", "Wide Road", "Underground Wiring", "Park"],
+          "verification": "RERA Registered",
+          "measurement": "33ft x 47ft = 1,551 sq.ft"
+        },
+        {
+          "id": 106,
+          "title": "Riverside Residential Plot - Rishikesh",
+         
+          "size": "400 sq.yds",
+          "type": "Residential Land",
+          "dimensions": "28ft \u00d7 42ft",
+          "facing": "North-East",
+          "owner": "Himalayan Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700",
+            "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=700",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700"
+          ],
+          "rating": 4.5,
+          "amenities": ["River View", "Water Supply", "Wide Road"],
+          "verification": "Verified",
+          "measurement": "28ft x 42ft = 1,176 sq.ft"
+        }
+      ]
+    },
+    "faq": {
+      "badgeLabel": "Common Questions",
+      "titlePrefix": "Residential Land",
+      "titleHighlight": "FAQs",
+      "faqs": [
+        {
+          "question": "How is a residential plot different from other land types on PGI?",
+          "answer": "Residential plots are zoned specifically for housing construction, and each listing includes facing direction, road width, and utility access \u2014 details that matter most when you're planning to build a home."
+        },
+        {
+          "question": "What does the \"RERA Registered\" tag mean?",
+          "answer": "It means the plot and its developer are registered under the Real Estate (Regulation and Development) Act, giving you added legal protection and transparency on project timelines."
+        },
+        {
+          "question": "Can I schedule a physical site visit before buying?",
+          "answer": "Yes. Every listing page lets you request a guided site visit with our local verification team, who can walk the boundaries with you in person."
+        },
+        {
+          "question": "Are the photos and measurements on each listing current?",
+          "answer": "Yes \u2014 our verification team re-visits listings periodically, and each plot shows the date of its last on-site confirmation."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Found your plot? Let's verify it together.",
+      "description": "Talk to our team about site visits, document checks, and everything else that goes into a residential purchase you won't regret.",
+      "button": { "label": "Talk to a Land Expert \u2192", "url": "/contact" }
+    }
+  },
+
+  
+  "commercial-land": {
+    "meta": {
+      "title": "Commercial Land Plots | PGI Land Realtors",
+      "description": "Browse verified commercial land plots across India with exact dimensions, road frontage, zoning status, and complete legal verification."
+    },
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600",
+      "badge": "🏢 Commercial Land",
+      "titleLine1": "Commercial Land",
+      "titleLine2": "Built for Business",
+      "subtitle": "900+ verified commercial plots across India — confirmed zoning, road frontage, and a clean legal title, every time."
+    },
+    "stats": [
+      { "value": "900+", "label": "Commercial Plots" },
+      { "value": "28+", "label": "Cities Covered" },
+      { "value": "410+", "label": "RERA Registered" },
+      { "value": "5,600+", "label": "Businesses Set Up" }
+    ],
+    "features": {
+      "badgeIcon": "Building2",
+      "badgeLabel": "Why Commercial Land, Verified",
+      "titlePrefix": "Every plot, checked",
+      "titleHighlight": "before it's listed",
+      "description": "Not another listings board. Every commercial plot goes through the same verification standard before it reaches you.",
+      "list": [
+        {
+          "icon": "Compass",
+          "title": "Verified Road Frontage & Dimensions",
+          "description": "Every plot lists confirmed road-facing width and exact boundary measurements, verified on-site."
+        },
+        {
+          "icon": "TrendingUp",
+          "title": "Zoning & FSI Confirmed",
+          "description": "Commercial zoning status and Floor Space Index checked with local authorities before listing."
+        },
+        {
+          "icon": "Zap",
+          "title": "Power Load & Utility Access",
+          "description": "Sanctioned electrical load, water, and drainage access verified for business-ready use."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Clean Title Guarantee",
+          "description": "Legal ownership and encumbrance history checked by our verification team before listing."
+        }
+      ]
+    },
+    "journey": {
+      "badgeLabel": "The Verification Journey",
+      "titlePrefix": "From site visit to",
+      "titleHighlight": "sale-ready",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Site Visit & Photos",
+          "description": "Our team physically walks the plot and captures real, dated photographs — no stock images.",
+          "icon": "MapPin"
+        },
+        {
+          "step": "02",
+          "title": "Document & Zoning Check",
+          "description": "Title deed, encumbrance certificate, and commercial zoning approval verified against government records.",
+          "icon": "FileCheck"
+        },
+        {
+          "step": "03",
+          "title": "Measurement Audit",
+          "description": "Exact dimensions, road frontage, and boundaries confirmed on-ground to match the sale deed.",
+          "icon": "Ruler"
+        },
+        {
+          "step": "04",
+          "title": "Approval Tagging",
+          "description": "Plot is tagged Approved, Verified, or RERA Registered based on what actually checks out.",
+          "icon": "ShieldCheck"
+        }
+      ]
+    },
+    "plots": {
+      "badgeEmoji": "🏢",
+      "badgeLabel": "Commercial Plots Available Now",
+      "titlePrefix": "Plots ready for your",
+      "titleHighlight": "next business",
+      "plots": [
+        {
+          "id": 201,
+          "title": "Prime Commercial Plot - Connaught Place Extension",
+         
+          "size": "600 sq.yds",
+          "type": "Commercial Land",
+          "dimensions": "40ft × 60ft",
+          "facing": "Main Road - East",
+          "owner": "Delhi Commercial Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=700",
+            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700",
+            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Main Road Frontage", "High Footfall", "Water Supply", "3-Phase Electricity", "Parking Space"],
+          "verification": "RERA Registered",
+          "measurement": "40ft x 60ft = 2,400 sq.ft"
+        },
+        {
+          "id": 202,
+          "title": "Business District Plot - OMR",
+        
+          "size": "900 sq.yds",
+          "type": "Commercial Land",
+          "dimensions": "50ft × 90ft",
+          "facing": "North-East",
+          "owner": "Coastal Commercial Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=700",
+            "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700",
+            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["IT Corridor", "Wide Road", "High-Load Power", "Water Supply"],
+          "verification": "Approved",
+          "measurement": "50ft x 90ft = 4,500 sq.ft"
+        },
+        {
+          "id": 203,
+          "title": "Commercial Corner Plot - Whitefield",
+         
+          "size": "700 sq.yds",
+          "type": "Commercial Land",
+          "dimensions": "42ft × 75ft",
+          "facing": "South-East",
+          "owner": "Green Valley Commercial",
+          "images": [
+            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700",
+            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=700",
+            "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=700"
+          ],
+          "rating": 4.7,
+          "amenities": ["Corner Plot", "High Visibility", "Ample Parking", "Wide Road"],
+          "verification": "Verified",
+          "measurement": "42ft x 75ft = 3,150 sq.ft"
+        },
+        {
+          "id": 204,
+          "title": "Highway-Facing Commercial Plot - Lonavala",
+         
+          "size": "800 sq.yds",
+          "type": "Commercial Land",
+          "dimensions": "45ft × 80ft",
+          "facing": "Highway - West",
+          "owner": "Sahyadri Commercial Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700",
+            "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700",
+            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["Highway Frontage", "Signage Rights", "Electricity", "Drainage"],
+          "verification": "Approved",
+          "measurement": "45ft x 80ft = 3,600 sq.ft"
+        },
+        {
+          "id": 205,
+          "title": "Commercial Plot - Gurugram Sector 62",
+          
+          "size": "1000 sq.yds",
+          "type": "Commercial Land",
+          "dimensions": "55ft × 90ft",
+          "facing": "East",
+          "owner": "Capital Land Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=700",
+            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700",
+            "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["RERA Registered", "Wide Road", "High Power Load", "Retail Frontage"],
+          "verification": "RERA Registered",
+          "measurement": "55ft x 90ft = 4,950 sq.ft"
+        },
+        {
+          "id": 206,
+          "title": "Riverside Commercial Plot - Rishikesh",
+         
+          "size": "550 sq.yds",
+          "type": "Commercial Land",
+          "dimensions": "35ft × 65ft",
+          "facing": "North",
+          "owner": "Himalayan Commercial Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700",
+            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700",
+            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700"
+          ],
+          "rating": 4.5,
+          "amenities": ["Tourist Zone", "Wide Road", "Water Supply", "Electricity"],
+          "verification": "Verified",
+          "measurement": "35ft x 65ft = 2,275 sq.ft"
+        }
+      ]
+    },
+    "faq": {
+      "badgeLabel": "Common Questions",
+      "titlePrefix": "Commercial Land",
+      "titleHighlight": "FAQs",
+      "faqs": [
+        {
+          "question": "How is a commercial plot different from other land types on PGI?",
+          "answer": "Commercial plots are zoned for business use and each listing includes road frontage width, sanctioned power load, and FSI details — the details that matter most when you're planning to build a shop, office, or showroom."
+        },
+        {
+          "question": "What does the \"RERA Registered\" tag mean?",
+          "answer": "It means the plot and its developer are registered under the Real Estate (Regulation and Development) Act, giving you added legal protection and transparency on project timelines."
+        },
+        {
+          "question": "Can I confirm the zoning and FSI before purchase?",
+          "answer": "Yes. Every listing includes zoning classification and FSI as confirmed with local municipal authorities, and our team can share the source documents on request."
+        },
+        {
+          "question": "Are the photos and measurements on each listing current?",
+          "answer": "Yes — our verification team re-visits listings periodically, and each plot shows the date of its last on-site confirmation."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Found your commercial plot? Let's verify it together.",
+      "description": "Talk to our team about zoning checks, site visits, and everything else that goes into a commercial purchase you won't regret.",
+      "button": { "label": "Talk to a Land Expert →", "url": "/contact" }
+    }
+  },
+  "agricultural-land": {
+    "meta": {
+      "title": "Agricultural Land Plots | PGI Land Realtors",
+      "description": "Browse verified agricultural land across India with soil quality, irrigation source, and complete legal verification."
+    },
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600",
+      "badge": "🌾 Agricultural Land",
+      "titleLine1": "Agricultural Land",
+      "titleLine2": "Ready to Cultivate",
+      "subtitle": "1,200+ verified agricultural parcels across India — confirmed soil type, irrigation access, and a clean legal title, every time."
+    },
+    "stats": [
+      { "value": "1,200+", "label": "Agricultural Parcels" },
+      { "value": "22+", "label": "States Covered" },
+      { "value": "480+", "label": "Irrigation Verified" },
+      { "value": "7,300+", "label": "Farmers Served" }
+    ],
+    "features": {
+      "badgeIcon": "Sprout",
+      "badgeLabel": "Why Agricultural Land, Verified",
+      "titlePrefix": "Every parcel, checked",
+      "titleHighlight": "before it's listed",
+      "description": "Not another listings board. Every agricultural parcel goes through the same verification standard before it reaches you.",
+      "list": [
+        {
+          "icon": "Sprout",
+          "title": "Soil Quality Tested",
+          "description": "Soil type and fertility checked on-site so you know exactly what the land can grow."
+        },
+        {
+          "icon": "Droplets",
+          "title": "Irrigation Source Verified",
+          "description": "Borewell, canal, or rainwater access confirmed before listing — not promised, verified."
+        },
+        {
+          "icon": "FileCheck",
+          "title": "Land Records Matched",
+          "description": "Khasra, khatauni, and revenue records cross-checked against the seller's claim."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Clean Title Guarantee",
+          "description": "Legal ownership and encumbrance history checked by our verification team before listing."
+        }
+      ]
+    },
+    "journey": {
+      "badgeLabel": "The Verification Journey",
+      "titlePrefix": "From field visit to",
+      "titleHighlight": "sale-ready",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Field Visit & Photos",
+          "description": "Our team physically walks the land and captures real, dated photographs — no stock images.",
+          "icon": "MapPin"
+        },
+        {
+          "step": "02",
+          "title": "Revenue Record Check",
+          "description": "Khasra, khatauni, and mutation records verified against government land registries.",
+          "icon": "FileCheck"
+        },
+        {
+          "step": "03",
+          "title": "Soil & Water Audit",
+          "description": "Soil quality and irrigation source confirmed on-ground before being added to the listing.",
+          "icon": "Droplets"
+        },
+        {
+          "step": "04",
+          "title": "Approval Tagging",
+          "description": "Parcel is tagged Approved, Verified, or Irrigation Confirmed based on what actually checks out.",
+          "icon": "ShieldCheck"
+        }
+      ]
+    },
+    "plots": {
+      "badgeEmoji": "🌾",
+      "badgeLabel": "Agricultural Parcels Available Now",
+      "titlePrefix": "Land ready for your",
+      "titleHighlight": "next harvest",
+      "plots": [
+        {
+          "id": 301,
+          "title": "Fertile Farmland - Sonipat Belt",
+          
+          "size": "4 acres",
+          "type": "Agricultural Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "North",
+          "owner": "Sonipat Krishi Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700",
+            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
+            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["Canal Irrigation", "Fertile Loam Soil", "Road Access", "Electricity"],
+          "verification": "Verified",
+          "measurement": "4 acres = 1,74,240 sq.ft"
+        },
+        {
+          "id": 302,
+          "title": "Coconut Grove Farmland - ECR Outskirts",
+          
+          "size": "2.5 acres",
+          "type": "Agricultural Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "East",
+          "owner": "Coastal Agro Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=700",
+            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
+            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["Borewell", "Coconut Plantation", "Sandy Loam Soil", "Road Access"],
+          "verification": "Approved",
+          "measurement": "2.5 acres = 1,08,900 sq.ft"
+        },
+        {
+          "id": 303,
+          "title": "Vineyard-Ready Farmland - Nashik Belt",
+         
+          "size": "3.2 acres",
+          "type": "Agricultural Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "South-West",
+          "owner": "Sahyadri Agro Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700",
+            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
+            "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Drip Irrigation", "Black Cotton Soil", "Borewell", "Road Access"],
+          "verification": "RERA Registered",
+          "measurement": "3.2 acres = 1,39,392 sq.ft"
+        },
+        {
+          "id": 304,
+          "title": "Paddy Farmland - Mandya District",
+          
+          "size": "5 acres",
+          "type": "Agricultural Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "North-East",
+          "owner": "Cauvery Agro Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
+            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700",
+            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700"
+          ],
+          "rating": 4.7,
+          "amenities": ["Canal Irrigation", "Clay Soil", "Tractor Access", "Electricity"],
+          "verification": "Verified",
+          "measurement": "5 acres = 2,17,800 sq.ft"
+        },
+        {
+          "id": 305,
+          "title": "Orchard Farmland - Meerut Belt",
+         
+          "size": "3.5 acres",
+          "type": "Agricultural Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "East",
+          "owner": "Doab Agro Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
+            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700",
+            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["Tubewell", "Alluvial Soil", "Mango Orchard", "Road Access"],
+          "verification": "Approved",
+          "measurement": "3.5 acres = 1,52,460 sq.ft"
+        },
+        {
+          "id": 306,
+          "title": "Terraced Farmland - Rishikesh Foothills",
+          
+          "size": "2 acres",
+          "type": "Agricultural Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "South",
+          "owner": "Himalayan Agro Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=700",
+            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
+            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700"
+          ],
+          "rating": 4.5,
+          "amenities": ["Natural Spring", "Terraced Fields", "Rocky-Loam Soil", "Road Access"],
+          "verification": "Verified",
+          "measurement": "2 acres = 87,120 sq.ft"
+        }
+      ]
+    },
+    "faq": {
+      "badgeLabel": "Common Questions",
+      "titlePrefix": "Agricultural Land",
+      "titleHighlight": "FAQs",
+      "faqs": [
+        {
+          "question": "How is agricultural land different from other land types on PGI?",
+          "answer": "Agricultural land is zoned for farming use, and each listing includes soil type, irrigation source, and revenue record status — the details that matter most when you're planning to cultivate or invest for the long term."
+        },
+        {
+          "question": "Can non-farmers buy agricultural land in India?",
+          "answer": "Rules vary by state — some states restrict agricultural land purchase to registered farmers. Our team shares the exact eligibility rules for each listing's state before you proceed."
+        },
+        {
+          "question": "How is soil quality verified?",
+          "answer": "Our field team collects on-site samples and records soil type and fertility indicators, which are shared on the listing along with the date of testing."
+        },
+        {
+          "question": "Are the photos and measurements on each listing current?",
+          "answer": "Yes — our verification team re-visits listings periodically, and each parcel shows the date of its last on-site confirmation."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Found your farmland? Let's verify it together.",
+      "description": "Talk to our team about soil reports, irrigation checks, and everything else that goes into an agricultural purchase you won't regret.",
+      "button": { "label": "Talk to a Land Expert →", "url": "/contact" }
+    }
+  },
+  "industrial-land": {
+    "meta": {
+      "title": "Industrial Land Plots | PGI Land Realtors",
+      "description": "Browse verified industrial land across India with power load, road access for heavy vehicles, and complete legal verification."
+    },
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600",
+      "badge": "🏭 Industrial Land",
+      "titleLine1": "Industrial Land",
+      "titleLine2": "Built to Operate On",
+      "subtitle": "650+ verified industrial plots across India — confirmed power load, heavy-vehicle access, and a clean legal title, every time."
+    },
+    "stats": [
+      { "value": "650+", "label": "Industrial Plots" },
+      { "value": "19+", "label": "Industrial Zones" },
+      { "value": "300+", "label": "Approved by SPCB" },
+      { "value": "2,100+", "label": "Units Set Up" }
+    ],
+    "features": {
+      "badgeIcon": "Factory",
+      "badgeLabel": "Why Industrial Land, Verified",
+      "titlePrefix": "Every plot, checked",
+      "titleHighlight": "before it's listed",
+      "description": "Not another listings board. Every industrial plot goes through the same verification standard before it reaches you.",
+      "list": [
+        {
+          "icon": "Truck",
+          "title": "Heavy Vehicle Road Access",
+          "description": "Approach road width and load-bearing capacity confirmed for container and heavy-vehicle movement."
+        },
+        {
+          "icon": "Zap",
+          "title": "High-Capacity Power Load",
+          "description": "Sanctioned industrial power load and substation proximity checked before listing."
+        },
+        {
+          "icon": "FileCheck",
+          "title": "Pollution Control Clearance",
+          "description": "Zoning and State Pollution Control Board clearance status verified for the plot's industrial category."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Clean Title Guarantee",
+          "description": "Legal ownership and encumbrance history checked by our verification team before listing."
+        }
+      ]
+    },
+    "journey": {
+      "badgeLabel": "The Verification Journey",
+      "titlePrefix": "From site visit to",
+      "titleHighlight": "sale-ready",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Site Visit & Photos",
+          "description": "Our team physically walks the plot and captures real, dated photographs — no stock images.",
+          "icon": "MapPin"
+        },
+        {
+          "step": "02",
+          "title": "Zoning & Clearance Check",
+          "description": "Industrial zoning, land-use conversion, and pollution clearance status verified against government records.",
+          "icon": "FileCheck"
+        },
+        {
+          "step": "03",
+          "title": "Infrastructure Audit",
+          "description": "Road width, power load, and water access confirmed on-ground to match what's promised.",
+          "icon": "Ruler"
+        },
+        {
+          "step": "04",
+          "title": "Approval Tagging",
+          "description": "Plot is tagged Approved, Verified, or SPCB Cleared based on what actually checks out.",
+          "icon": "ShieldCheck"
+        }
+      ]
+    },
+    "plots": {
+      "badgeEmoji": "🏭",
+      "badgeLabel": "Industrial Plots Available Now",
+      "titlePrefix": "Land ready for your",
+      "titleHighlight": "next facility",
+      "plots": [
+        {
+          "id": 401,
+          "title": "Industrial Plot - Narela Industrial Area",
+         
+          "size": "1.5 acres",
+          "type": "Industrial Land",
+          "dimensions": "150ft × 435ft",
+          "facing": "Main Road - North",
+          "owner": "Delhi Industrial Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700",
+            "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700",
+            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=700"
+          ],
+          "rating": 4.7,
+          "amenities": ["Heavy Vehicle Access", "3-Phase Power", "Water Supply", "SPCB Approved"],
+          "verification": "Approved",
+          "measurement": "150ft x 435ft = 65,250 sq.ft"
+        },
+        {
+          "id": 402,
+          "title": "Industrial Plot - Sriperumbudur SIPCOT",
+         
+          "size": "2 acres",
+          "type": "Industrial Land",
+          "dimensions": "175ft × 500ft",
+          "facing": "East",
+          "owner": "SIPCOT Allottee Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700",
+            "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700",
+            "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["SIPCOT Zone", "High-Capacity Power", "Effluent Treatment Access", "Wide Road"],
+          "verification": "RERA Registered",
+          "measurement": "175ft x 500ft = 87,500 sq.ft"
+        },
+        {
+          "id": 403,
+          "title": "Industrial Plot - Peenya Industrial Estate",
+         
+          "size": "1.2 acres",
+          "type": "Industrial Land",
+          "dimensions": "130ft × 400ft",
+          "facing": "South",
+          "owner": "Peenya Industrial Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700",
+            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=700",
+            "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["Loading Dock Ready", "3-Phase Power", "Water Supply", "SPCB Approved"],
+          "verification": "Verified",
+          "measurement": "130ft x 400ft = 52,000 sq.ft"
+        },
+        {
+          "id": 404,
+          "title": "Industrial Plot - MIDC Chakan",
+         
+          "size": "1.8 acres",
+          "type": "Industrial Land",
+          "dimensions": "160ft × 490ft",
+          "facing": "North-East",
+          "owner": "MIDC Allottee Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=700",
+            "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700",
+            "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["MIDC Zone", "Heavy Vehicle Access", "High-Capacity Power", "Water Supply"],
+          "verification": "RERA Registered",
+          "measurement": "160ft x 490ft = 78,400 sq.ft"
+        },
+        {
+          "id": 405,
+          "title": "Industrial Plot - Manesar Industrial Estate",
+
+          "size": "2.2 acres",
+          "type": "Industrial Land",
+          "dimensions": "180ft × 530ft",
+          "facing": "East",
+          "owner": "Capital Industrial Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700",
+            "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700",
+            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Auto Ancillary Zone", "High-Capacity Power", "Wide Road", "SPCB Approved"],
+          "verification": "RERA Registered",
+          "measurement": "180ft x 530ft = 95,400 sq.ft"
+        },
+        {
+          "id": 406,
+          "title": "Industrial Plot - Haridwar Industrial Area",
+          
+          "size": "1.4 acres",
+          "type": "Industrial Land",
+          "dimensions": "140ft × 435ft",
+          "facing": "North",
+          "owner": "Himalayan Industrial Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700",
+            "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700",
+            "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700"
+          ],
+          "rating": 4.5,
+          "amenities": ["Tax Exemption Zone", "3-Phase Power", "Water Supply", "Wide Road"],
+          "verification": "Approved",
+          "measurement": "140ft x 435ft = 60,900 sq.ft"
+        }
+      ]
+    },
+    "faq": {
+      "badgeLabel": "Common Questions",
+      "titlePrefix": "Industrial Land",
+      "titleHighlight": "FAQs",
+      "faqs": [
+        {
+          "question": "How is industrial land different from other land types on PGI?",
+          "answer": "Industrial land is zoned specifically for manufacturing or warehousing use, and each listing includes sanctioned power load, road width, and pollution clearance status — the details that matter most when setting up a facility."
+        },
+        {
+          "question": "What does \"SPCB Approved\" mean?",
+          "answer": "It means the plot's industrial category has been cleared by the State Pollution Control Board for the type of operations it's zoned for."
+        },
+        {
+          "question": "Can I check the sanctioned power load before buying?",
+          "answer": "Yes. Every listing includes the sanctioned or available power load as confirmed with the local electricity board, and our team can share supporting documents on request."
+        },
+        {
+          "question": "Are the photos and measurements on each listing current?",
+          "answer": "Yes — our verification team re-visits listings periodically, and each plot shows the date of its last on-site confirmation."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Found your industrial plot? Let's verify it together.",
+      "description": "Talk to our team about power load checks, clearance status, and everything else that goes into an industrial purchase you won't regret.",
+      "button": { "label": "Talk to a Land Expert →", "url": "/contact" }
+    }
+  },
+  "mixed-use-land": {
+    "meta": {
+      "title": "Mixed-Use Land Plots | PGI Land Realtors",
+      "description": "Browse verified mixed-use land plots across India with confirmed zoning flexibility, road access, and complete legal verification."
+    },
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1600",
+      "badge": "🏙️ Mixed-Use Land",
+      "titleLine1": "Mixed-Use Land",
+      "titleLine2": "Built for More Than One Purpose",
+      "subtitle": "540+ verified mixed-use plots across India — confirmed zoning flexibility, road access, and a clean legal title, every time."
+    },
+    "stats": [
+      { "value": "540+", "label": "Mixed-Use Plots" },
+      { "value": "17+", "label": "Cities Covered" },
+      { "value": "250+", "label": "RERA Registered" },
+      { "value": "3,400+", "label": "Developers Served" }
+    ],
+    "features": {
+      "badgeIcon": "Building",
+      "badgeLabel": "Why Mixed-Use Land, Verified",
+      "titlePrefix": "Every plot, checked",
+      "titleHighlight": "before it's listed",
+      "description": "Not another listings board. Every mixed-use plot goes through the same verification standard before it reaches you.",
+      "list": [
+        {
+          "icon": "Compass",
+          "title": "Verified Zoning & Dimensions",
+          "description": "Every plot lists confirmed mixed-use zoning permissions and exact boundary measurements, checked on-site."
+        },
+        {
+          "icon": "TrendingUp",
+          "title": "Residential + Commercial FSI Confirmed",
+          "description": "Permissible Floor Space Index for both residential and commercial use verified with local authorities."
+        },
+        {
+          "icon": "Zap",
+          "title": "Utility & Road Access",
+          "description": "Water, electricity, and road-width details included so you know what you can build."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Clean Title Guarantee",
+          "description": "Legal ownership and encumbrance history checked by our verification team before listing."
+        }
+      ]
+    },
+    "journey": {
+      "badgeLabel": "The Verification Journey",
+      "titlePrefix": "From site visit to",
+      "titleHighlight": "sale-ready",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Site Visit & Photos",
+          "description": "Our team physically walks the plot and captures real, dated photographs — no stock images.",
+          "icon": "MapPin"
+        },
+        {
+          "step": "02",
+          "title": "Zoning Document Check",
+          "description": "Title deed, encumbrance certificate, and mixed-use zoning approval verified against government registries.",
+          "icon": "FileCheck"
+        },
+        {
+          "step": "03",
+          "title": "Measurement Audit",
+          "description": "Exact dimensions and boundaries confirmed on-ground to match the sale deed — down to the foot.",
+          "icon": "Ruler"
+        },
+        {
+          "step": "04",
+          "title": "Approval Tagging",
+          "description": "Plot is tagged Approved, Verified, or RERA Registered based on what actually checks out.",
+          "icon": "ShieldCheck"
+        }
+      ]
+    },
+    "plots": {
+      "badgeEmoji": "🏙️",
+      "badgeLabel": "Mixed-Use Plots Available Now",
+      "titlePrefix": "Plots ready for your",
+      "titleHighlight": "next development",
+      "plots": [
+        {
+          "id": 501,
+          "title": "Mixed-Use Plot - Dwarka Sector 21",
+         
+          "size": "700 sq.yds",
+          "type": "Mixed-Use Land",
+          "dimensions": "42ft × 75ft",
+          "facing": "North-East",
+          "owner": "Delhi Mixed Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700",
+            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700",
+            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["Residential + Retail FSI", "Wide Road", "Water Supply", "Electricity"],
+          "verification": "RERA Registered",
+          "measurement": "42ft x 75ft = 3,150 sq.ft"
+        },
+        {
+          "id": 502,
+          "title": "Mixed-Use Plot - Anna Nagar Extension",
+        
+          "size": "600 sq.yds",
+          "type": "Mixed-Use Land",
+          "dimensions": "36ft × 66ft",
+          "facing": "East",
+          "owner": "Coastal Mixed Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1494526585095-c41746248156?w=700",
+            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700",
+            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700"
+          ],
+          "rating": 4.7,
+          "amenities": ["Ground-Floor Retail Permitted", "Wide Road", "Water Supply", "Electricity"],
+          "verification": "Verified",
+          "measurement": "36ft x 66ft = 2,376 sq.ft"
+        },
+        {
+          "id": 503,
+          "title": "Mixed-Use Plot - Sarjapur Road",
+        
+          "size": "650 sq.yds",
+          "type": "Mixed-Use Land",
+          "dimensions": "39ft × 70ft",
+          "facing": "South",
+          "owner": "Green Valley Mixed Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700",
+            "https://images.unsplash.com/photo-1494526585095-c41746248156?w=700",
+            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["IT Corridor Adjacent", "Wide Road", "Underground Wiring", "Park Facing"],
+          "verification": "Approved",
+          "measurement": "39ft x 70ft = 2,730 sq.ft"
+        },
+        {
+          "id": 504,
+          "title": "Mixed-Use Plot - Lonavala Town Center",
+         
+          "size": "550 sq.yds",
+          "type": "Mixed-Use Land",
+          "dimensions": "33ft × 60ft",
+          "facing": "West",
+          "owner": "Sahyadri Mixed Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700",
+            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700",
+            "https://images.unsplash.com/photo-1494526585095-c41746248156?w=700"
+          ],
+          "rating": 4.5,
+          "amenities": ["Tourist Zone", "Hill View", "Electricity", "Drainage"],
+          "verification": "Approved",
+          "measurement": "33ft x 60ft = 1,980 sq.ft"
+        },
+        {
+          "id": 505,
+          "title": "Mixed-Use Plot - Gurugram Sector 84",
+         
+          "size": "800 sq.yds",
+          "type": "Mixed-Use Land",
+          "dimensions": "45ft × 80ft",
+          "facing": "East",
+          "owner": "Capital Mixed Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700",
+            "https://images.unsplash.com/photo-1494526585095-c41746248156?w=700",
+            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["RERA Registered", "Wide Road", "Retail + Residential FSI", "Park"],
+          "verification": "RERA Registered",
+          "measurement": "45ft x 80ft = 3,600 sq.ft"
+        },
+        {
+          "id": 506,
+          "title": "Mixed-Use Plot - Rishikesh Market Road",
+          
+          "size": "500 sq.yds",
+          "type": "Mixed-Use Land",
+          "dimensions": "30ft × 55ft",
+          "facing": "North",
+          "owner": "Himalayan Mixed Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700",
+            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700",
+            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700"
+          ],
+          "rating": 4.4,
+          "amenities": ["Market Road Frontage", "Water Supply", "Electricity"],
+          "verification": "Verified",
+          "measurement": "30ft x 55ft = 1,650 sq.ft"
+        }
+      ]
+    },
+    "faq": {
+      "badgeLabel": "Common Questions",
+      "titlePrefix": "Mixed-Use Land",
+      "titleHighlight": "FAQs",
+      "faqs": [
+        {
+          "question": "How is a mixed-use plot different from other land types on PGI?",
+          "answer": "Mixed-use plots are zoned to allow both residential and commercial construction on the same parcel, and each listing includes the permissible FSI split for each use — the details that matter most for developers planning a combined project."
+        },
+        {
+          "question": "What does the \"RERA Registered\" tag mean?",
+          "answer": "It means the plot and its developer are registered under the Real Estate (Regulation and Development) Act, giving you added legal protection and transparency on project timelines."
+        },
+        {
+          "question": "Can I build only commercial or only residential on a mixed-use plot?",
+          "answer": "Yes, in most cases — mixed-use zoning gives flexibility, but the exact permissible ratio varies by municipality. Our team shares the local zoning rules for each listing before you proceed."
+        },
+        {
+          "question": "Are the photos and measurements on each listing current?",
+          "answer": "Yes — our verification team re-visits listings periodically, and each plot shows the date of its last on-site confirmation."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Found your mixed-use plot? Let's verify it together.",
+      "description": "Talk to our team about zoning flexibility, site visits, and everything else that goes into a mixed-use purchase you won't regret.",
+      "button": { "label": "Talk to a Land Expert →", "url": "/contact" }
+    }
+  },
+  "plotted-development": {
+    "meta": {
+      "title": "Plotted Development Land | PGI Land Realtors",
+      "description": "Browse verified plots inside gated, layout-approved plotted developments across India with complete legal verification."
+    },
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=1600",
+      "badge": "📐 Plotted Development",
+      "titleLine1": "Plotted Development",
+      "titleLine2": "Laid Out, Approved, Ready",
+      "subtitle": "1,050+ verified plots inside approved layouts across India — confirmed layout sanction, infrastructure, and a clean legal title, every time."
+    },
+    "stats": [
+      { "value": "1,050+", "label": "Layout Plots" },
+      { "value": "24+", "label": "Approved Layouts" },
+      { "value": "520+", "label": "RERA Registered" },
+      { "value": "6,700+", "label": "Happy Families" }
+    ],
+    "features": {
+      "badgeIcon": "LayoutGrid",
+      "badgeLabel": "Why Plotted Development, Verified",
+      "titlePrefix": "Every layout, checked",
+      "titleHighlight": "before it's listed",
+      "description": "Not another listings board. Every plotted development goes through the same verification standard before it reaches you.",
+      "list": [
+        {
+          "icon": "FileCheck",
+          "title": "Layout Approval Confirmed",
+          "description": "Development authority layout sanction number verified before any plot inside it is listed."
+        },
+        {
+          "icon": "Route",
+          "title": "Internal Roads & Infrastructure",
+          "description": "Internal road width, stormwater drains, and street lighting checked across the layout."
+        },
+        {
+          "icon": "Zap",
+          "title": "Electricity & Water Network",
+          "description": "Underground cabling and piped water connection to each plot verified before listing."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Clean Title Guarantee",
+          "description": "Legal ownership and encumbrance history checked by our verification team before listing."
+        }
+      ]
+    },
+    "journey": {
+      "badgeLabel": "The Verification Journey",
+      "titlePrefix": "From layout approval to",
+      "titleHighlight": "sale-ready",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Layout Visit & Photos",
+          "description": "Our team physically walks the layout and captures real, dated photographs — no stock images.",
+          "icon": "MapPin"
+        },
+        {
+          "step": "02",
+          "title": "Sanction Document Check",
+          "description": "Layout approval, title deed, and mutation records verified against development authority registries.",
+          "icon": "FileCheck"
+        },
+        {
+          "step": "03",
+          "title": "Measurement Audit",
+          "description": "Exact plot dimensions and boundaries confirmed on-ground to match the approved layout plan.",
+          "icon": "Ruler"
+        },
+        {
+          "step": "04",
+          "title": "Approval Tagging",
+          "description": "Plot is tagged Approved, Verified, or RERA Registered based on what actually checks out.",
+          "icon": "ShieldCheck"
+        }
+      ]
+    },
+    "plots": {
+      "badgeEmoji": "📐",
+      "badgeLabel": "Layout Plots Available Now",
+      "titlePrefix": "Plots ready inside",
+      "titleHighlight": "approved layouts",
+      "plots": [
+        {
+          "id": 601,
+          "title": "Layout Plot - Sector 150 Plotted Colony",
+         
+          "size": "300 sq.yds",
+          "type": "Plotted Development",
+          "dimensions": "27ft × 45ft",
+          "facing": "North",
+          "owner": "Noida Plotted Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700",
+            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700",
+            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["Approved Layout", "Underground Wiring", "Internal Roads", "Park Facing"],
+          "verification": "RERA Registered",
+          "measurement": "27ft x 45ft = 1,215 sq.ft"
+        },
+        {
+          "id": 602,
+          "title": "Layout Plot - Thoraipakkam Plotted Enclave",
+        
+          "size": "400 sq.yds",
+          "type": "Plotted Development",
+          "dimensions": "30ft × 60ft",
+          "facing": "East",
+          "owner": "Coastal Plotted Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
+            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700"
+          ],
+          "rating": 4.7,
+          "amenities": ["Gated Layout", "Water Supply", "Electricity", "Wide Road"],
+          "verification": "Approved",
+          "measurement": "30ft x 60ft = 1,800 sq.ft"
+        },
+        {
+          "id": 603,
+          "title": "Layout Plot - Sarjapur Plotted Township",
+         
+          "size": "350 sq.yds",
+          "type": "Plotted Development",
+          "dimensions": "28ft × 52ft",
+          "facing": "North-East",
+          "owner": "Green Valley Plotted Developers",
+          "images": [
+            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700",
+            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700",
+            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Clubhouse", "Security", "Underground Wiring", "Park Facing"],
+          "verification": "RERA Registered",
+          "measurement": "28ft x 52ft = 1,456 sq.ft"
+        },
+        {
+          "id": 604,
+          "title": "Layout Plot - Lonavala Hillside Colony",
+         
+          "size": "320 sq.yds",
+          "type": "Plotted Development",
+          "dimensions": "26ft × 48ft",
+          "facing": "South",
+          "owner": "Sahyadri Plotted Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
+            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["Hill View", "Gated Entry", "Electricity", "Drainage"],
+          "verification": "Approved",
+          "measurement": "26ft x 48ft = 1,248 sq.ft"
+        },
+        {
+          "id": 605,
+          "title": "Layout Plot - Sector 108 Plotted Colony",
+         
+          "size": "380 sq.yds",
+          "type": "Plotted Development",
+          "dimensions": "29ft × 58ft",
+          "facing": "East",
+          "owner": "Capital Plotted Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700",
+            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["RERA Registered", "Wide Road", "Underground Wiring", "Park"],
+          "verification": "RERA Registered",
+          "measurement": "29ft x 58ft = 1,682 sq.ft"
+        },
+        {
+          "id": 606,
+          "title": "Layout Plot - Rishikesh Riverside Colony",
+          
+          "size": "300 sq.yds",
+          "type": "Plotted Development",
+          "dimensions": "25ft × 45ft",
+          "facing": "North-East",
+          "owner": "Himalayan Plotted Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
+            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700"
+          ],
+          "rating": 4.5,
+          "amenities": ["River View", "Water Supply", "Wide Road"],
+          "verification": "Verified",
+          "measurement": "25ft x 45ft = 1,125 sq.ft"
+        }
+      ]
+    },
+    "faq": {
+      "badgeLabel": "Common Questions",
+      "titlePrefix": "Plotted Development",
+      "titleHighlight": "FAQs",
+      "faqs": [
+        {
+          "question": "How is a plotted development different from a standalone residential plot?",
+          "answer": "Plots inside a plotted development sit within a single approved layout with shared internal roads, drainage, and often a clubhouse or security — and each listing includes the layout's official sanction number."
+        },
+        {
+          "question": "What does the \"RERA Registered\" tag mean?",
+          "answer": "It means the plot and its developer are registered under the Real Estate (Regulation and Development) Act, giving you added legal protection and transparency on project timelines."
+        },
+        {
+          "question": "Is the layout approval checked for the entire development, or just my plot?",
+          "answer": "We verify the layout's overall sanction from the development authority first, then confirm your specific plot's dimensions and title against that approved plan."
+        },
+        {
+          "question": "Are the photos and measurements on each listing current?",
+          "answer": "Yes — our verification team re-visits listings periodically, and each plot shows the date of its last on-site confirmation."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Found your layout plot? Let's verify it together.",
+      "description": "Talk to our team about layout approvals, site visits, and everything else that goes into a plotted development purchase you won't regret.",
+      "button": { "label": "Talk to a Land Expert →", "url": "/contact" }
+    }
+  },
+  "farm-land": {
+    "meta": {
+      "title": "Farm Land Plots | PGI Land Realtors",
+      "description": "Browse verified farm land across India with farmhouse potential, water source, and complete legal verification."
+    },
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1600",
+      "badge": "🚜 Farm Land",
+      "titleLine1": "Farm Land",
+      "titleLine2": "Room to Grow and Live",
+      "subtitle": "980+ verified farm land parcels across India — confirmed water source, farmhouse eligibility, and a clean legal title, every time."
+    },
+    "stats": [
+      { "value": "980+", "label": "Farm Land Parcels" },
+      { "value": "20+", "label": "States Covered" },
+      { "value": "410+", "label": "Farmhouse Eligible" },
+      { "value": "5,900+", "label": "Happy Owners" }
+    ],
+    "features": {
+      "badgeIcon": "Wheat",
+      "badgeLabel": "Why Farm Land, Verified",
+      "titlePrefix": "Every parcel, checked",
+      "titleHighlight": "before it's listed",
+      "description": "Not another listings board. Every farm land parcel goes through the same verification standard before it reaches you.",
+      "list": [
+        {
+          "icon": "Droplets",
+          "title": "Water Source Verified",
+          "description": "Borewell depth, pond, or canal access checked on-site before it's added to the listing."
+        },
+        {
+          "icon": "TreePine",
+          "title": "Farmhouse Construction Eligibility",
+          "description": "Local norms for farmhouse or weekend-home construction on the parcel confirmed with authorities."
+        },
+        {
+          "icon": "Route",
+          "title": "All-Weather Road Access",
+          "description": "Approach road checked to confirm year-round accessibility, not just during dry months."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Clean Title Guarantee",
+          "description": "Legal ownership and encumbrance history checked by our verification team before listing."
+        }
+      ]
+    },
+    "journey": {
+      "badgeLabel": "The Verification Journey",
+      "titlePrefix": "From field visit to",
+      "titleHighlight": "sale-ready",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Field Visit & Photos",
+          "description": "Our team physically walks the land and captures real, dated photographs — no stock images.",
+          "icon": "MapPin"
+        },
+        {
+          "step": "02",
+          "title": "Revenue Record Check",
+          "description": "Khasra, khatauni, and mutation records verified against government land registries.",
+          "icon": "FileCheck"
+        },
+        {
+          "step": "03",
+          "title": "Water & Access Audit",
+          "description": "Water source and approach road confirmed on-ground before being added to the listing.",
+          "icon": "Droplets"
+        },
+        {
+          "step": "04",
+          "title": "Approval Tagging",
+          "description": "Parcel is tagged Approved, Verified, or Farmhouse Eligible based on what actually checks out.",
+          "icon": "ShieldCheck"
+        }
+      ]
+    },
+    "plots": {
+      "badgeEmoji": "🚜",
+      "badgeLabel": "Farm Land Available Now",
+      "titlePrefix": "Land ready for your",
+      "titleHighlight": "next weekend home",
+      "plots": [
+        {
+          "id": 701,
+          "title": "Farm Land with Farmhouse Potential - Faridabad Belt",
+         
+          "size": "3 acres",
+          "type": "Farm Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "North",
+          "owner": "Faridabad Farm Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700",
+            "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700",
+            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["Borewell", "Farmhouse Eligible", "All-Weather Road", "Electricity"],
+          "verification": "Verified",
+          "measurement": "3 acres = 1,30,680 sq.ft"
+        },
+        {
+          "id": 702,
+          "title": "Riverside Farm Land - ECR Outskirts",
+        
+          "size": "2 acres",
+          "type": "Farm Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "East",
+          "owner": "Coastal Farm Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
+            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700",
+            "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["River Access", "Coconut Grove", "Sandy Loam Soil", "Road Access"],
+          "verification": "Approved",
+          "measurement": "2 acres = 87,120 sq.ft"
+        },
+        {
+          "id": 703,
+          "title": "Vineyard Farm Land with Cottage - Nashik Belt",
+        
+          "size": "3.5 acres",
+          "type": "Farm Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "South-West",
+          "owner": "Sahyadri Farm Ventures",
+          "images": [
+            "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700",
+            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700",
+            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Drip Irrigation", "Farmhouse Eligible", "Borewell", "All-Weather Road"],
+          "verification": "RERA Registered",
+          "measurement": "3.5 acres = 1,52,460 sq.ft"
+        },
+        {
+          "id": 704,
+          "title": "Organic Farm Land - Mandya District",
+        
+          "size": "4 acres",
+          "type": "Farm Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "North-East",
+          "owner": "Cauvery Farm Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
+            "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700",
+            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700"
+          ],
+          "rating": 4.7,
+          "amenities": ["Canal Irrigation", "Clay Soil", "Tractor Access", "Electricity"],
+          "verification": "Verified",
+          "measurement": "4 acres = 1,74,240 sq.ft"
+        },
+        {
+          "id": 705,
+          "title": "Farm Land with Orchard - Meerut Belt",
+        
+          "size": "3 acres",
+          "type": "Farm Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "East",
+          "owner": "Doab Farm Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
+            "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700",
+            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["Tubewell", "Mango Orchard", "Farmhouse Eligible", "Road Access"],
+          "verification": "Approved",
+          "measurement": "3 acres = 1,30,680 sq.ft"
+        },
+        {
+          "id": 706,
+          "title": "Foothill Farm Land with Cottage - Rishikesh",
+         
+          "size": "1.5 acres",
+          "type": "Farm Land",
+          "dimensions": "Irregular - Survey Marked",
+          "facing": "South",
+          "owner": "Himalayan Farm Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700",
+            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
+            "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700"
+          ],
+          "rating": 4.5,
+          "amenities": ["Natural Spring", "Terraced Fields", "Hill View", "Road Access"],
+          "verification": "Verified",
+          "measurement": "1.5 acres = 65,340 sq.ft"
+        }
+      ]
+    },
+    "faq": {
+      "badgeLabel": "Common Questions",
+      "titlePrefix": "Farm Land",
+      "titleHighlight": "FAQs",
+      "faqs": [
+        {
+          "question": "How is farm land different from agricultural land on PGI?",
+          "answer": "Farm land listings are curated for buyers who also want a weekend home or farmhouse on the parcel, so each listing includes farmhouse construction eligibility alongside soil and irrigation details."
+        },
+        {
+          "question": "Can I legally build a farmhouse on farm land?",
+          "answer": "It depends on the state and district norms — some areas permit a limited built-up area for farmhouse use. Our team confirms the exact eligibility for each listing before you proceed."
+        },
+        {
+          "question": "Is the water source tested for both drinking and irrigation use?",
+          "answer": "Our field team records the water source type and depth on-site; for drinking-water suitability we recommend an independent lab test, which we can help arrange."
+        },
+        {
+          "question": "Are the photos and measurements on each listing current?",
+          "answer": "Yes — our verification team re-visits listings periodically, and each parcel shows the date of its last on-site confirmation."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Found your farm land? Let's verify it together.",
+      "description": "Talk to our team about farmhouse eligibility, water source checks, and everything else that goes into a farm land purchase you won't regret.",
+      "button": { "label": "Talk to a Land Expert →", "url": "/contact" }
+    }
+  },
+  "hill-view-plot": {
+    "meta": {
+      "title": "Hill View Plots | PGI Land Realtors",
+      "description": "Browse verified hill view plots across India with confirmed slope stability, view orientation, and complete legal verification."
+    },
+    "hero": {
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600",
+      "badge": "⛰️ Hill View Plot",
+      "titleLine1": "Hill View Plots",
+      "titleLine2": "Wake Up to the View",
+      "subtitle": "430+ verified hill view plots across India — confirmed slope stability, unobstructed view orientation, and a clean legal title, every time."
+    },
+    "stats": [
+      { "value": "430+", "label": "Hill View Plots" },
+      { "value": "14+", "label": "Hill Destinations" },
+      { "value": "190+", "label": "RERA Registered" },
+      { "value": "2,800+", "label": "Happy Families" }
+    ],
+    "features": {
+      "badgeIcon": "Mountain",
+      "badgeLabel": "Why Hill View Plots, Verified",
+      "titlePrefix": "Every plot, checked",
+      "titleHighlight": "before it's listed",
+      "description": "Not another listings board. Every hill view plot goes through the same verification standard before it reaches you.",
+      "list": [
+        {
+          "icon": "Mountain",
+          "title": "Slope & Soil Stability Checked",
+          "description": "Slope gradient and soil-retention capacity assessed to confirm the plot is safe to build on."
+        },
+        {
+          "icon": "Compass",
+          "title": "View Orientation Confirmed",
+          "description": "Sightline to the valley or peak verified in person — not just claimed in photos."
+        },
+        {
+          "icon": "Route",
+          "title": "All-Weather Road Access",
+          "description": "Approach road checked to confirm it stays accessible through monsoon and winter months."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Clean Title Guarantee",
+          "description": "Legal ownership and encumbrance history checked by our verification team before listing."
+        }
+      ]
+    },
+    "journey": {
+      "badgeLabel": "The Verification Journey",
+      "titlePrefix": "From site visit to",
+      "titleHighlight": "sale-ready",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Site Visit & Photos",
+          "description": "Our team physically walks the plot and captures real, dated photographs of the actual view — no stock images.",
+          "icon": "MapPin"
+        },
+        {
+          "step": "02",
+          "title": "Document Check",
+          "description": "Title deed, encumbrance certificate, and mutation records verified against government registries.",
+          "icon": "FileCheck"
+        },
+        {
+          "step": "03",
+          "title": "Slope & Measurement Audit",
+          "description": "Slope gradient, boundaries, and dimensions confirmed on-ground to match the sale deed.",
+          "icon": "Ruler"
+        },
+        {
+          "step": "04",
+          "title": "Approval Tagging",
+          "description": "Plot is tagged Approved, Verified, or RERA Registered based on what actually checks out.",
+          "icon": "ShieldCheck"
+        }
+      ]
+    },
+    "plots": {
+      "badgeEmoji": "⛰️",
+      "badgeLabel": "Hill View Plots Available Now",
+      "titlePrefix": "Plots ready for your",
+      "titleHighlight": "next getaway home",
+      "plots": [
+        {
+          "id": 801,
+          "title": "Valley View Plot - Shimla Outskirts",
+        
+          "size": "400 sq.yds",
+          "type": "Hill View Plot",
+          "dimensions": "30ft × 55ft",
+          "facing": "North-East",
+          "owner": "Himachal Hill Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700",
+            "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=700",
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Unobstructed Valley View", "All-Weather Road", "Electricity", "Water Supply"],
+          "verification": "Verified",
+          "measurement": "30ft x 55ft = 1,650 sq.ft"
+        },
+        {
+          "id": 802,
+          "title": "Tea Garden View Plot - Munnar",
+        
+          "size": "350 sq.yds",
+          "type": "Hill View Plot",
+          "dimensions": "28ft × 50ft",
+          "facing": "East",
+          "owner": "Western Ghats Hill Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=700",
+            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700",
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["Tea Garden View", "Cool Climate", "All-Weather Road", "Water Supply"],
+          "verification": "Approved",
+          "measurement": "28ft x 50ft = 1,400 sq.ft"
+        },
+        {
+          "id": 803,
+          "title": "Sunrise Point Plot - Nandi Hills Vicinity",
+         
+          "size": "320 sq.yds",
+          "type": "Hill View Plot",
+          "dimensions": "26ft × 48ft",
+          "facing": "East",
+          "owner": "Green Valley Hill Developers",
+          "images": [
+            "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=700",
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700",
+            "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=700"
+          ],
+          "rating": 4.7,
+          "amenities": ["Sunrise-Facing", "Gated Entry", "Electricity", "Drainage"],
+          "verification": "Verified",
+          "measurement": "26ft x 48ft = 1,248 sq.ft"
+        },
+        {
+          "id": 804,
+          "title": "Panoramic Ridge Plot - Lonavala Hills",
+          
+          "size": "450 sq.yds",
+          "type": "Hill View Plot",
+          "dimensions": "32ft × 58ft",
+          "facing": "South-West",
+          "owner": "Sahyadri Hill Estates",
+          "images": [
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700",
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700",
+            "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=700"
+          ],
+          "rating": 4.8,
+          "amenities": ["Panoramic Ridge View", "Gated Entry", "Electricity", "All-Weather Road"],
+          "verification": "Approved",
+          "measurement": "32ft x 58ft = 1,856 sq.ft"
+        },
+        {
+          "id": 805,
+          "title": "Forest Edge Hill Plot - Kasauli",
+         
+          "size": "500 sq.yds",
+          "type": "Hill View Plot",
+          "dimensions": "35ft × 62ft",
+          "facing": "North",
+          "owner": "Himalayan Ridge Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700",
+            "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=700",
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700"
+          ],
+          "rating": 4.9,
+          "amenities": ["Forest-Edge Location", "Pine View", "Water Supply", "All-Weather Road"],
+          "verification": "RERA Registered",
+          "measurement": "35ft x 62ft = 2,170 sq.ft"
+        },
+        {
+          "id": 806,
+          "title": "Riverside Hill Plot - Rishikesh Foothills",
+        
+          "size": "400 sq.yds",
+          "type": "Hill View Plot",
+          "dimensions": "29ft × 52ft",
+          "facing": "North-East",
+          "owner": "Himalayan Hill Realty",
+          "images": [
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700",
+            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700",
+            "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=700"
+          ],
+          "rating": 4.6,
+          "amenities": ["River & Hill View", "Water Supply", "Wide Road"],
+          "verification": "Verified",
+          "measurement": "29ft x 52ft = 1,508 sq.ft"
+        }
+      ]
+    },
+    "faq": {
+      "badgeLabel": "Common Questions",
+      "titlePrefix": "Hill View Plot",
+      "titleHighlight": "FAQs",
+      "faqs": [
+        {
+          "question": "How is a hill view plot different from other land types on PGI?",
+          "answer": "Hill view plots are assessed for slope stability and view orientation in addition to the standard checks, and each listing confirms the exact sightline — valley, ridge, or forest — verified in person."
+        },
+        {
+          "question": "Is it safe to build on a sloped hill plot?",
+          "answer": "Slope gradient and soil-retention capacity are assessed for every listed plot; steep or unstable sections are flagged clearly so you know what retaining or foundation work may be needed."
+        },
+        {
+          "question": "Is the road to the plot accessible year-round?",
+          "answer": "We verify all-weather accessibility as part of the site visit, and any seasonal access limitations — such as monsoon landslide risk — are noted on the listing."
+        },
+        {
+          "question": "Are the photos and measurements on each listing current?",
+          "answer": "Yes — our verification team re-visits listings periodically, and each plot shows the date of its last on-site confirmation."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Found your hill view plot? Let's verify it together.",
+      "description": "Talk to our team about slope checks, site visits, and everything else that goes into a hill view purchase you won't regret.",
+      "button": { "label": "Talk to a Land Expert →", "url": "/contact" }
+    }
+  }
+
+}

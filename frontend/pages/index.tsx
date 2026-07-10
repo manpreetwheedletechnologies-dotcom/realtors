@@ -868,7 +868,7 @@ export default function Home() {
                   loop
                   muted
                   playsInline
-                  src="https://3dbharat.com/video/header-video1.mp4"
+                  src="/residential.mp4"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
