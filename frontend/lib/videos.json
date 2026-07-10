@@ -1,0 +1,48 @@
+[
+  {
+    "src": "/videos/02.mp4",
+    "title": "buildsmart Residential Building Creation",
+    "subtitle": "South Delhi • 3 BHK Apartment Construction",
+    "badge": "HD Animation",
+    "size": "large",
+    "tag": "Featured"
+  },
+  {
+    "src": "/videos/03.mp4",
+    "title": "buildsmart Commercial Building Creation",
+    "subtitle": "Mumbai • BKC Office Complex Construction",
+    "size": "small",
+    "tag": "Commercial"
+  },
+  {
+    "src": "/videos/05.mp4",
+    "title": "buildsmart Agricultural Facility Creation",
+    "subtitle": "Bangalore • Farm Structure Construction",
+    "size": "small",
+    "tag": "Agricultural"
+  },
+  {
+    "src": "/videos/04.mp4",
+    "title": "buildsmart Industrial Building Creation",
+    "subtitle": "Andheri, Mumbai • Plot Construction Animation",
+    "badge": "New",
+    "size": "large",
+    "tag": "Industrial"
+  },
+  {
+    "src": "/videos/06.mp4",
+    "title": "buildsmart Office Building Creation",
+    "subtitle": "Andheri, Mumbai • Corporate Space Construction",
+    "badge": "New",
+    "size": "large",
+    "tag": "Commercial"
+  },
+  {
+    "src": "/videos/01.mp4",
+    "title": "buildsmart Mixed-Use Building Creation",
+    "subtitle": "Andheri, Mumbai • Ready-to-Build Concept",
+    "badge": "New",
+    "size": "large",
+    "tag": "Industrial"
+  }
+]

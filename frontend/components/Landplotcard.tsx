@@ -60,21 +60,6 @@ export default function LandPlotCard({ land, index = 0 }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Live preview pill */}
-        {images.length > 1 && (
-          <motion.div
-            className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2.5 py-1 bg-black/50 backdrop-blur-sm rounded-full text-[10px] font-bold text-white uppercase tracking-wide z-10"
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <motion.span
-              className="w-1.5 h-1.5 rounded-full bg-red-400"
-              animate={{ opacity: [1, 0.3, 1] }}
-              transition={{ duration: 1.4, repeat: Infinity }}
-            />
-            Live
-          </motion.div>
-        )}
 
         <div className="absolute top-3 left-3 px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-full z-10">
           {land.type}
@@ -89,7 +74,7 @@ export default function LandPlotCard({ land, index = 0 }) {
               e.stopPropagation();
               setIsSaved(!isSaved);
             }}
-            className="w-7 h-7 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full hover:scale-110 transition-transform"
+            className="w-7 h-7 flex items-center justify-center backdrop-blur-sm rounded-full hover:scale-110 transition-transform"
             aria-label={isSaved ? 'Remove from saved' : 'Save plot'}
           >
             <motion.span
@@ -139,11 +124,11 @@ export default function LandPlotCard({ land, index = 0 }) {
             ✅ {land.verification}
           </span>
         </div>
-        <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">📍 {land.location}</p>
-        <div className="flex items-center justify-between mb-3">
+        {/* <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">📍 {land.location}</p> */}
+        {/* <div className="flex items-center justify-between mb-3">
           <span className="text-xl font-bold text-emerald-600">{land.price}</span>
           <span className="text-xs text-gray-500">{land.measurement}</span>
-        </div>
+        </div> */}
 
         <div className="flex flex-wrap gap-1 mb-3">
           {land.amenities.slice(0, 3).map((amenity, i) => (
@@ -158,7 +143,7 @@ export default function LandPlotCard({ land, index = 0 }) {
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+        {/* <div className="flex items-center justify-between pt-3 border-t border-gray-100">
           <span className="text-xs text-gray-600">👤 {land.owner}</span>
           <motion.button
             className="px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl text-xs font-bold hover:shadow-lg transition-all"
@@ -167,7 +152,7 @@ export default function LandPlotCard({ land, index = 0 }) {
           >
             View Details
           </motion.button>
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );

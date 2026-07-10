@@ -6,7 +6,7 @@ import LandPlotCard from './Landplotcard';
 // (2-3 real, type-matched photos) instead of a single `image`. LandPlotCard
 // auto-cycles through these with a crossfade + slow zoom to feel "live".
 export const featuredLands = [
-  {
+   {
     id: 1,
     title: 'Prime Residential Plot - South Delhi',
     location: 'South Delhi, Delhi',
@@ -17,9 +17,11 @@ export const featuredLands = [
     facing: 'North-East',
     owner: 'Shree Builders Pvt Ltd',
     images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700',
-      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700'
+      '/residential3.png',
+      "/residential1.png",
+      "/residential2.png",
+       "/residential4.png",
+      "/residential5.png"
     ],
     rating: 4.9,
     amenities: ['Corner Plot', 'Wide Road', 'Water Supply', 'Electricity', 'Drainage'],
@@ -37,9 +39,14 @@ export const featuredLands = [
     facing: 'East',
     owner: 'Green Valley Farms',
     images: [
-      'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700',
-      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700',
-      'https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700'
+      "/agri1.jpg",
+      "/agri2.jpg",
+      "/agri3.jpg",
+      "/agri4.jpg",
+      "/agri5.jpg",
+      "/agri6.jpg",
+      "/agri7.png",
+      "/agri8.png"
     ],
     rating: 4.7,
     amenities: ['Fertile Soil', 'Water Borewell', 'Fencing', 'Farm House'],
@@ -57,9 +64,11 @@ export const featuredLands = [
     facing: 'West',
     owner: 'Bombay Land Developers',
     images: [
-      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700',
-      'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700',
-      'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=700'
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
+      "/commercial1.jpg",
+      "/commercial2.jpg",
+      "/commercial3.jpg",
+      "/commercial4.jpg"
     ],
     rating: 4.8,
     amenities: ['Prime Location', 'Road Access', 'Parking Space', 'Construction Allowed'],
@@ -77,15 +86,16 @@ export const featuredLands = [
     facing: 'South',
     owner: 'Industrial Estates Ltd',
     images: [
-      'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=700',
-      'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=700',
-      'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=700'
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
+      "/industrial1.jpg",
+      "/industrial2.jpg",
+      "/industrial3.jpg"
     ],
     rating: 4.6,
     amenities: ['Power Supply', 'Water Access', 'Loading Bay', 'Security'],
     verification: 'Verified',
     measurement: '50ft x 52ft = 2,600 sq.ft'
-  }
+  },
 ];
 
 const fadeInUp = {

@@ -3,7 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import Logo from './Logo';
+import Logo from '../public/logo.png'
+import whitelogo from '../public/Realtors white.png'
+import Image from 'next/image';
 
 // Dynamically import modals with ssr: false to avoid SSR issues
 const LoginModal = dynamic(() => import('./LoginModal'), { ssr: false });
@@ -21,9 +23,7 @@ const landCategories = [
   { label: 'Mixed-Use Land', href: '/land/mixed-use-land', icon: '🏘️' },
   { label: 'Plotted Development', href: '/land/plotted-development', icon: '📐' },
   { label: 'Farm Land', href: '/land/farm-land', icon: '🌿' },
-  { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' },
-  { label: 'Waterfront Land', href: '/land/waterfront-land', icon: '🏖️' },
-  { label: 'Corner Plot', href: '/land/corner-plot', icon: '📍' },
+  { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' }
 ];
 
 export default function NavBar() {
@@ -159,7 +159,7 @@ export default function NavBar() {
     { href: '/measurement', label: 'Measurements' },
     { href: '/videos', label: 'Videos' },
     { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    // { href: '/contact', label: 'Contact' },
   ];
 
   // Don't render anything during SSR to avoid hydration mismatches
@@ -169,7 +169,7 @@ export default function NavBar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
             <div className="flex-shrink-0">
-              <Logo/>
+              <Image src={Logo} alt="Logo" className="h-8 w-auto" />
             </div>
           </div>
         </div>
@@ -189,17 +189,32 @@ export default function NavBar() {
           duration: 0.4,
           ease: [0.25, 0.1, 0.25, 1]
         }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
             ? 'bg-white/45 backdrop-blur-xl shadow-lg border-b border-gray-100/50'
             : 'bg-transparent border-b border-white/10'
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0">
-              <Logo/>
+              {isScrolled
+                ?
+                <Image
+                  src={Logo}
+                  alt="PGI Land Realtors – green & black logo"
+                  className="h-12 w-auto"
+                  priority
+                />
+                :
+                <Image
+                  src={whitelogo}
+                  alt="PGI Land Realtors – green & black logo"
+                  className="h-12 w-auto"
+                  priority
+                />
+
+              }
             </Link>
 
             {/* Desktop Navigation Links */}
@@ -210,20 +225,18 @@ export default function NavBar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg relative group ${
-                      isScrolled
+                    className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg relative group ${isScrolled
                         ? isActive
                           ? 'text-emerald-600'
                           : 'text-gray-700 hover:text-emerald-600'
                         : isActive
                           ? 'text-white'
                           : 'text-white/90 hover:text-white'
-                    }`}
+                      }`}
                   >
                     {link.label}
-                    <span className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 bg-emerald-400 transition-all duration-300 ${
-                      isActive ? 'w-1/2' : 'w-0 group-hover:w-1/2'
-                    }`}></span>
+                    <span className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 bg-emerald-400 transition-all duration-300 ${isActive ? 'w-1/2' : 'w-0 group-hover:w-1/2'
+                      }`}></span>
                   </Link>
                 );
               })}
@@ -234,19 +247,16 @@ export default function NavBar() {
                   onClick={() => setIsLandDropdownOpen(!isLandDropdownOpen)}
                   aria-haspopup="true"
                   aria-expanded={isLandDropdownOpen}
-                  className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg relative group flex items-center gap-1 ${
-                    isScrolled
+                  className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg relative group flex items-center gap-1 ${isScrolled
                       ? activeLandCategory
                         ? 'text-emerald-600 bg-emerald-50/80'
                         : 'text-gray-700 hover:text-emerald-600'
                       : activeLandCategory
                         ? 'text-white bg-white/20'
                         : 'text-white/90 hover:text-white'
-                  } ${
-                    isLandDropdownOpen && isScrolled ? 'text-emerald-600 bg-emerald-50/80' : ''
-                  } ${
-                    isLandDropdownOpen && !isScrolled ? 'bg-white/10 text-white' : ''
-                  }`}
+                    } ${isLandDropdownOpen && isScrolled ? 'text-emerald-600 bg-emerald-50/80' : ''
+                    } ${isLandDropdownOpen && !isScrolled ? 'bg-white/10 text-white' : ''
+                    }`}
                 >
                   <span>Lands</span>
                   <motion.span
@@ -256,9 +266,8 @@ export default function NavBar() {
                   >
                     ▼
                   </motion.span>
-                  <span className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 bg-emerald-400 transition-all duration-300 ${
-                    activeLandCategory ? 'w-1/2' : 'w-0 group-hover:w-1/2'
-                  }`}></span>
+                  <span className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 bg-emerald-400 transition-all duration-300 ${activeLandCategory ? 'w-1/2' : 'w-0 group-hover:w-1/2'
+                    }`}></span>
                 </button>
 
                 {/* Dropdown Menu */}
@@ -269,11 +278,10 @@ export default function NavBar() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className={`absolute top-full left-0 mt-2 w-64 rounded-xl shadow-2xl border py-2 overflow-hidden ${
-                        isScrolled
+                      className={`absolute top-full left-0 mt-2 w-64 rounded-xl shadow-2xl border py-2 overflow-hidden ${isScrolled
                           ? 'bg-white border-gray-100'
                           : 'bg-white/45 backdrop-blur-xl border-white/20'
-                      }`}
+                        }`}
                     >
                       <div className="max-h-96 overflow-y-auto custom-scrollbar">
                         {landCategories.map((category, index) => {
@@ -287,11 +295,10 @@ export default function NavBar() {
                             >
                               <Link
                                 href={category.href}
-                                className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group ${
-                                  isActive
+                                className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors group ${isActive
                                     ? 'text-emerald-600 bg-emerald-50 font-medium'
                                     : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
-                                }`}
+                                  }`}
                                 onClick={() => {
                                   setIsLandDropdownOpen(false);
                                   setActiveLandCategory(category.href);
@@ -311,23 +318,6 @@ export default function NavBar() {
                             </motion.div>
                           );
                         })}
-                      </div>
-
-                      {/* Dropdown Footer */}
-                      <div className="border-t border-gray-100 mt-1 pt-2 px-4">
-                        <Link
-                          href="/lands"
-                          className={`flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-green-600 rounded-lg hover:shadow-lg transition-all ${
-                            activeLandCategory === '/lands' ? 'ring-2 ring-emerald-300 ring-offset-2' : ''
-                          }`}
-                          onClick={() => {
-                            setIsLandDropdownOpen(false);
-                            setActiveLandCategory('/lands');
-                          }}
-                        >
-                          <span>View All Lands</span>
-                          <span>→</span>
-                        </Link>
                       </div>
                     </motion.div>
                   )}
@@ -349,52 +339,45 @@ export default function NavBar() {
               >
                 Login
               </motion.button> */}
+              <Link href="/contact">
               <motion.button
-                className={`px-4 sm:px-5 py-1.5 sm:py-2 text-sm font-bold text-white rounded-lg shadow-md transition-all ${
-                  isScrolled
+                className={`px-4 sm:px-5 py-1.5 sm:py-2 text-sm font-bold text-white rounded-lg shadow-md transition-all ${isScrolled
                     ? 'bg-gradient-to-r from-emerald-500 to-green-600 hover:shadow-emerald-500/30'
                     : 'bg-gradient-to-r from-emerald-400 to-emerald-500 hover:shadow-emerald-500/30'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setIsRegisterOpen(true)}
               >
-                Get Started
+                 contact us
               </motion.button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`lg:hidden p-2 rounded-lg transition-colors focus:outline-none ${
-                isScrolled
+              className={`lg:hidden p-2 rounded-lg transition-colors focus:outline-none ${isScrolled
                   ? 'hover:bg-gray-100'
                   : 'hover:bg-white/10'
-              }`}
+                }`}
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
             >
               <div className="w-6 h-5 flex flex-col justify-between">
                 <motion.span
-                  className={`block h-0.5 rounded-full transition-all duration-300 ${
-                    isScrolled ? 'bg-gray-700' : 'bg-white'
-                  } ${
-                    isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
-                  }`}
+                  className={`block h-0.5 rounded-full transition-all duration-300 ${isScrolled ? 'bg-gray-700' : 'bg-white'
+                    } ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                    }`}
                 />
                 <motion.span
-                  className={`block h-0.5 rounded-full transition-all duration-300 ${
-                    isScrolled ? 'bg-gray-700' : 'bg-white'
-                  } ${
-                    isMobileMenuOpen ? 'opacity-0' : ''
-                  }`}
+                  className={`block h-0.5 rounded-full transition-all duration-300 ${isScrolled ? 'bg-gray-700' : 'bg-white'
+                    } ${isMobileMenuOpen ? 'opacity-0' : ''
+                    }`}
                 />
                 <motion.span
-                  className={`block h-0.5 rounded-full transition-all duration-300 ${
-                    isScrolled ? 'bg-gray-700' : 'bg-white'
-                  } ${
-                    isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-                  }`}
+                  className={`block h-0.5 rounded-full transition-all duration-300 ${isScrolled ? 'bg-gray-700' : 'bg-white'
+                    } ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                    }`}
                 />
               </div>
             </button>
@@ -409,11 +392,10 @@ export default function NavBar() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className={`lg:hidden border-t ${
-                isScrolled
+              className={`lg:hidden border-t ${isScrolled
                   ? 'bg-white/95 backdrop-blur-xl border-gray-100'
                   : 'bg-black/80 backdrop-blur-xl border-white/10'
-              }`}
+                }`}
             >
               <div className="px-4 py-4 space-y-1">
                 {navLinks.map((link) => {
@@ -422,15 +404,14 @@ export default function NavBar() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
-                        isScrolled
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${isScrolled
                           ? isActive
                             ? 'text-emerald-600 bg-emerald-50'
                             : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
                           : isActive
                             ? 'text-white bg-white/20'
                             : 'text-white/90 hover:text-white hover:bg-white/10'
-                      }`}
+                        }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.label}
@@ -443,15 +424,14 @@ export default function NavBar() {
                   <button
                     onClick={() => setIsMobileLandDropdownOpen(!isMobileLandDropdownOpen)}
                     aria-expanded={isMobileLandDropdownOpen}
-                    className={`flex items-center justify-between w-full px-4 py-3 text-base font-medium rounded-lg transition-colors ${
-                      isScrolled
+                    className={`flex items-center justify-between w-full px-4 py-3 text-base font-medium rounded-lg transition-colors ${isScrolled
                         ? activeLandCategory
                           ? 'text-emerald-600 bg-emerald-50'
                           : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
                         : activeLandCategory
                           ? 'text-white bg-white/20'
                           : 'text-white/90 hover:text-white hover:bg-white/10'
-                    }`}
+                      }`}
                   >
                     <span>📂 Land Categories</span>
                     <motion.span
@@ -470,9 +450,8 @@ export default function NavBar() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
-                        className={`ml-4 pl-2 border-l-2 ${
-                          isScrolled ? 'border-emerald-200' : 'border-emerald-400/30'
-                        } overflow-hidden`}
+                        className={`ml-4 pl-2 border-l-2 ${isScrolled ? 'border-emerald-200' : 'border-emerald-400/30'
+                          } overflow-hidden`}
                       >
                         {landCategories.map((category) => {
                           const isActive = isActiveLandCategory(category.href);
@@ -480,15 +459,14 @@ export default function NavBar() {
                             <Link
                               key={category.href}
                               href={category.href}
-                              className={`flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-colors ${
-                                isScrolled
+                              className={`flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-colors ${isScrolled
                                   ? isActive
                                     ? 'text-emerald-600 bg-emerald-50 font-medium'
                                     : 'text-gray-600 hover:text-emerald-600 hover:bg-emerald-50'
                                   : isActive
                                     ? 'text-white bg-white/20'
                                     : 'text-white/80 hover:text-white hover:bg-white/10'
-                              }`}
+                                }`}
                               onClick={() => {
                                 setIsMobileMenuOpen(false);
                                 setIsMobileLandDropdownOpen(false);
@@ -509,9 +487,8 @@ export default function NavBar() {
                 </div>
 
                 {/* Mobile Actions */}
-                <div className={`pt-4 mt-4 border-t space-y-2 ${
-                  isScrolled ? 'border-gray-100' : 'border-white/10'
-                }`}>
+                <div className={`pt-4 mt-4 border-t space-y-2 ${isScrolled ? 'border-gray-100' : 'border-white/10'
+                  }`}>
                   {/* <button
                     className={`w-full px-4 py-3 text-base font-medium rounded-lg border transition-colors ${
                       isScrolled

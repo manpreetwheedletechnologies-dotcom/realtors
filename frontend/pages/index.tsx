@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import CTASection from '../components/Ctasection';
+import VideoShowcaseSection from '../components/Videoshowcasesection';
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
@@ -413,6 +414,13 @@ export default function Home() {
       unit: unit
     };
   };
+  const heroVideos = [
+    '/videos/02.mp4',
+    '/videos/03.mp4',
+    '/videos/04.mp4',
+    '/videos/05.mp4',
+    '/videos/06.mp4',
+  ];
 
   const facings = ['All', 'North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'];
 
@@ -454,13 +462,13 @@ export default function Home() {
                 playsInline
                 preload="auto"
                 className="absolute inset-0 w-full h-full object-cover"
-                src={activeVideo === 0 ? "https://3dbharat.com/video/header-video1.mp4" : "https://3dbharat.com/video/header-video2.mp4"}
-                onEnded={() => setActiveVideo(activeVideo === 0 ? 1 : 0)}
+                src={heroVideos[activeVideo]}
+                onEnded={() => setActiveVideo((prev) => (prev + 1) % heroVideos.length)}
               />
             </AnimatePresence>
 
             <motion.div
-              className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90 z-10"
+              className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 z-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.5 }}
@@ -838,91 +846,7 @@ export default function Home() {
           viewport={{ once: true, amount: 0.1 }}
           variants={fadeInUp}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <motion.span
-                className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-2 border-emerald-200 text-xs uppercase tracking-[0.4em] text-emerald-600 font-bold"
-              >
-                🎬 Video Walkthroughs
-              </motion.span>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mt-6 mb-4">
-                <span className="text-gray-900">Property & Land </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-700">
-                  Video Showcases
-                </span>
-              </motion.h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Watch detailed video walkthroughs of properties and land plots
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div
-                className="bg-black rounded-3xl overflow-hidden aspect-video relative group"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <video
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  src="/residential.mp4"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h4 className="text-white font-bold">Premium Residential Colony</h4>
-                  <p className="text-white/80 text-sm">South Delhi • 3 BHK Apartments</p>
-                </div>
-                <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-full">
-                  HD Tour
-                </div>
-              </motion.div>
-
-              <div className="grid grid-cols-1 gap-4">
-                <motion.div
-                  className="bg-black rounded-3xl overflow-hidden aspect-[2/1] relative group"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <video
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    src="https://3dbharat.com/video/header-video2.mp4"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <h4 className="text-white font-bold text-sm">Commercial Complex BKC</h4>
-                    <p className="text-white/80 text-xs">Mumbai • Premium Office Space</p>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="bg-black rounded-3xl overflow-hidden aspect-[2/1] relative group"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <video
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    src="https://3dbharat.com/video/header-video1.mp4"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <h4 className="text-white font-bold text-sm">Agricultural Land Tour</h4>
-                    <p className="text-white/80 text-xs">Bangalore • 2 Acres Farm</p>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </div>
+        <VideoShowcaseSection/>
         </motion.section>
 
         {/* LAND TYPES & ZONING SECTION */}
@@ -1127,7 +1051,7 @@ export default function Home() {
         </motion.section>
 
         {/* FAQ SECTION */}
-        <FAQ/>
+        <FAQ />
 
         {/* WHY CHOOSE PGI LAND REALTORS */}
         <motion.section
@@ -1206,10 +1130,10 @@ export default function Home() {
         </motion.section>
 
         {/* TESTIMONIALS */}
-        <Testimonials/>
+        <Testimonials />
 
         {/* CTA SECTION */}
-         <CTASection/>
+        <CTASection />
         {/* FLOATING LIVE PREVIEW WIDGET */}
         <motion.div
           className="fixed bottom-6 right-6 z-50 hidden md:block group"

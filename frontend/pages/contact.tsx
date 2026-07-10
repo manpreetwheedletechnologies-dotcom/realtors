@@ -236,7 +236,7 @@ export default function Contact() {
               <div className="space-y-5">
                 <div>
                   <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Phone</p>
-                  <a href="tel:+919876543210" className="text-emerald-600 font-medium">+91 xxxxxxxxx</a>
+                  <a href="tel:+91 99909 60187" className="text-emerald-600 font-medium">+91 99909 60187</a>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Email</p>
@@ -244,7 +244,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Address</p>
-                  <p className="text-gray-900">PGI Land Realtors<br />New Delhi, India</p>
+                  <p className="text-gray-900">Pilot no. 8c near 100 x school  techzone 4, Greator noida, India</p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Hours</p>
@@ -255,7 +255,7 @@ export default function Contact() {
             <div className="rounded-2xl overflow-hidden border border-gray-100 min-h-[280px]">
               <iframe
                 title="PGI Land Realtors office location"
-                src="https://www.google.com/maps?q=New+Delhi,India&output=embed"
+                src="https://www.google.com/maps?q=Pilot+no.+8c+near+100+x+school++techzone+4,+Greator+noida,+India&output=embed"
                 className="w-full h-full min-h-[280px]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

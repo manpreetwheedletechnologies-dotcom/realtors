@@ -1,32 +1,237 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Play, X, ChevronLeft, ChevronRight, Volume2, VolumeX, 
+  Sparkles, MapPin, Clock, Grid3x3, List, Filter, 
+  Eye, Calendar, Building2, Trees, Factory, ShoppingBag,
+  Mountain, Waves, ArrowRight
+} from 'lucide-react';
 import PageHero from '../components/Pagehero';
 import FAQ from '../components/FAQ';
 import Testimonials from '../components/Testimonials';
 import CTASection from '../components/Ctasection';
+import videosData from '../lib/videos.json';
 
-const videos = [
-  { id: 1, title: 'Premium Residential Colony', location: 'South Delhi • 3 BHK Apartments', src: 'https://3dbharat.com/video/header-video1.mp4', tag: 'Residential', duration: '5:30' },
-  { id: 2, title: 'Commercial Complex BKC', location: 'Mumbai • Premium Office Space', src: 'https://3dbharat.com/video/header-video2.mp4', tag: 'Commercial', duration: '4:45' },
-  { id: 3, title: 'Agricultural Land Tour', location: 'Bangalore • 2 Acres Farm', src: 'https://3dbharat.com/video/header-video1.mp4', tag: 'Agricultural', duration: '6:10' },
-  { id: 4, title: 'Industrial Plot Walkthrough', location: 'Andheri, Mumbai • 650 sq.yds', src: 'https://3dbharat.com/video/header-video2.mp4', tag: 'Industrial', duration: '3:55' },
-  { id: 5, title: 'Waterfront Land Preview', location: 'ECR, Chennai • 800 sq.yds', src: 'https://3dbharat.com/video/header-video1.mp4', tag: 'Waterfront', duration: '5:05' },
-  { id: 6, title: 'Hill View Farm Plot', location: 'Lonavala • 1 Acre', src: 'https://3dbharat.com/video/header-video2.mp4', tag: 'Farm Land', duration: '4:20' }
-];
+// Define types
+interface VideoData {
+  src: string;
+  title: string;
+  subtitle: string;
+  badge?: string;
+  size: string;
+  tag: string;
+}
 
-const filters = ['All', ...Array.from(new Set(videos.map((v) => v.tag)))];
+interface Video {
+  id: number;
+  src: string;
+  title: string;
+  subtitle: string;
+  location: string;
+  tag: string;
+  duration: string;
+  category: string;
+  views: string;
+  date: string;
+  badge: string;
+  size: string;
+  featured: boolean;
+}
+
+// Map tags to icons
+const tagIcons: Record<string, any> = {
+  'Featured': Sparkles,
+  'Commercial': ShoppingBag,
+  'Agricultural': Trees,
+  'Industrial': Factory,
+  'Residential': Building2,
+  'Waterfront': Waves,
+  'Farm Land': Mountain,
+};
+
+// Transform JSON data to match component structure
+const transformVideoData = (data: VideoData[]): Video[] => {
+  return data.map((video, index) => ({
+    id: index + 1,
+    src: video.src || '',
+    title: video.title || 'Video Tour',
+    subtitle: video.subtitle || 'Property Location',
+    location: video.subtitle || 'Property Location',
+    tag: video.tag || 'Featured',
+    duration: '3:45',
+    category: video.tag || 'Property',
+    views: Math.floor(Math.random() * 2000 + 500).toString() + '+',
+    date: new Date().toISOString().split('T')[0],
+    badge: video.badge || '',
+    size: video.size || 'small',
+    featured: video.tag === 'Featured'
+  }));
+};
+
+const videos: Video[] = transformVideoData(videosData);
+const filters: string[] = ['All', ...Array.from(new Set(videos.map((v) => v.tag)))];
+
+// Enhanced Video Tile Component - Autoplay on load
+function VideoTile({ 
+  video, 
+  featured = false, 
+  onClick, 
+  index = 0 
+}: { 
+  video: Video; 
+  featured?: boolean; 
+  onClick: () => void; 
+  index?: number;
+}) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    
+    const playVideo = async () => {
+      try {
+        await videoRef.current?.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.log('Autoplay prevented:', error);
+        setIsPlaying(false);
+      }
+    };
+    
+    playVideo();
+  }, []);
+
+  const TagIcon = tagIcons[video.tag] || Sparkles;
+
+  return (
+    <motion.div
+      onClick={onClick}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      whileHover={{ 
+        scale: featured ? 1.01 : 1.03,
+        transition: { type: "spring", stiffness: 300, damping: 20 }
+      }}
+      className={`group relative bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 ${
+        featured ? 'aspect-[16/7]' : 'aspect-video'
+      }`}
+    >
+      {/* Video - Always playing */}
+      <video 
+        ref={videoRef} 
+        className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-500" 
+        loop 
+        muted 
+        playsInline 
+        src={video.src}
+        onLoadedData={() => setIsLoaded(true)}
+      />
+
+      {/* Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/70 transition-all duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-transparent to-emerald-500/0 group-hover:from-emerald-500/5 group-hover:to-emerald-500/5 transition-all duration-700" />
+
+      {/* Live Indicator */}
+      <motion.div
+        className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-white/10"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <motion.span
+          className="w-2 h-2 rounded-full bg-red-500"
+          animate={{ opacity: [1, 0.3, 1] }}
+          transition={{ duration: 1.4, repeat: Infinity }}
+        />
+        <span className="text-[10px] font-bold text-white uppercase tracking-wider">Live</span>
+      </motion.div>
+
+      {/* Tags */}
+      <div className="absolute top-4 right-4 flex gap-2 flex-wrap">
+        {video.badge && (
+          <span className="px-3 py-1.5 bg-gradient-to-r from-amber-400 to-orange-400 text-black text-[10px] font-bold rounded-full shadow-lg">
+            {video.badge}
+          </span>
+        )}
+        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-[10px] font-bold rounded-full shadow-lg">
+          <TagIcon className="w-3 h-3" />
+          {video.tag}
+        </span>
+        <span className="px-3 py-1.5 bg-white/10 backdrop-blur-md text-white text-[10px] font-bold rounded-full border border-white/10">
+          {video.duration}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+        <h4 className={`text-white font-bold ${featured ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-sm md:text-base'} leading-tight mb-1 group-hover:text-emerald-300 transition-colors duration-300 line-clamp-2`}>
+          {video.title}
+        </h4>
+        <p className="text-white/80 text-xs md:text-sm flex items-center gap-1.5 truncate">
+          <MapPin className="w-3 h-3 flex-shrink-0" />
+          {video.location}
+        </p>
+        {featured && (
+          <motion.div 
+            className="flex items-center gap-4 mt-3 text-white/60 text-xs"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <span className="flex items-center gap-1">
+              <Eye className="w-3 h-3" />
+              {video.views} views
+            </span>
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3 h-3" />
+              {video.date}
+            </span>
+          </motion.div>
+        )}
+      </div>
+
+      {/* Play Button Overlay */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 400 }}
+          className="relative"
+        >
+          <div className="absolute inset-0 rounded-full bg-emerald-500/30 blur-xl animate-pulse" />
+          <div className={`relative rounded-full bg-white/20 backdrop-blur-md border-2 border-white/50 flex items-center justify-center shadow-2xl ${featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
+            <Play className={`${featured ? 'w-8 h-8' : 'w-5 h-5'} text-white fill-white ml-0.5`} />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Featured Badge */}
+      {featured && (
+        <div className="absolute top-4 left-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-400/90 backdrop-blur-sm text-black text-[10px] font-bold rounded-full">
+            <Sparkles className="w-3 h-3" />
+            Featured
+          </span>
+        </div>
+      )}
+    </motion.div>
+  );
+}
 
 export default function VideoWalkthroughs() {
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState<Video | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [filter, setFilter] = useState('All');
   const [muted, setMuted] = useState(true);
+  const [viewMode, setViewMode] = useState('grid');
 
   const filtered = filter === 'All' ? videos : videos.filter((v) => v.tag === filter);
-  const featured = videos[0];
+  const featured = videos.find(v => v.featured) || videos[0];
 
-  const openVideo = (video) => {
+  const openVideo = (video: Video) => {
     const idx = videos.findIndex((v) => v.id === video.id);
     setActiveIndex(idx);
     setActive(video);
@@ -36,7 +241,7 @@ export default function VideoWalkthroughs() {
   const closeVideo = useCallback(() => setActive(null), []);
 
   const step = useCallback(
-    (dir) => {
+    (dir: number) => {
       const nextIndex = (activeIndex + dir + videos.length) % videos.length;
       setActiveIndex(nextIndex);
       setActive(videos[nextIndex]);
@@ -47,7 +252,7 @@ export default function VideoWalkthroughs() {
 
   useEffect(() => {
     if (!active) return;
-    const onKey = (e) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeVideo();
       if (e.key === 'ArrowRight') step(1);
       if (e.key === 'ArrowLeft') step(-1);
@@ -59,64 +264,113 @@ export default function VideoWalkthroughs() {
   return (
     <>
       <Head>
-        <title>Video Walkthroughs | PGI Land Realtors</title>
-        <meta name="description" content="Watch detailed video walkthroughs of land plots and properties across India." />
+        <title>Video Walkthroughs | BuildSmart Construction</title>
+        <meta name="description" content="Watch detailed 3D construction animations and property walkthroughs by BuildSmart." />
       </Head>
-      <main className="min-h-screen bg-white text-gray-800">
+      <main className="min-h-screen bg-gradient-to-b from-white via-emerald-50/10 to-white">
         <PageHero
           image="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600"
-          badge="🎬 Video Walkthroughs"
-          titleLine1="Property & Land"
+          badge="🎬 3D Construction Animations"
+          titleLine1="BuildSmart"
           titleLine2="Video Showcases"
-          subtitle="Watch detailed video walkthroughs of properties and land plots — click any tile to view full screen."
+          subtitle="Watch detailed 3D construction animations and property walkthroughs — click any tile to view full screen."
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
-          {/* Featured video */}
+          {/* Featured Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-4"
+            className="mb-6"
           >
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Featured Tour
-            </span>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-1 h-8 bg-gradient-to-b from-emerald-500 to-green-600 rounded-full" />
+              <span className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-600">
+                Featured Animation
+              </span>
+            </div>
           </motion.div>
+
+          {/* Featured Video */}
           <VideoTile
             video={featured}
             featured
             onClick={() => openVideo(featured)}
+            index={0}
           />
 
-          {/* Filter tabs */}
-          <div className="flex items-center justify-between flex-wrap gap-3 mt-16 mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold">
-              <span className="text-gray-900">All </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-700">Walkthroughs</span>
-            </h2>
-            <span className="text-sm text-gray-500">{filtered.length} of {videos.length} videos</span>
+          {/* Controls Bar */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-16 mb-8">
+            <div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+                <span className="text-gray-900">All </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-700">
+                  Animations
+                </span>
+              </h2>
+              <p className="text-sm text-gray-500 mt-1">
+                Showing {filtered.length} of {videos.length} videos
+              </p>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              {/* View Mode Toggle */}
+              <div className="flex rounded-full bg-gray-100 p-1">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 rounded-full transition-all ${
+                    viewMode === 'grid' 
+                      ? 'bg-white shadow-md text-emerald-600' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <Grid3x3 className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 rounded-full transition-all ${
+                    viewMode === 'list' 
+                      ? 'bg-white shadow-md text-emerald-600' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <List className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
           </div>
 
+          {/* Filter Tabs */}
           <div className="flex flex-wrap gap-2 mb-10">
-            {filters.map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  filter === f
-                    ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-md'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {f}
-              </button>
-            ))}
+            {filters.map((f) => {
+              const Icon = f !== 'All' ? tagIcons[f] : Filter;
+              return (
+                <motion.button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+                    filter === f
+                      ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-500/30'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {Icon && <Icon className="w-4 h-4" />}
+                  {f}
+                </motion.button>
+              );
+            })}
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Video Grid */}
+          <div className={`grid ${
+            viewMode === 'grid' 
+              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
+              : 'grid-cols-1'
+          } gap-6`}>
             <AnimatePresence mode="popLayout">
               {filtered.map((video, i) => (
                 <motion.div
@@ -127,18 +381,56 @@ export default function VideoWalkthroughs() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: i * 0.05, duration: 0.4 }}
                 >
-                  <VideoTile video={video} onClick={() => openVideo(video)} />
+                  <VideoTile 
+                    video={video} 
+                    onClick={() => openVideo(video)} 
+                    index={i + 1}
+                  />
                 </motion.div>
               ))}
             </AnimatePresence>
           </div>
 
           {filtered.length === 0 && (
-            <p className="text-center text-gray-500 py-16">No videos in this category yet.</p>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-16"
+            >
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 mb-4">
+                <Filter className="w-10 h-10 text-gray-400" />
+              </div>
+              <p className="text-gray-500 text-lg">No videos in this category yet.</p>
+              <button
+                onClick={() => setFilter('All')}
+                className="mt-4 text-emerald-600 font-medium hover:text-emerald-700 transition-colors"
+              >
+                View all videos →
+              </button>
+            </motion.div>
           )}
+
+          {/* Call to Action */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-16 text-center"
+          >
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-50 to-green-50 rounded-full border border-emerald-200/50">
+              <Clock className="w-4 h-4 text-emerald-600" />
+              <span className="text-sm text-gray-700">
+                New animations added weekly. 
+                <button className="ml-2 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors">
+                  Subscribe for updates →
+                </button>
+              </span>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Fullscreen modal */}
+        {/* Fullscreen Modal */}
         <AnimatePresence>
           {active && (
             <motion.div
@@ -148,143 +440,128 @@ export default function VideoWalkthroughs() {
               exit={{ opacity: 0 }}
               onClick={closeVideo}
             >
-              {/* Prev / Next arrows */}
+              {/* Close Button */}
+              <button
+                onClick={closeVideo}
+                className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xl transition-colors backdrop-blur-sm"
+                aria-label="Close"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              {/* Prev / Next Arrows */}
               <button
                 onClick={(e) => { e.stopPropagation(); step(-1); }}
-                className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white text-xl transition-colors"
+                className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-2xl transition-colors backdrop-blur-sm"
                 aria-label="Previous video"
               >
-                ‹
+                <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); step(1); }}
-                className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white text-xl transition-colors"
+                className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-2xl transition-colors backdrop-blur-sm"
                 aria-label="Next video"
               >
-                ›
+                <ChevronRight className="w-6 h-6" />
               </button>
 
+              {/* Video Content */}
               <motion.div
                 key={active.id}
                 initial={{ scale: 0.92, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.92, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="max-w-4xl w-full"
+                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1.0] }}
+                className="max-w-5xl w-full"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="relative rounded-2xl overflow-hidden bg-black">
-                  <video className="w-full max-h-[70vh] object-contain" autoPlay loop muted={muted} controls={false} src={active.src} />
+                <div className="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
+                  <video 
+                    className="w-full max-h-[75vh] object-contain" 
+                    autoPlay 
+                    loop 
+                    muted={muted} 
+                    controls={false} 
+                    src={active.src} 
+                  />
+                  
+                  {/* Mute Toggle */}
                   <button
                     onClick={() => setMuted((m) => !m)}
-                    className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm flex items-center justify-center text-white transition-colors"
+                    className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm flex items-center justify-center text-white transition-colors border border-white/10"
                     aria-label={muted ? 'Unmute' : 'Mute'}
                   >
-                    {muted ? '🔇' : '🔊'}
+                    {muted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                   </button>
-                  <span className="absolute top-4 left-4 px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-full">
-                    {active.tag}
-                  </span>
+
+                  {/* Badges */}
+                  <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+                    {active.badge && (
+                      <span className="px-3 py-1.5 bg-gradient-to-r from-amber-400 to-orange-400 text-black text-xs font-bold rounded-full shadow-lg">
+                        {active.badge}
+                      </span>
+                    )}
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-full shadow-lg">
+                      <Building2 className="w-3 h-3" />
+                      {active.tag}
+                    </span>
+                    <span className="px-3 py-1.5 bg-white/10 backdrop-blur-md text-white text-xs font-bold rounded-full border border-white/10">
+                      {active.duration}
+                    </span>
+                  </div>
+
+                  {/* Progress indicator */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+                    <motion.div 
+                      className="h-full bg-gradient-to-r from-emerald-500 to-green-600"
+                      initial={{ width: 0 }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: 30, ease: "linear" }}
+                    />
+                  </div>
                 </div>
-                <div className="text-center mt-5">
-                  <h4 className="text-white font-bold text-xl">{active.title}</h4>
-                  <p className="text-gray-300 text-sm mt-1">{active.location} • {active.duration}</p>
-                  <div className="flex items-center justify-center gap-3 mt-5">
+
+                {/* Video Info */}
+                <div className="text-center mt-6">
+                  <h4 className="text-white font-bold text-2xl md:text-3xl">{active.title}</h4>
+                  <p className="text-gray-300 text-sm md:text-base mt-1 flex items-center justify-center gap-2">
+                    <MapPin className="w-4 h-4" />
+                    {active.location}
+                  </p>
+                  
+                  <div className="flex items-center justify-center gap-6 mt-5">
                     <button
-                      className="px-6 py-2.5 bg-white text-black rounded-xl font-bold hover:bg-gray-100 transition-colors"
+                      className="px-8 py-3 bg-white text-black rounded-xl font-bold hover:bg-gray-100 transition-colors shadow-lg"
                       onClick={closeVideo}
                     >
                       Close
                     </button>
-                    <a
-                      href="/landplots"
-                      className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl font-bold hover:shadow-lg transition-all"
+                    <motion.a
+                      href="/contact"
+                      className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-emerald-500/30 transition-all"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      View Similar Plots
-                    </a>
+                      Get a Quote
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.a>
                   </div>
-                  <p className="text-gray-500 text-xs mt-4">Use ← → to browse, Esc to close</p>
+                  
+                  <p className="text-gray-500 text-xs mt-4 flex items-center justify-center gap-4">
+                    <span>← → Browse videos</span>
+                    <span>•</span>
+                    <span>Esc Close</span>
+                  </p>
                 </div>
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
-        <FAQ/>
-        <Testimonials/>
-        <CTASection/>
+
+        <FAQ />
+        <Testimonials />
+        <CTASection />
       </main>
     </>
-  );
-}
-
-// A single video tile — plays on hover (or always, if `featured`) to keep
-// the page light: 6 simultaneous autoplaying videos is heavy, so grid tiles
-// only render/play their <video> once hovered.
-function VideoTile({ video, featured = false, onClick }) {
-  const [hovered, setHovered] = useState(false);
-  const videoRef = useRef(null);
-  const shouldPlay = featured || hovered;
-
-  useEffect(() => {
-    if (!videoRef.current) return;
-    if (shouldPlay) {
-      videoRef.current.play().catch(() => {});
-    } else {
-      videoRef.current.pause();
-    }
-  }, [shouldPlay]);
-
-  return (
-    <motion.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={onClick}
-      whileHover={{ scale: featured ? 1.01 : 1.02 }}
-      className={`group relative bg-black rounded-3xl overflow-hidden cursor-pointer ${
-        featured ? 'aspect-[16/7]' : 'aspect-video'
-      }`}
-    >
-      {shouldPlay ? (
-        <video ref={videoRef} className="w-full h-full object-cover" loop muted playsInline src={video.src} />
-      ) : (
-        <div className="w-full h-full bg-gradient-to-br from-emerald-900 via-gray-900 to-black" />
-      )}
-
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-
-      {shouldPlay && (
-        <motion.div
-          className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 bg-black/50 backdrop-blur-sm rounded-full text-[10px] font-bold text-white uppercase tracking-wide"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <motion.span
-            className="w-1.5 h-1.5 rounded-full bg-red-400"
-            animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.4, repeat: Infinity }}
-          />
-          Playing
-        </motion.div>
-      )}
-
-      <div className="absolute top-3 right-3 flex gap-1.5">
-        <span className="px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded-full">{video.tag}</span>
-        <span className="px-2.5 py-1 bg-white/20 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">{video.duration}</span>
-      </div>
-
-      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-        <h4 className={`text-white font-bold ${featured ? 'text-xl sm:text-2xl' : ''}`}>{video.title}</h4>
-        <p className="text-white/80 text-sm mt-0.5">{video.location}</p>
-      </div>
-
-      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          className={`rounded-full bg-white/90 flex items-center justify-center shadow-xl ${featured ? 'w-16 h-16' : 'w-14 h-14'}`}
-        >
-          <span className={featured ? 'text-3xl' : 'text-2xl'}>▶️</span>
-        </motion.div>
-      </div>
-    </motion.div>
   );
 }

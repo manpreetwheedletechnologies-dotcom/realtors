@@ -2,13 +2,14 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import PageHero from '../components/Pagehero';
+import LandPlotCard from '../components/Landplotcard';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] } }
 };
 
-const allLands = [
+export const allLands = [
   {
     id: 1,
     title: 'Prime Residential Plot - South Delhi',
@@ -16,15 +17,18 @@ const allLands = [
     price: '₹2.5 Cr',
     size: '450 sq.yds',
     type: 'Residential Land',
+    dimensions: '30ft × 45ft',
     facing: 'North-East',
     owner: 'Shree Builders Pvt Ltd',
     images: [
-      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
+      '/residential3.png',
       "/residential1.png",
-      "/residential2.png"
-      
+      "/residential2.png",
+       "/residential4.png",
+      "/residential5.png"
     ],
     rating: 4.9,
+    amenities: ['Corner Plot', 'Wide Road', 'Water Supply', 'Electricity', 'Drainage'],
     verification: 'Approved',
     measurement: '30ft x 45ft = 1350 sq.ft'
   },
@@ -35,18 +39,21 @@ const allLands = [
     price: '₹1.8 Cr',
     size: '2 acres',
     type: 'Agricultural Land',
+    dimensions: '200ft × 435ft',
     facing: 'East',
     owner: 'Green Valley Farms',
     images: [
-      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
       "/agri1.jpg",
       "/agri2.jpg",
       "/agri3.jpg",
       "/agri4.jpg",
       "/agri5.jpg",
-      "/agri6.jpg"
+      "/agri6.jpg",
+      "/agri7.jpg",
+      "/agri8.jpg"
     ],
     rating: 4.7,
+    amenities: ['Fertile Soil', 'Water Borewell', 'Fencing', 'Farm House'],
     verification: 'Verified',
     measurement: '200ft x 435ft = 87,000 sq.ft'
   },
@@ -57,6 +64,7 @@ const allLands = [
     price: '₹8.5 Cr',
     size: '1200 sq.yds',
     type: 'Commercial Land',
+    dimensions: '60ft × 80ft',
     facing: 'West',
     owner: 'Bombay Land Developers',
     images: [
@@ -67,6 +75,7 @@ const allLands = [
       "/commercial4.jpg"
     ],
     rating: 4.8,
+    amenities: ['Prime Location', 'Road Access', 'Parking Space', 'Construction Allowed'],
     verification: 'Approved',
     measurement: '60ft x 80ft = 4,800 sq.ft'
   },
@@ -77,6 +86,7 @@ const allLands = [
     price: '₹3.2 Cr',
     size: '650 sq.yds',
     type: 'Industrial Land',
+    dimensions: '50ft × 52ft',
     facing: 'South',
     owner: 'Industrial Estates Ltd',
     images: [
@@ -86,6 +96,7 @@ const allLands = [
       "/industrial3.jpg"
     ],
     rating: 4.6,
+    amenities: ['Power Supply', 'Water Access', 'Loading Bay', 'Security'],
     verification: 'Verified',
     measurement: '50ft x 52ft = 2,600 sq.ft'
   },
@@ -96,12 +107,14 @@ const allLands = [
     price: '₹4.1 Cr',
     size: '800 sq.yds',
     type: 'Residential Land',
+    dimensions: '40ft × 90ft',
     facing: 'East',
     owner: 'Coastal Estates',
     images: [
       'https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=600'
     ],
     rating: 4.9,
+    amenities: ['Beach Access', 'Scenic View', 'Gated Community', 'Road Access'],
     verification: 'RERA Registered',
     measurement: '40ft x 90ft = 3,600 sq.ft'
   },
@@ -112,12 +125,14 @@ const allLands = [
     price: '₹95 Lakh',
     size: '1 acre',
     type: 'Farm Land',
+    dimensions: '150ft × 290ft',
     facing: 'North',
     owner: 'Sahyadri Farms',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600'
     ],
     rating: 4.5,
+    amenities: ['Hill View', 'Fresh Air', 'Farm House', 'Fencing'],
     verification: 'Verified',
     measurement: '150ft x 290ft = 43,560 sq.ft'
   }
@@ -250,29 +265,7 @@ export default function LandPlots() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((land, index) => (
-                <motion.div
-                  key={land.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.08, duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
-                  whileHover={{ y: -8 }}
-                >
-                  <CardImage land={land} />
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">{land.title}</h3>
-                    <p className="text-sm text-gray-500 mb-2">📍 {land.location}</p>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xl font-bold text-emerald-600">{land.price}</span>
-                      <span className="text-xs text-gray-500">{land.size}</span>
-                    </div>
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-100 text-xs text-gray-500">
-                      <span>👤 {land.owner}</span>
-                      <span className="px-2 py-1 bg-emerald-50 text-emerald-700 rounded-full font-semibold">✅ {land.verification}</span>
-                    </div>
-                  </div>
-                </motion.div>
+                <LandPlotCard key={land.id} land={land} index={index} />
               ))}
             </div>
           )}
