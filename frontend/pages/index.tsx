@@ -322,6 +322,22 @@ const landUsefulies = [
   'Hospitality Project'
 ];
 
+
+const landCategoryLinks = [
+  { label: 'Residential Land', href: '/land/residential-land', icon: '🏠' },
+  { label: 'Commercial Land', href: '/land/commercial-land', icon: '🏢' },
+  { label: 'Agricultural Land', href: '/land/agricultural-land', icon: '🌾' },
+  { label: 'Industrial Land', href: '/land/industrial-land', icon: '🏭' },
+  { label: 'Mixed-Use Land', href: '/land/mixed-use-land', icon: '🏘️' },
+  { label: 'Plotted Development', href: '/land/plotted-development', icon: '📐' },
+  { label: 'Farm Land', href: '/land/farm-land', icon: '🌿' },
+  { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' },
+  { label: 'Waterfront Land', href: '/land/waterfront-land', icon: '🏖️' },
+  { label: 'Corner Plot', href: '/land/corner-plot', icon: '📍' }
+];
+
+
+
 // FAQ Data
 const faqs = [
   {
@@ -415,17 +431,25 @@ export default function Home() {
     };
   };
   const heroVideos = [
-    '/videos/02.mp4',
-    '/videos/03.mp4',
-    '/videos/04.mp4',
-    '/videos/05.mp4',
-    '/videos/06.mp4',
+    '/hero3.jpg',
+    '/hero2.png',
+    '/hero1.png',
+    '/hero4.png',
+    '/hero5.png',
+    '/hero6.png',
   ];
 
   const facings = ['All', 'North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'];
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveVideo((prev) => (prev + 1) % heroVideos.length);
+    }, 4000); // har 4 second me image change hogi
+    return () => clearInterval(interval);
   }, []);
 
   if (!mounted) return null;
@@ -437,6 +461,7 @@ export default function Home() {
         <meta name="description" content="Find your perfect land plot with advanced measurement tools, 360° virtual tours, and real-time construction monitoring. India's leading land aggregator platform." />
         <meta property="og:title" content="PGI Land Realtors - Advanced Land Aggregation Platform" />
         <meta property="og:description" content="Complete land solutions with measurement tools, virtual tours, and project monitoring." />
+        <link rel="icon" href="/logo_fev.png" />
       </Head>
 
       <main className="min-h-screen bg-white text-gray-800 transition-colors duration-300">
@@ -450,7 +475,26 @@ export default function Home() {
           variants={fadeInUp}
         >
           <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-            <AnimatePresence mode="wait">
+
+            <AnimatePresence>
+  <motion.img
+    key={activeVideo}
+    initial={{ opacity: 1, scale: 0.15, x: '38%', y: '38%' }}
+    animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+    exit={{ opacity: 0 }}
+    transition={{
+      scale: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+      x: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+      y: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+      opacity: { duration: 0.8, delay: 0.6 }
+    }}
+    style={{ transformOrigin: 'bottom right' }}
+    className="absolute inset-0 w-full h-full object-cover"
+    src={heroVideos[activeVideo]}
+    alt="Hero background"
+  />
+</AnimatePresence>
+            {/* <AnimatePresence mode="wait">
               <motion.video
                 key={activeVideo}
                 initial={{ opacity: 0, scale: 1.1 }}
@@ -465,24 +509,13 @@ export default function Home() {
                 src={heroVideos[activeVideo]}
                 onEnded={() => setActiveVideo((prev) => (prev + 1) % heroVideos.length)}
               />
-            </AnimatePresence>
+            </AnimatePresence> */}
 
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 z-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5 }}
-            />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-emerald-900/40 via-transparent to-emerald-900/40 z-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 2 }}
-            />
+           
           </div>
 
           <div className="relative z-20 text-center px-4 max-w-6xl mx-auto w-full">
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -516,9 +549,9 @@ export default function Home() {
                   Land Aggregator
                 </motion.span>
               </motion.h1>
-            </motion.div>
+            </motion.div> */}
 
-            <motion.p
+            {/* <motion.p
               className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-10 leading-relaxed backdrop-blur-sm p-4 rounded-xl bg-black/30 border border-white/10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -526,10 +559,10 @@ export default function Home() {
             >
               Discover 5,000+ verified land plots with advanced measurement tools, 360° virtual tours,
               and real-time construction monitoring across 50+ cities.
-            </motion.p>
+            </motion.p> */}
 
             {/* Advanced Search Bar */}
-            <motion.div
+            {/* <motion.div
               className="max-w-5xl mx-auto bg-white/10 backdrop-blur-2xl rounded-3xl p-6 border border-white/20 shadow-2xl"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -568,7 +601,7 @@ export default function Home() {
                 </motion.button>
               </div>
 
-              {/* Advanced Filters */}
+             
               <div className="flex flex-wrap gap-2 justify-center mt-4">
                 <select
                   className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/10 outline-none cursor-pointer hover:bg-white/30 transition-all"
@@ -610,10 +643,10 @@ export default function Home() {
                   📊 Area: {areaRange.min}-{areaRange.max} sq.yds
                 </motion.span>
               </div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Quick Stats */}
-            <motion.div
+            {/* <motion.div
               className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -634,8 +667,111 @@ export default function Home() {
                   <div className="text-xs text-gray-300">{stat.label}</div>
                 </motion.div>
               ))}
-            </motion.div>
+            </motion.div> */}
           </div>
+
+
+          {/* LEFT CORNER DESCRIPTION TEXT */}
+        {/* LEFT CORNER HEADING + DESCRIPTION TEXT */}
+          <motion.div
+            className="absolute bottom-10 left-4 sm:left-8 md:left-12 z-20 max-w-md text-left"
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.6, ease: [0.6, -0.05, 0.01, 0.99] }}
+          >
+            <motion.h1
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <motion.span
+                className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-400 to-emerald-500"
+                animate={{
+                  backgroundPosition: ["0%", "200%", "0%"],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                style={{ backgroundSize: "200%" }}
+              >
+                India's Premier
+              </motion.span>
+              <motion.span
+                className="block text-white drop-shadow-2xl"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 1, type: "spring" }}
+              >
+                Land Aggregator
+              </motion.span>
+            </motion.h1>
+
+            <motion.div
+              className="backdrop-blur-md bg-black/30 border border-white/10 rounded-xl p-5"
+              whileHover={{ scale: 1.02, borderColor: 'rgba(16,185,129,0.4)' }}
+              transition={{ type: "spring", stiffness: 200 }}
+            >
+              <motion.div
+                className="w-10 h-1 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full mb-3"
+                initial={{ width: 0 }}
+                animate={{ width: 40 }}
+                transition={{ duration: 0.8, delay: 1.5 }}
+              />
+              <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                Discover 5,000+ verified land plots with advanced measurement tools, 360° virtual tours,
+                and real-time construction monitoring across 50+ cities.
+              </p>
+            </motion.div>
+          </motion.div>
+
+       {/* BOTTOM RIGHT SCATTERED PHOTO STACK */}
+          <motion.div
+            className="absolute bottom-10 right-4 sm:right-8 md:right-16 z-20 w-28 h-20 md:w-36 md:h-24"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.5 }}
+          >
+            {heroVideos.map((img, i) => {
+              // har image ko alag rotation aur offset dena taaki messy stack jaisa dikhe
+              const rotations = [-8, 6, -4, 10, -12, 4, -6, 8];
+              const offsetsX = [0, 6, -5, 8, -8, 4, -3, 6];
+              const offsetsY = [0, -4, 5, -6, 3, -5, 6, -3];
+              const rotate = rotations[i % rotations.length];
+              const offsetX = offsetsX[i % offsetsX.length];
+              const offsetY = offsetsY[i % offsetsY.length];
+              const isActive = i === activeVideo;
+
+              return (
+                <motion.div
+                  key={`stack-${i}`}
+                  className="absolute inset-0 rounded-lg overflow-hidden border-2 shadow-2xl"
+                  style={{
+                    borderColor: isActive ? 'rgba(16,185,129,0.8)' : 'rgba(255,255,255,0.3)',
+                    zIndex: isActive ? heroVideos.length + 1 : i,
+                  }}
+                  initial={{ opacity: 0, rotate: rotate, x: offsetX, y: offsetY, scale: 0.7 }}
+                  animate={{
+                    opacity: 1,
+                    rotate: rotate,
+                    x: offsetX,
+                    y: offsetY,
+                    scale: isActive ? 1.08 : 1,
+                  }}
+                  transition={{ duration: 0.6, delay: 1.6 + i * 0.1, ease: "easeOut" }}
+                  whileHover={{ scale: 1.15, rotate: 0, zIndex: heroVideos.length + 2 }}
+                >
+                  <img
+                    src={img}
+                    alt={`Preview ${i + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              );
+            })}
+          </motion.div>
 
           {/* Decorative floating particles */}
           <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
@@ -884,6 +1020,27 @@ export default function Home() {
             </motion.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+  {landCategoryLinks.map((item, i) => (
+    <Link key={i} href={item.href}>
+      <motion.div
+        className="p-4 bg-white rounded-2xl border-2 border-gray-100 text-center group hover:border-emerald-400 transition-all cursor-pointer"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ delay: i * 0.05, duration: 0.4 }}
+        viewport={{ once: true }}
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0 10px 40px rgba(16,185,129,0.15)"
+        }}
+      >
+        <div className="text-3xl mb-2">{item.icon}</div>
+        <h4 className="text-sm font-bold text-gray-900">{item.label}</h4>
+      </motion.div>
+    </Link>
+  ))}
+</div>
+
+            {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {landTypes.slice(0, 10).map((type, i) => (
                 <motion.div
                   key={i}
@@ -912,7 +1069,7 @@ export default function Home() {
                   <h4 className="text-sm font-bold text-gray-900">{type}</h4>
                 </motion.div>
               ))}
-            </div>
+            </div> */}
           </div>
         </motion.section>
 

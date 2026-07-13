@@ -1,10 +1,16 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  const hideLayout =
+  router.pathname.startsWith('/admin') ||
+  router.pathname === '/login';
   return (
     <>
       <Head>
@@ -24,9 +30,11 @@ export default function App({ Component, pageProps }: AppProps) {
           `
         }} />
       </Head>
-      <NavBar />
-      <Component {...pageProps} />
-      <Footer />
+     {!hideLayout && <NavBar />}
+
+<Component {...pageProps} />
+
+{!hideLayout && <Footer />}
     </>
   );
 }

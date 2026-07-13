@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Logo from './Logo';
 
+
 export default function AdminLayout({ children, title = "Admin Panel" }: { children: React.ReactNode, title?: string }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const router = useRouter();

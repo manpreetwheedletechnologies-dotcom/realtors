@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fadeInUp } from '../utils/animations';
+import Link from 'next/dist/client/link';
 
 const faqs = [
   {
@@ -118,6 +119,7 @@ export default function FAQ() {
           variants={fadeInUp}
         >
           <p className="text-gray-600 mb-4">Still have questions? We're here to help!</p>
+          <Link href="/contact">
           <motion.button
             className="px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:shadow-emerald-500/30 transition-all"
             whileHover={{ scale: 1.05 }}
@@ -125,6 +127,7 @@ export default function FAQ() {
           >
             Contact Support →
           </motion.button>
+          </Link>
         </motion.div>
       </div>
     </motion.section>

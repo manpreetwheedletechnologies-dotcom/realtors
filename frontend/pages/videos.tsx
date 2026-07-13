@@ -270,7 +270,7 @@ export default function VideoWalkthroughs() {
       <main className="min-h-screen bg-gradient-to-b from-white via-emerald-50/10 to-white">
         <PageHero
           image="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600"
-          badge="🎬 3D Construction Animations"
+          badge="🎬 3D Construction Video Showcases"
           titleLine1="BuildSmart"
           titleLine2="Video Showcases"
           subtitle="Watch detailed 3D construction animations and property walkthroughs — click any tile to view full screen."

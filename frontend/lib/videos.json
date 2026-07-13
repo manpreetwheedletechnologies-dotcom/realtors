@@ -1,48 +1,172 @@
 [
-  {
-    "src": "/videos/02.mp4",
-    "title": "buildsmart Residential Building Creation",
-    "subtitle": "South Delhi • 3 BHK Apartment Construction",
+    {
+    "src": "/videos/residential_video1.mp4",
+    "title": "BuildSmart Luxury Residence Design",
+    "subtitle": "Contemporary Homes Crafted for Modern Living",
     "badge": "HD Animation",
     "size": "large",
     "tag": "Featured"
   },
+
+
   {
-    "src": "/videos/03.mp4",
-    "title": "buildsmart Commercial Building Creation",
-    "subtitle": "Mumbai • BKC Office Complex Construction",
-    "size": "small",
-    "tag": "Commercial"
+    "src": "/videos/residential_video2.mp4",
+    "title": "BuildSmart Premium Villa Development",
+    "subtitle": "Elegant Architecture with Thoughtful Spaces",
+    "badge": "HD Animation",
+    "size": "large",
+    "tag": "Featured"
   },
+
   {
-    "src": "/videos/05.mp4",
-    "title": "buildsmart Agricultural Facility Creation",
-    "subtitle": "Bangalore • Farm Structure Construction",
+    "src": "/videos/residential_video3.mp4",
+     "title": "BuildSmart Modern Apartment Planning",
+    "subtitle": "Smartly Designed Residences for Everyday Comfort",
+    "badge": "HD Animation",
+    "size": "large",
+    "tag": "Featured"
+  },
+
+  {
+    "src": "/videos/residential_video4.mp4",
+   "title": "BuildSmart Custom Home Creation",
+    "subtitle": "Future-Ready Homes Built with Precision",
+    "badge": "HD Animation",
+    "size": "large",
+    "tag": "Featured"
+  },
+  
+  {
+    "src": "/videos/agri_video1.mp4",
+   "title": "BuildSmart Modern Farm Infrastructure",
+    "subtitle": "Designed for Efficient Agricultural Operations",
     "size": "small",
     "tag": "Agricultural"
   },
   {
-    "src": "/videos/04.mp4",
-    "title": "buildsmart Industrial Building Creation",
-    "subtitle": "Andheri, Mumbai • Plot Construction Animation",
+    "src": "/videos/agri_video2.mp4",
+   "title": "BuildSmart Greenhouse Development",
+    "subtitle": "Climate-Controlled Solutions for Sustainable Farming",
+    "size": "small",
+    "tag": "Agricultural"
+  },
+
+  {
+    "src": "/videos/agri_video3.mp4",
+   "title": "BuildSmart Agri Processing Facility",
+    "subtitle": "Engineered for Reliable Post-Harvest Operations",
+    "size": "small",
+    "tag": "Agricultural"
+  },
+
+  {
+    "src": "/videos/agri_video4.mp4",
+    "title": "BuildSmart Livestock Facility Design",
+    "subtitle": "Optimized Spaces for Modern Animal Farming",
+    "size": "small",
+    "tag": "Agricultural"
+  },
+
+  {
+    "src": "/videos/agri_video5.mp4",
+     "title": "BuildSmart Storage & Grain Facility",
+    "subtitle": "Secure Infrastructure for Agricultural Resources",
+    "size": "small",
+    "tag": "Agricultural"
+  },
+
+  {
+    "src": "/videos/agri_video6.mp4",
+    "title": "BuildSmart Agricultural Campus Planning",
+    "subtitle": "Future-Ready Infrastructure for Growing Farms",
+    "size": "small",
+    "tag": "Agricultural"
+  },
+            
+  
+
+ {
+    "src": "/videos/commercial_video1.mp4",
+   "title": "BuildSmart Office Tower Development",
+    "subtitle": "Modern Workspaces Built for Success",
+    "size": "small",
+    "tag": "Commercial"
+  },
+
+  {
+    "src": "/videos/commercial_video2.mp4",
+   "title": "BuildSmart Retail Space Creation",
+    "subtitle": "Designed for High-Impact Customer Experiences",
+    "size": "small",
+    "tag": "Commercial"
+  },
+
+  {
+    "src": "/videos/commercial_video3.mp4",
+    "title": "BuildSmart Business Complex Design",
+    "subtitle": "Smart Planning for Modern Enterprises",
+    "size": "small",
+    "tag": "Commercial"
+  },
+
+  {
+    "src": "/videos/commercial_video4.mp4",
+    "title": "BuildSmart Commercial Property Development",
+    "subtitle": "Engineered for Long-Term Business Growth",
+    "size": "small",
+    "tag": "Commercial"
+  },
+
+
+  {
+    "src": "/videos/industrial_video1.mp4",
+     "title": "BuildSmart Industrial Facility Development",
+    "subtitle": "Engineered for Efficient Project Execution",
     "badge": "New",
     "size": "large",
     "tag": "Industrial"
   },
-  {
-    "src": "/videos/06.mp4",
-    "title": "buildsmart Office Building Creation",
-    "subtitle": "Andheri, Mumbai • Corporate Space Construction",
+
+   {
+    "src": "/videos/industrial_video2.mp4",
+     "title": "BuildSmart Manufacturing Plant Design",
+    "subtitle": "Optimized for Productivity and Performance",
     "badge": "New",
     "size": "large",
-    "tag": "Commercial"
+    "tag": "Industrial"
   },
+
+   {
+    "src": "/videos/industrial_video3.mp4",
+    "title": "BuildSmart Warehouse Infrastructure",
+    "subtitle": "Smart Planning for Scalable Operations",
+    "badge": "New",
+    "size": "large",
+    "tag": "Industrial"
+  },
+
+
   {
-    "src": "/videos/01.mp4",
-    "title": "buildsmart Mixed-Use Building Creation",
-    "subtitle": "Andheri, Mumbai • Ready-to-Build Concept",
+    "src": "/videos/industrial_video4.mp4",
+    "title": "BuildSmart Industrial Campus Planning",
+    "subtitle": "Designed for Growth and Operational Excellence",
+    "badge": "New",
+    "size": "large",
+    "tag": "Industrial"
+  },
+
+  {
+    "src": "/videos/industrial_video5.mp4",
+    "title": "BuildSmart Production Facility Creation",
+    "subtitle": "Future-Ready Designs with Precision Engineering",
     "badge": "New",
     "size": "large",
     "tag": "Industrial"
   }
+
+
+
+  
+  
+
 ]
