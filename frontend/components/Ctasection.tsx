@@ -48,7 +48,7 @@ export default function CTASection() {
           Join 15,000+ happy land owners who found their perfect plot through PGI Land Realtors
         </motion.p>
         <motion.div className="flex flex-col sm:flex-row gap-4 justify-center" variants={fadeInUp}>
-          <Link href="/landplots">
+          <Link href="/contact">
             <motion.button
               className="w-full sm:w-auto px-10 py-4 bg-white text-emerald-700 rounded-2xl font-bold shadow-2xl hover:shadow-emerald-500/30 transition-all"
               whileHover={{ scale: 1.05 }}
@@ -57,7 +57,7 @@ export default function CTASection() {
               Start Your Land Search Now →
             </motion.button>
           </Link>
-          <Link href="/contact">
+          <Link href="/landplots">
             <motion.button
               className="w-full sm:w-auto px-10 py-4 border-2 border-white/50 text-white rounded-2xl font-medium hover:bg-white/10 transition-all"
               whileHover={{ scale: 1.05 }}

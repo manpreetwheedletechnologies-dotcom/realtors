@@ -85,16 +85,15 @@
       "plots": [
         {
           "id": 101,
-          "title": "Prime Residential Plot - South Delhi",
+          "title": "Prime Residential Plot",
           "size": "450 sq.yds",
           "type": "Residential Land",
           "dimensions": "30ft \u00d7 45ft",
           "facing": "North-East",
           "owner": "Shree Builders Pvt Ltd",
           "images": [
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
-            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700"
+            "/lands_residential1.png"
+           
           ],
           "rating": 4.9,
           "amenities": ["Corner Plot", "Wide Road", "Water Supply", "Electricity", "Drainage"],
@@ -103,7 +102,7 @@
         },
         {
           "id": 102,
-          "title": "Waterfront Residential Plot - ECR",
+          "title": "Waterfront Residential Plot",
          
           "size": "800 sq.yds",
           "type": "Residential Land",
@@ -111,9 +110,7 @@
           "facing": "East",
           "owner": "Coastal Estates",
           "images": [
-            "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=700",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700"
+            "/lands_residential2.png"
           ],
           "rating": 4.9,
           "amenities": ["Sea View", "Gated Community", "Water Supply", "Electricity"],
@@ -122,7 +119,7 @@
         },
         {
           "id": 103,
-          "title": "Gated Community Plot - Whitefield",
+          "title": "Gated Community Plot",
          
           "size": "600 sq.yds",
           "type": "Residential Land",
@@ -130,9 +127,7 @@
           "facing": "North",
           "owner": "Green Valley Developers",
           "images": [
-            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700",
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
-            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700"
+            "/lands_residential3.png"
           ],
           "rating": 4.7,
           "amenities": ["Clubhouse", "Security", "Wide Road", "Park Facing"],
@@ -141,7 +136,7 @@
         },
         {
           "id": 104,
-          "title": "Hillside Residential Plot - Lonavala",
+          "title": "Hillside Residential Plot",
          
           "size": "500 sq.yds",
           "type": "Residential Land",
@@ -149,9 +144,7 @@
           "facing": "South",
           "owner": "Sahyadri Estates",
           "images": [
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
-            "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=700",
-            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700"
+            "/lands_residential4.png"
           ],
           "rating": 4.6,
           "amenities": ["Hill View", "Gated Entry", "Electricity", "Drainage"],
@@ -160,7 +153,7 @@
         },
         {
           "id": 105,
-          "title": "Premium Plot - Gurugram Sector 108",
+          "title": "Premium Plot",
           
           "size": "520 sq.yds",
           "type": "Residential Land",
@@ -168,9 +161,7 @@
           "facing": "East",
           "owner": "Capital Land Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
-            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700"
+            "/lands_residential5.png"
           ],
           "rating": 4.8,
           "amenities": ["RERA Registered", "Wide Road", "Underground Wiring", "Park"],
@@ -179,7 +170,7 @@
         },
         {
           "id": 106,
-          "title": "Riverside Residential Plot - Rishikesh",
+          "title": "Riverside Residential Plot",
          
           "size": "400 sq.yds",
           "type": "Residential Land",
@@ -187,9 +178,9 @@
           "facing": "North-East",
           "owner": "Himalayan Realty",
           "images": [
-            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700",
-            "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=700",
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700"
+            "/lands_residential6.png",
+            "/lands_residential7.png"
+           
           ],
           "rating": 4.5,
           "amenities": ["River View", "Water Supply", "Wide Road"],
@@ -323,9 +314,8 @@
           "facing": "Main Road - East",
           "owner": "Delhi Commercial Estates",
           "images": [
-            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=700",
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700",
-            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700"
+            "/commercial_land1.png",
+            "/commercial_land7.png"
           ],
           "rating": 4.9,
           "amenities": ["Main Road Frontage", "High Footfall", "Water Supply", "3-Phase Electricity", "Parking Space"],
@@ -342,9 +332,9 @@
           "facing": "North-East",
           "owner": "Coastal Commercial Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=700",
-            "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700",
-            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700"
+            "/commercial_land2.png",
+            "/commercial_land6.png"
+          
           ],
           "rating": 4.8,
           "amenities": ["IT Corridor", "Wide Road", "High-Load Power", "Water Supply"],
@@ -361,9 +351,9 @@
           "facing": "South-East",
           "owner": "Green Valley Commercial",
           "images": [
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700",
-            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=700",
-            "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=700"
+            "/commercial_land3.png",
+            "/commercial_land5.png"
+           
           ],
           "rating": 4.7,
           "amenities": ["Corner Plot", "High Visibility", "Ample Parking", "Wide Road"],
@@ -380,9 +370,9 @@
           "facing": "Highway - West",
           "owner": "Sahyadri Commercial Estates",
           "images": [
-            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700",
-            "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700",
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700"
+            "/commercial_land4.png",
+            "/commercial_land2.png"
+           
           ],
           "rating": 4.6,
           "amenities": ["Highway Frontage", "Signage Rights", "Electricity", "Drainage"],
@@ -399,9 +389,8 @@
           "facing": "East",
           "owner": "Capital Land Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=700",
-            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700",
-            "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=700"
+            "/commercial_land5.png",
+            "/commercial_land1.png"
           ],
           "rating": 4.9,
           "amenities": ["RERA Registered", "Wide Road", "High Power Load", "Retail Frontage"],
@@ -418,9 +407,9 @@
           "facing": "North",
           "owner": "Himalayan Commercial Realty",
           "images": [
-            "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700",
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700",
-            "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=700"
+            "/commercial_land6.png",
+            "/commercial_land2.png"
+           
           ],
           "rating": 4.5,
           "amenities": ["Tourist Zone", "Wide Road", "Water Supply", "Electricity"],
@@ -552,9 +541,9 @@
           "facing": "North",
           "owner": "Sonipat Krishi Estates",
           "images": [
-            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700",
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
-            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700"
+            "/agri_land1.jpg",
+            "/agri_land8.png"
+           
           ],
           "rating": 4.8,
           "amenities": ["Canal Irrigation", "Fertile Loam Soil", "Road Access", "Electricity"],
@@ -571,9 +560,8 @@
           "facing": "East",
           "owner": "Coastal Agro Estates",
           "images": [
-            "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=700",
-            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
-            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700"
+            "/agri_land2.jpg",
+            "/agri_land7.png"
           ],
           "rating": 4.6,
           "amenities": ["Borewell", "Coconut Plantation", "Sandy Loam Soil", "Road Access"],
@@ -590,9 +578,9 @@
           "facing": "South-West",
           "owner": "Sahyadri Agro Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700",
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
-            "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=700"
+            "/agri_land3.jpg",
+            "/agri_land6.png"
+            
           ],
           "rating": 4.9,
           "amenities": ["Drip Irrigation", "Black Cotton Soil", "Borewell", "Road Access"],
@@ -609,9 +597,9 @@
           "facing": "North-East",
           "owner": "Cauvery Agro Estates",
           "images": [
-            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
-            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700",
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700"
+            "/agri_land4.jpg",
+            "/agri_land1.jpg"
+           
           ],
           "rating": 4.7,
           "amenities": ["Canal Irrigation", "Clay Soil", "Tractor Access", "Electricity"],
@@ -628,9 +616,8 @@
           "facing": "East",
           "owner": "Doab Agro Estates",
           "images": [
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
-            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700",
-            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700"
+            "/agri_land8.png",
+            "/agri_land5.png"
           ],
           "rating": 4.6,
           "amenities": ["Tubewell", "Alluvial Soil", "Mango Orchard", "Road Access"],
@@ -647,9 +634,9 @@
           "facing": "South",
           "owner": "Himalayan Agro Realty",
           "images": [
-            "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=700",
-            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
-            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700"
+            "/agri_land6.png",
+            "/agri_land2.jpg"
+           
           ],
           "rating": 4.5,
           "amenities": ["Natural Spring", "Terraced Fields", "Rocky-Loam Soil", "Road Access"],
@@ -781,9 +768,9 @@
           "facing": "Main Road - North",
           "owner": "Delhi Industrial Estates",
           "images": [
-            "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700",
-            "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=700"
+            "/industrial_land1.png",
+            "/industrial_land4.png"
+            
           ],
           "rating": 4.7,
           "amenities": ["Heavy Vehicle Access", "3-Phase Power", "Water Supply", "SPCB Approved"],
@@ -800,9 +787,8 @@
           "facing": "East",
           "owner": "SIPCOT Allottee Estates",
           "images": [
-            "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700",
-            "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700",
-            "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700"
+            "/industrial_land2.png",
+            "/industrial3.jpg"
           ],
           "rating": 4.9,
           "amenities": ["SIPCOT Zone", "High-Capacity Power", "Effluent Treatment Access", "Wide Road"],
@@ -819,9 +805,9 @@
           "facing": "South",
           "owner": "Peenya Industrial Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=700",
-            "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700"
+            
+            "/industrial_land3.png",
+            "/industrial2.jpg"
           ],
           "rating": 4.6,
           "amenities": ["Loading Dock Ready", "3-Phase Power", "Water Supply", "SPCB Approved"],
@@ -838,9 +824,8 @@
           "facing": "North-East",
           "owner": "MIDC Allottee Estates",
           "images": [
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=700",
-            "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700",
-            "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700"
+            "/industrial_land4.png",
+            "/industrial_land2.png"
           ],
           "rating": 4.8,
           "amenities": ["MIDC Zone", "Heavy Vehicle Access", "High-Capacity Power", "Water Supply"],
@@ -857,9 +842,8 @@
           "facing": "East",
           "owner": "Capital Industrial Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700",
-            "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=700"
+           
+            "/industrial_land1.png"
           ],
           "rating": 4.9,
           "amenities": ["Auto Ancillary Zone", "High-Capacity Power", "Wide Road", "SPCB Approved"],
@@ -876,9 +860,9 @@
           "facing": "North",
           "owner": "Himalayan Industrial Realty",
           "images": [
-            "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700",
-            "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700",
-            "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700"
+            "/industrial2.jpg",
+            "/industrial_land2.png"
+           
           ],
           "rating": 4.5,
           "amenities": ["Tax Exemption Zone", "3-Phase Power", "Water Supply", "Wide Road"],
@@ -1010,9 +994,8 @@
           "facing": "North-East",
           "owner": "Delhi Mixed Estates",
           "images": [
-            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700",
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700",
-            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700"
+           "/mixed_land1.png",
+            "/mixed_land6.png"
           ],
           "rating": 4.8,
           "amenities": ["Residential + Retail FSI", "Wide Road", "Water Supply", "Electricity"],
@@ -1029,9 +1012,9 @@
           "facing": "East",
           "owner": "Coastal Mixed Estates",
           "images": [
-            "https://images.unsplash.com/photo-1494526585095-c41746248156?w=700",
-            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700",
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700"
+            "/mixed_land2.png",
+            "/mixed_land5.png"
+            
           ],
           "rating": 4.7,
           "amenities": ["Ground-Floor Retail Permitted", "Wide Road", "Water Supply", "Electricity"],
@@ -1048,9 +1031,9 @@
           "facing": "South",
           "owner": "Green Valley Mixed Estates",
           "images": [
-            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700",
-            "https://images.unsplash.com/photo-1494526585095-c41746248156?w=700",
-            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700"
+            "/mixed_land3.png",
+            "/mixed_land4.png"
+           
           ],
           "rating": 4.6,
           "amenities": ["IT Corridor Adjacent", "Wide Road", "Underground Wiring", "Park Facing"],
@@ -1067,9 +1050,9 @@
           "facing": "West",
           "owner": "Sahyadri Mixed Estates",
           "images": [
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700",
-            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700",
-            "https://images.unsplash.com/photo-1494526585095-c41746248156?w=700"
+            "/mixed_land4.png",
+            "/mixed_land2.png"
+            
           ],
           "rating": 4.5,
           "amenities": ["Tourist Zone", "Hill View", "Electricity", "Drainage"],
@@ -1086,9 +1069,9 @@
           "facing": "East",
           "owner": "Capital Mixed Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700",
-            "https://images.unsplash.com/photo-1494526585095-c41746248156?w=700",
-            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700"
+            "/mixed_land5.png",
+            "/mixed_land1.png"
+            
           ],
           "rating": 4.9,
           "amenities": ["RERA Registered", "Wide Road", "Retail + Residential FSI", "Park"],
@@ -1105,9 +1088,9 @@
           "facing": "North",
           "owner": "Himalayan Mixed Realty",
           "images": [
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700",
-            "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=700",
-            "https://images.unsplash.com/photo-1481253127861-534498168948?w=700"
+            "/mixed_land6.png",
+            "/mixed_land4.png"
+           
           ],
           "rating": 4.4,
           "amenities": ["Market Road Frontage", "Water Supply", "Electricity"],
@@ -1239,9 +1222,8 @@
           "facing": "North",
           "owner": "Noida Plotted Estates",
           "images": [
-            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700",
-            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700",
-            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700"
+            "/plotted_land1.jpg",
+            "/plotted_land6.jpg"
           ],
           "rating": 4.8,
           "amenities": ["Approved Layout", "Underground Wiring", "Internal Roads", "Park Facing"],
@@ -1258,9 +1240,9 @@
           "facing": "East",
           "owner": "Coastal Plotted Estates",
           "images": [
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
-            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700"
+            "/plotted_land2.jpg",
+            "/plotted_land5.png"
+            
           ],
           "rating": 4.7,
           "amenities": ["Gated Layout", "Water Supply", "Electricity", "Wide Road"],
@@ -1277,9 +1259,9 @@
           "facing": "North-East",
           "owner": "Green Valley Plotted Developers",
           "images": [
-            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700",
-            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700",
-            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700"
+            "/plotted_land3.png",
+            "/plotted_land4.png"
+           
           ],
           "rating": 4.9,
           "amenities": ["Clubhouse", "Security", "Underground Wiring", "Park Facing"],
@@ -1296,9 +1278,9 @@
           "facing": "South",
           "owner": "Sahyadri Plotted Estates",
           "images": [
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
-            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700"
+            "/plotted_land4.png",
+            "/plotted_land2.jpg"
+            
           ],
           "rating": 4.6,
           "amenities": ["Hill View", "Gated Entry", "Electricity", "Drainage"],
@@ -1315,9 +1297,9 @@
           "facing": "East",
           "owner": "Capital Plotted Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700",
-            "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=700",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700"
+            "/plotted_land5.png",
+            "/plotted_land1.jpg"
+           
           ],
           "rating": 4.8,
           "amenities": ["RERA Registered", "Wide Road", "Underground Wiring", "Park"],
@@ -1334,9 +1316,9 @@
           "facing": "North-East",
           "owner": "Himalayan Plotted Realty",
           "images": [
-            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700",
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",
-            "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700"
+            "/plotted_land6.jpg",
+            "/plotted_land3.png"
+           
           ],
           "rating": 4.5,
           "amenities": ["River View", "Water Supply", "Wide Road"],
@@ -1468,9 +1450,9 @@
           "facing": "North",
           "owner": "Faridabad Farm Estates",
           "images": [
-            "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700",
-            "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700",
-            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700"
+           "/farm_land1.png",
+            "/farm_land6.png"
+            
           ],
           "rating": 4.8,
           "amenities": ["Borewell", "Farmhouse Eligible", "All-Weather Road", "Electricity"],
@@ -1487,9 +1469,9 @@
           "facing": "East",
           "owner": "Coastal Farm Estates",
           "images": [
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
-            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700",
-            "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700"
+            "/farm_land2.png",
+            "/farm_land5.png"
+            
           ],
           "rating": 4.6,
           "amenities": ["River Access", "Coconut Grove", "Sandy Loam Soil", "Road Access"],
@@ -1506,9 +1488,9 @@
           "facing": "South-West",
           "owner": "Sahyadri Farm Ventures",
           "images": [
-            "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700",
-            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700",
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700"
+            "/farm_land3.png",
+            "/farm_land4.png"
+            
           ],
           "rating": 4.9,
           "amenities": ["Drip Irrigation", "Farmhouse Eligible", "Borewell", "All-Weather Road"],
@@ -1525,9 +1507,9 @@
           "facing": "North-East",
           "owner": "Cauvery Farm Estates",
           "images": [
-            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
-            "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700",
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700"
+            "/farm_land4.png",
+            "/farm_land2.png"
+           
           ],
           "rating": 4.7,
           "amenities": ["Canal Irrigation", "Clay Soil", "Tractor Access", "Electricity"],
@@ -1544,9 +1526,8 @@
           "facing": "East",
           "owner": "Doab Farm Estates",
           "images": [
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700",
-            "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700",
-            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700"
+           "/farm_land5.png",
+            "/farm_land1.png"
           ],
           "rating": 4.6,
           "amenities": ["Tubewell", "Mango Orchard", "Farmhouse Eligible", "Road Access"],
@@ -1563,9 +1544,9 @@
           "facing": "South",
           "owner": "Himalayan Farm Realty",
           "images": [
-            "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700",
-            "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=700",
-            "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700"
+            "/farm_land6.png",
+            "/farm_land2.png"
+            
           ],
           "rating": 4.5,
           "amenities": ["Natural Spring", "Terraced Fields", "Hill View", "Road Access"],
@@ -1697,9 +1678,8 @@
           "facing": "North-East",
           "owner": "Himachal Hill Estates",
           "images": [
-            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700",
-            "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=700",
-            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700"
+            "/hill_land1.png",
+            "/hill_land8.png"
           ],
           "rating": 4.9,
           "amenities": ["Unobstructed Valley View", "All-Weather Road", "Electricity", "Water Supply"],
@@ -1716,9 +1696,9 @@
           "facing": "East",
           "owner": "Western Ghats Hill Estates",
           "images": [
-            "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=700",
-            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700",
-            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700"
+            "/hill_land2.png",
+            "/hill_land7.png"
+           
           ],
           "rating": 4.8,
           "amenities": ["Tea Garden View", "Cool Climate", "All-Weather Road", "Water Supply"],
@@ -1735,9 +1715,8 @@
           "facing": "East",
           "owner": "Green Valley Hill Developers",
           "images": [
-            "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=700",
-            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700",
-            "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=700"
+            "/hill_land3.png",
+            "/hill_land6.png"
           ],
           "rating": 4.7,
           "amenities": ["Sunrise-Facing", "Gated Entry", "Electricity", "Drainage"],
@@ -1754,9 +1733,8 @@
           "facing": "South-West",
           "owner": "Sahyadri Hill Estates",
           "images": [
-            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700",
-            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700",
-            "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=700"
+            "/hill_land4.png",
+            "/hill_land5.png"
           ],
           "rating": 4.8,
           "amenities": ["Panoramic Ridge View", "Gated Entry", "Electricity", "All-Weather Road"],
@@ -1773,9 +1751,9 @@
           "facing": "North",
           "owner": "Himalayan Ridge Realty",
           "images": [
-            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700",
-            "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=700",
-            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700"
+            "/hill_land5.png",
+            "/hill_land1.png"
+           
           ],
           "rating": 4.9,
           "amenities": ["Forest-Edge Location", "Pine View", "Water Supply", "All-Weather Road"],
@@ -1792,9 +1770,8 @@
           "facing": "North-East",
           "owner": "Himalayan Hill Realty",
           "images": [
-            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700",
-            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700",
-            "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=700"
+           "/hill_land6.png",
+            "/hill_land3.png"
           ],
           "rating": 4.6,
           "amenities": ["River & Hill View", "Water Supply", "Wide Road"],

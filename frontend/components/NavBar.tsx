@@ -157,7 +157,7 @@ export default function NavBar() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/measurement', label: 'Measurements' },
-    { href: '/videos', label: 'Videos' },
+    { href: '/videos', label: '3D Showcases' },
     { href: '/about', label: 'About' },
     // { href: '/contact', label: 'Contact' },
   ];
