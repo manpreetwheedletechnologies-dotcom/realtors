@@ -468,7 +468,7 @@ export default function Home() {
 
         {/* HERO SECTION */}
         <motion.section
-          className="relative pt-24 min-h-screen flex items-center justify-center overflow-hidden bg-black"
+          className="sticky top-0 z-10 pt-24 min-h-screen flex items-center justify-center overflow-hidden bg-black"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
@@ -803,7 +803,7 @@ export default function Home() {
         </motion.section>
         {/* SEARCH YOUR LAND SECTION */}
 <motion.section
-  className="relative min-h-[600px] py-16 md:py-20 bg-gradient-to-b from-[#0A1A12] via-[#0F281D] to-[#0A1A12] overflow-hidden"
+  className="sticky top-0 z-20 min-h-screen py-16 md:py-20 bg-gradient-to-b from-[#0A1A12] via-[#0F281D] to-[#0A1A12] overflow-hidden"
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true, amount: 0.1 }}
@@ -841,7 +841,7 @@ export default function Home() {
   <div className="absolute bottom-8 right-8 w-10 h-10 border-b-2 border-r-2 border-emerald-400/50 hidden lg:block" />
  
   <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <motion.div className="text-center mb-10 md:mb-12" variants={fadeInUp}>
+    <div className="text-center mb-10 md:mb-12" >
       <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-[11px] uppercase tracking-[0.35em] text-emerald-300 font-semibold backdrop-blur-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-400/50" />
         Premium Land Locator
@@ -855,7 +855,7 @@ export default function Home() {
       <p className="text-white/50 max-w-xl mx-auto text-xs md:text-sm lg:text-base">
         Discover premium plots with precision — filter by location, type, zoning, and verification status.
       </p>
-    </motion.div>
+    </div>
  
     {/* Enhanced SEARCH CARD with white accent */}
     <motion.div
@@ -1013,11 +1013,11 @@ export default function Home() {
 
         {/* ADVANCED MEASUREMENT TOOLS SECTION */}
         <motion.section
-          className="relative py-32 bg-gradient-to-b from-emerald-50/30 via-white to-green-50/30"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
+          className="relative bg-white z-30"
+          // initial="hidden"
+          // whileInView="visible"
+          // viewport={{ once: true, amount: 0.1 }}
+          // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1184,22 +1184,22 @@ export default function Home() {
 
         {/* VIDEO WALKTHROUGH SECTION */}
         <motion.section
-          className="relative py-32 bg-gradient-to-b from-white via-green-50/20 to-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
+          className="relative bg-white z-30"
+          // initial="hidden"
+          // whileInView="visible"
+          // viewport={{ once: true, amount: 0.1 }}
+          // variants={fadeInUp}
         >
         <VideoShowcaseSection/>
         </motion.section>
 
         {/* LAND TYPES & ZONING SECTION */}
         <motion.section
-          className="relative py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
+          className="relative py-32 bg-white z-30"
+          // initial="hidden"
+          // whileInView="visible"
+          // viewport={{ once: true, amount: 0.1 }}
+          // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1283,11 +1283,11 @@ export default function Home() {
 
         {/* LAND USEFULIES & FEATURES */}
         <motion.section
-          className="relative py-32 bg-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
+          className="relative bg-white z-30"
+          // initial="hidden"
+          // whileInView="visible"
+          // viewport={{ once: true, amount: 0.1 }}
+          // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1352,11 +1352,11 @@ export default function Home() {
 
         {/* HOW TO BUY LAND SECTION */}
         <motion.section
-          className="relative py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
+          className="relative py-32 bg-white z-30"
+          // initial="hidden"
+          // whileInView="visible"
+          // viewport={{ once: true, amount: 0.1 }}
+          // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1376,19 +1376,19 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  step: '01',
+                  // step: '01',
                   icon: '🔍',
                   title: 'Search & Filter',
                   description: 'Use our advanced filters to find land by type, zoning, price, area, and facing direction.'
                 },
                 {
-                  step: '02',
+                  // step: '02',
                   icon: '📋',
                   title: 'Verify & Compare',
                   description: 'Check land verification status, legal documents, zoning regulations, and compare options.'
                 },
                 {
-                  step: '03',
+                  // step: '03',
                   icon: '🤝',
                   title: 'Connect & Close',
                   description: 'Contact owners directly, schedule site visits, and get legal assistance for registration.'
@@ -1403,9 +1403,9 @@ export default function Home() {
                   viewport={{ once: true }}
                   whileHover={{ y: -10, boxShadow: "0 25px 60px rgba(16,185,129,0.15)" }}
                 >
-                  <div className="absolute -top-4 -right-4 text-7xl font-bold text-gray-50 group-hover:text-emerald-50 transition-colors">
+                  {/* <div className="absolute -top-4 -right-4 text-7xl font-bold text-gray-50 group-hover:text-emerald-50 transition-colors">
                     {item.step}
-                  </div>
+                  </div> */}
                   <div className="text-6xl mb-4">{item.icon}</div>
                   <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
                   <p className="text-gray-600">{item.description}</p>
@@ -1420,11 +1420,11 @@ export default function Home() {
 
         {/* WHY CHOOSE PGI LAND REALTORS */}
         <motion.section
-          className="relative py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
+          className="relative py-32 bg-white z-30"
+          // initial="hidden"
+          // whileInView="visible"
+          // viewport={{ once: true, amount: 0.1 }}
+          // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
