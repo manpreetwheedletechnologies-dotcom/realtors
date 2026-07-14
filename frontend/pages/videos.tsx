@@ -485,7 +485,7 @@ function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) =
                 onClick={() => (isCenter ? onOpen(video) : setActive(i))}
               >
                 <video
-                  ref={(el) => (videoRefs.current[i] = el)}
+                  ref={(el) => { videoRefs.current[i] = el; }}
                   className="w-full h-full object-cover"
                   loop
                   muted
