@@ -1,6 +1,3 @@
-# 3DBharat Clone
-
-Full‑stack reproduction of https://3dbharat.com/ using Next.js (frontend) and NestJS (backend).
 
 ## Tech Stack
 - **Frontend**: Next.js 14 (TypeScript) – React, CSS Modules, Framer Motion
