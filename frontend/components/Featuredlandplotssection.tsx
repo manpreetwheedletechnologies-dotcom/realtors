@@ -110,7 +110,7 @@ const fadeInUp = {
 export default function FeaturedLandPlotsSection() {
   return (
     <motion.section
-      className="relative py-32 bg-gradient-to-b from-white via-emerald-50/30 to-white"
+      className="relative py-32 bg-white z-30"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}

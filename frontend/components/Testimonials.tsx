@@ -28,11 +28,11 @@ const testimonials = [
 export default function Testimonials() {
   return (
     <motion.section
-      className="relative py-32 bg-white"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={fadeInUp}
+      className="relative py-32 bg-white z-30"
+      // initial="hidden"
+      // whileInView="visible"
+      // viewport={{ once: true, amount: 0.1 }}
+      // variants={fadeInUp}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="text-center mb-16" variants={fadeInUp}>

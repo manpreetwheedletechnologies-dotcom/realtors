@@ -17,11 +17,11 @@ const fadeInUp = {
 export default function CTASection() {
   return (
     <motion.section
-      className="relative py-32 bg-gradient-to-br from-emerald-600 via-green-700 to-black text-white"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={fadeInUp}
+      className="relative py-32 bg-gradient-to-br from-emerald-600 via-green-700 to-black text-white z-30"
+      // initial="hidden"
+      // whileInView="visible"
+      // viewport={{ once: true, amount: 0.1 }}
+      // variants={fadeInUp}
     >
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
