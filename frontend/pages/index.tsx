@@ -156,6 +156,136 @@ const landCategoryLinks = [
   { label: 'Corner Plot', href: '/land/corner-plot', icon: '📍' }
 ];
 
+// DUMMY LAND PLOTS DATA (replace with real API data later)
+const dummyLandPlots = [
+  {
+    id: 1,
+    title: 'Green Meadows Residential Plot',
+    location: 'Whitefield, Bangalore',
+    type: 'Residential Land',
+    zoning: 'Residential R-1',
+    facing: 'North-East',
+    area: 240,
+    price: 8500000,
+    verified: 'Verified',
+    icon: '🏠'
+  },
+  {
+    id: 2,
+    title: 'Riverfront Commercial Plot',
+    location: 'Sector 62, Noida',
+    type: 'Commercial Land',
+    zoning: 'Commercial C-1',
+    facing: 'East',
+    area: 600,
+    price: 45000000,
+    verified: 'Approved',
+    icon: '🏢'
+  },
+  {
+    id: 3,
+    title: 'Fertile Agricultural Land',
+    location: 'Devanahalli, Bangalore',
+    type: 'Agricultural Land',
+    zoning: 'Agricultural Zone',
+    facing: 'South',
+    area: 1000,
+    price: 12000000,
+    verified: 'Verified',
+    icon: '🌾'
+  },
+  {
+    id: 4,
+    title: 'Industrial Warehouse Plot',
+    location: 'MIDC, Pune',
+    type: 'Industrial Land',
+    zoning: 'Industrial I-1',
+    facing: 'West',
+    area: 800,
+    price: 32000000,
+    verified: 'RERA Registered' as any,
+    icon: '🏭'
+  },
+  {
+    id: 5,
+    title: 'Mixed-Use Development Plot',
+    location: 'Gachibowli, Hyderabad',
+    type: 'Mixed-Use Land',
+    zoning: 'Mixed-Use Zone',
+    facing: 'North',
+    area: 500,
+    price: 27500000,
+    verified: 'Approved',
+    icon: '🏘️'
+  },
+  {
+    id: 6,
+    title: 'Hill View Farm Plot',
+    location: 'Lonavala, Maharashtra',
+    type: 'Hill View Plot',
+    zoning: 'Special Zone',
+    facing: 'North-West',
+    area: 350,
+    price: 9800000,
+    verified: 'Pending',
+    icon: '⛰️'
+  },
+  {
+    id: 7,
+    title: 'Premium Corner Plot',
+    location: 'Kondapur, Hyderabad',
+    type: 'Corner Plot',
+    zoning: 'Residential R-2',
+    facing: 'South-East',
+    area: 180,
+    price: 6200000,
+    verified: 'Verified',
+    icon: '📍'
+  },
+  {
+    id: 8,
+    title: 'Waterfront Vacation Land',
+    location: 'Alibaug, Maharashtra',
+    type: 'Waterfront Land',
+    zoning: 'Special Zone',
+    facing: 'West',
+    area: 420,
+    price: 15600000,
+    verified: 'Verified',
+    icon: '🏖️'
+  },
+  {
+    id: 9,
+    title: 'Plotted Layout Development',
+    location: 'Sarjapur Road, Bangalore',
+    type: 'Plotted Development',
+    zoning: 'Residential R-3',
+    facing: 'North',
+    area: 300,
+    price: 11000000,
+    verified: 'DTCP Approved' as any,
+    icon: '📐'
+  },
+  {
+    id: 10,
+    title: 'Organic Farm Land',
+    location: 'Coimbatore, Tamil Nadu',
+    type: 'Farm Land',
+    zoning: 'Agricultural Zone',
+    facing: 'South-West',
+    area: 1500,
+    price: 9000000,
+    verified: 'Verified',
+    icon: '🌿'
+  }
+];
+
+const formatPrice = (price: number) => {
+  if (price >= 10000000) return `₹${(price / 10000000).toFixed(2)} Cr`;
+  if (price >= 100000) return `₹${(price / 100000).toFixed(2)} L`;
+  return `₹${price.toLocaleString('en-IN')}`;
+};
+
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -187,6 +317,12 @@ export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const videoRef = useRef(null);
 
+  // SEARCH STATE
+  const [hasSearched, setHasSearched] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState<typeof dummyLandPlots>([]);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
   // EMI Calculator
   const calculateEMI = () => {
     const monthlyRate = interestRate / 100 / 12;
@@ -213,6 +349,56 @@ export default function Home() {
       unit: unit
     };
   };
+
+  // Run search against dummy data using the current filter state
+  const handleSearch = () => {
+    setIsSearching(true);
+    setHasSearched(true);
+
+    const query = searchQuery.trim().toLowerCase();
+
+    const results = dummyLandPlots.filter((plot) => {
+      const matchesQuery =
+        query === '' ||
+        plot.title.toLowerCase().includes(query) ||
+        plot.location.toLowerCase().includes(query);
+
+      const matchesType = selectedLandType === 'All' || plot.type === selectedLandType;
+      const matchesZoning = selectedZoning === 'All' || plot.zoning === selectedZoning;
+      const matchesFacing = selectedFacing === 'All' || plot.facing === selectedFacing;
+      const matchesStatus = verificationStatus === 'All' || plot.verified === verificationStatus;
+      const matchesArea = plot.area >= areaRange.min && plot.area <= areaRange.max;
+
+      return matchesQuery && matchesType && matchesZoning && matchesFacing && matchesStatus && matchesArea;
+    });
+
+    // simulate a short network delay so the loading state is visible
+    setTimeout(() => {
+      setSearchResults(results);
+      setIsSearching(false);
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }, 400);
+  };
+
+  const handleResetFilters = () => {
+    setSearchQuery('');
+    setSelectedLandType('All');
+    setSelectedZoning('All');
+    setSelectedFacing('All');
+    setVerificationStatus('All');
+    setAreaRange({ min: 0, max: 1000 });
+    setHasSearched(false);
+    setSearchResults([]);
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   const heroVideos = [
     '/hero3.jpg',
     '/hero5.png',
@@ -292,22 +478,6 @@ useEffect(() => {
                 alt="Hero background"
               />
             </AnimatePresence>
-            {/* <AnimatePresence mode="wait">
-              <motion.video
-                key={activeVideo}
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.1 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-                autoPlay
-                muted
-                playsInline
-                preload="auto"
-                className="absolute inset-0 w-full h-full object-cover"
-                src={heroVideos[activeVideo]}
-                onEnded={() => setActiveVideo((prev) => (prev + 1) % heroVideos.length)}
-              />
-            </AnimatePresence> */}
 
 
           </div>
@@ -315,159 +485,6 @@ useEffect(() => {
 
 
           <div className="relative z-20 text-center px-4 max-w-6xl mx-auto w-full">
-            {/* <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <motion.h1
-                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <motion.span
-                  className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-400 to-emerald-500"
-                  animate={{
-                    backgroundPosition: ["0%", "200%", "0%"],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                  style={{ backgroundSize: "200%" }}
-                >
-                  India's Premier
-                </motion.span>
-                <motion.span
-                  className="block text-white drop-shadow-2xl"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1, delay: 0.6, type: "spring" }}
-                >
-                  Land Aggregator
-                </motion.span>
-              </motion.h1>
-            </motion.div> */}
-
-            {/* <motion.p
-              className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-10 leading-relaxed backdrop-blur-sm p-4 rounded-xl bg-black/30 border border-white/10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              Discover 5,000+ verified land plots with advanced measurement tools, 360° virtual tours,
-              and real-time construction monitoring across 50+ cities.
-            </motion.p> */}
-
-            {/* Advanced Search Bar */}
-            {/* <motion.div
-              className="max-w-5xl mx-auto bg-white/10 backdrop-blur-2xl rounded-3xl p-6 border border-white/20 shadow-2xl"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="📍 Search city or area..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/90 text-gray-900 border-2 border-transparent focus:border-emerald-500 outline-none transition-all"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </div>
-
-                <div className="relative">
-                  <select
-                    className="w-full px-4 py-3 rounded-xl bg-white/90 text-gray-900 border-2 border-transparent focus:border-emerald-500 outline-none transition-all appearance-none cursor-pointer"
-                    value={selectedLandType}
-                    onChange={(e) => setSelectedLandType(e.target.value)}
-                  >
-                    <option value="All">🏠 All Land Types</option>
-                    {landTypes.map(type => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <motion.button
-                  className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold shadow-lg hover:shadow-emerald-500/30 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  🔍 Search Land
-                </motion.button>
-              </div>
-
-             
-              <div className="flex flex-wrap gap-2 justify-center mt-4">
-                <select
-                  className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/10 outline-none cursor-pointer hover:bg-white/30 transition-all"
-                  value={selectedZoning}
-                  onChange={(e) => setSelectedZoning(e.target.value)}
-                >
-                  <option value="All" className="text-gray-900">📐 Zoning: All</option>
-                  {landZoning.map(zone => (
-                    <option key={zone} value={zone} className="text-gray-900">{zone}</option>
-                  ))}
-                </select>
-
-                <select
-                  className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/10 outline-none cursor-pointer hover:bg-white/30 transition-all"
-                  value={selectedFacing}
-                  onChange={(e) => setSelectedFacing(e.target.value)}
-                >
-                  <option value="All" className="text-gray-900">🧭 Facing: All</option>
-                  {facings.slice(1).map(facing => (
-                    <option key={facing} value={facing} className="text-gray-900">{facing}</option>
-                  ))}
-                </select>
-
-                <select
-                  className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/10 outline-none cursor-pointer hover:bg-white/30 transition-all"
-                  value={verificationStatus}
-                  onChange={(e) => setVerificationStatus(e.target.value)}
-                >
-                  <option value="All" className="text-gray-900">✅ Status: All</option>
-                  <option value="Verified" className="text-gray-900">✅ Verified</option>
-                  <option value="Approved" className="text-gray-900">📋 Approved</option>
-                  <option value="Pending" className="text-gray-900">⏳ Pending</option>
-                </select>
-
-                <motion.span
-                  className="px-3 py-1.5 bg-emerald-500/30 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-emerald-400/30 cursor-pointer flex items-center gap-1"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  📊 Area: {areaRange.min}-{areaRange.max} sq.yds
-                </motion.span>
-              </div>
-            </motion.div> */}
-
-            {/* Quick Stats */}
-            {/* <motion.div
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-            >
-              {[
-                { label: 'Land Plots', value: '5,000+' },
-                { label: 'Cities', value: '50+' },
-                { label: 'Verified Owners', value: '1,200+' },
-                { label: 'Happy Buyers', value: '15,000+' }
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  className="text-center p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/5"
-                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }}
-                >
-                  <div className="text-xl md:text-2xl font-bold text-emerald-400">{stat.value}</div>
-                  <div className="text-xs text-gray-300">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div> */}
           </div>
 
 
@@ -671,6 +688,7 @@ useEffect(() => {
                       className="w-full pl-9 md:pl-12 pr-3 md:pr-4 py-3 md:py-3.5 lg:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white placeholder-white/30 text-xs md:text-sm border border-white/10 focus:border-emerald-400/60 focus:bg-white/10 outline-none transition-all group-hover:border-white/20"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={handleSearchKeyDown}
                     />
                     <div className="absolute right-2 md:right-3 text-white/20 text-[10px] md:text-xs hidden sm:block">⌘K</div>
                   </div>
@@ -690,11 +708,13 @@ useEffect(() => {
                   </div>
 
                   <motion.button
-                    className="px-5 md:px-7 lg:px-8 py-3 md:py-3.5 lg:py-4 bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-400 bg-[length:200%_100%] text-[#0A1A12] rounded-xl md:rounded-2xl font-bold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/50 transition-all whitespace-nowrap text-xs md:text-sm hover:bg-right animate-shimmer"
+                    className="px-5 md:px-7 lg:px-8 py-3 md:py-3.5 lg:py-4 bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-400 bg-[length:200%_100%] text-[#0A1A12] rounded-xl md:rounded-2xl font-bold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/50 transition-all whitespace-nowrap text-xs md:text-sm hover:bg-right animate-shimmer disabled:opacity-60 disabled:cursor-not-allowed"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={handleSearch}
+                    disabled={isSearching}
                   >
-                    Find Now →
+                    {isSearching ? 'Searching…' : 'Find Now →'}
                   </motion.button>
                 </div>
 
@@ -740,12 +760,15 @@ useEffect(() => {
                     📊 {areaRange.min}–{areaRange.max} sq.yds
                   </motion.span>
 
-                  <motion.span
-                    className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-white/60 text-[10px] md:text-xs font-medium border border-white/10 cursor-pointer flex items-center gap-1 backdrop-blur-sm hover:bg-white/10 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    ⭐ Prime
-                  </motion.span>
+                  {(searchQuery || selectedLandType !== 'All' || selectedZoning !== 'All' || selectedFacing !== 'All' || verificationStatus !== 'All') && (
+                    <motion.button
+                      onClick={handleResetFilters}
+                      className="px-3 md:px-3.5 py-1.5 md:py-2 bg-red-400/10 rounded-full text-red-300 text-[10px] md:text-xs font-medium border border-red-400/30 cursor-pointer flex items-center gap-1 backdrop-blur-sm hover:bg-red-400/20 transition-all"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      ✕ Clear Filters
+                    </motion.button>
+                  )}
                 </div>
 
               </div>
@@ -777,6 +800,110 @@ useEffect(() => {
                 </motion.div>
               ))}
             </motion.div>
+
+            {/* SEARCH RESULTS */}
+            <div ref={resultsRef} className="max-w-6xl mx-auto mt-12 md:mt-16">
+              <AnimatePresence mode="wait">
+                {isSearching && (
+                  <motion.div
+                    key="loading"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center justify-center py-16"
+                  >
+                    <div className="flex items-center gap-3 text-emerald-300 text-sm">
+                      <span className="w-5 h-5 border-2 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin" />
+                      Searching for plots...
+                    </div>
+                  </motion.div>
+                )}
+
+                {!isSearching && hasSearched && (
+                  <motion.div
+                    key="results"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="flex items-center justify-between mb-6 px-1">
+                      <h3 className="text-white text-lg md:text-xl font-bold">
+                        {searchResults.length > 0
+                          ? `${searchResults.length} Plot${searchResults.length > 1 ? 's' : ''} Found`
+                          : 'No Plots Found'}
+                      </h3>
+                      {searchResults.length > 0 && (
+                        <span className="text-white/40 text-xs">Showing demo data</span>
+                      )}
+                    </div>
+
+                    {searchResults.length === 0 ? (
+                      <div className="text-center py-14 md:py-16 bg-white/5 border border-white/10 rounded-2xl">
+                        <div className="text-4xl mb-3">🔍</div>
+                        <p className="text-white/60 text-sm mb-4">
+                          No plots match your filters. Try adjusting your search.
+                        </p>
+                        <motion.button
+                          onClick={handleResetFilters}
+                          className="px-5 py-2.5 bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 rounded-xl text-xs font-medium hover:bg-emerald-400/20 transition-all"
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          Clear Filters
+                        </motion.button>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                        {searchResults.map((plot, i) => (
+                          <motion.div
+                            key={plot.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.06, duration: 0.4 }}
+                            whileHover={{ y: -4, borderColor: 'rgba(16,185,129,0.5)' }}
+                            className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm transition-all"
+                          >
+                            <div className="flex items-start justify-between mb-3">
+                              <span className="text-3xl">{plot.icon}</span>
+                              <span className="text-[10px] px-2 py-1 rounded-full bg-emerald-400/10 text-emerald-300 border border-emerald-400/30 font-medium">
+                                {plot.verified}
+                              </span>
+                            </div>
+                            <h4 className="text-white font-bold text-sm md:text-base mb-1">{plot.title}</h4>
+                            <p className="text-white/40 text-xs mb-3 flex items-center gap-1">
+                              📍 {plot.location}
+                            </p>
+                            <div className="flex flex-wrap gap-1.5 mb-4">
+                              <span className="text-[10px] px-2 py-1 bg-white/5 text-white/60 rounded-full border border-white/10">
+                                {plot.type}
+                              </span>
+                              <span className="text-[10px] px-2 py-1 bg-white/5 text-white/60 rounded-full border border-white/10">
+                                🧭 {plot.facing}
+                              </span>
+                              <span className="text-[10px] px-2 py-1 bg-white/5 text-white/60 rounded-full border border-white/10">
+                                📊 {plot.area} sq.yds
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                              <span className="text-emerald-300 font-bold text-sm md:text-base">
+                                {formatPrice(plot.price)}
+                              </span>
+                              <motion.button
+                                className="text-[11px] px-3 py-1.5 bg-emerald-400 text-[#0A1A12] rounded-lg font-semibold"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                View Details
+                              </motion.button>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </section>
 
@@ -813,10 +940,6 @@ useEffect(() => {
         {/* ADVANCED MEASUREMENT TOOLS SECTION */}
         <motion.section
           className="relative bg-white z-30"
-        // initial="hidden"
-        // whileInView="visible"
-        // viewport={{ once: true, amount: 0.1 }}
-        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -984,10 +1107,6 @@ useEffect(() => {
         {/* VIDEO WALKTHROUGH SECTION */}
         <motion.section
           className="relative bg-white z-30"
-        // initial="hidden"
-        // whileInView="visible"
-        // viewport={{ once: true, amount: 0.1 }}
-        // variants={fadeInUp}
         >
           <VideoShowcaseSection />
         </motion.section>
@@ -995,10 +1114,6 @@ useEffect(() => {
         {/* LAND TYPES & ZONING SECTION */}
         <motion.section
           className="relative py-32 bg-white z-30"
-        // initial="hidden"
-        // whileInView="visible"
-        // viewport={{ once: true, amount: 0.1 }}
-        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1046,47 +1161,12 @@ useEffect(() => {
                 </Link>
               ))}
             </div>
-
-            {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {landTypes.slice(0, 10).map((type, i) => (
-                <motion.div
-                  key={i}
-                  className="p-4 bg-white rounded-2xl border-2 border-gray-100 text-center group hover:border-emerald-400 transition-all"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.05, duration: 0.4 }}
-                  viewport={{ once: true }}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 10px 40px rgba(16,185,129,0.15)"
-                  }}
-                >
-                  <div className="text-3xl mb-2">
-                    {type.includes('Residential') ? '🏠' :
-                      type.includes('Commercial') ? '🏢' :
-                        type.includes('Agricultural') ? '🌾' :
-                          type.includes('Industrial') ? '🏭' :
-                            type.includes('Mixed') ? '🏘️' :
-                              type.includes('Plotted') ? '📐' :
-                                type.includes('Farm') ? '🌿' :
-                                  type.includes('Hill') ? '⛰️' :
-                                    type.includes('Waterfront') ? '🏖️' :
-                                      '📍'}
-                  </div>
-                  <h4 className="text-sm font-bold text-gray-900">{type}</h4>
-                </motion.div>
-              ))}
-            </div> */}
           </div>
         </motion.section>
 
         {/* LAND USEFULIES & FEATURES */}
         <motion.section
           className="relative bg-white z-30"
-        // initial="hidden"
-        // whileInView="visible"
-        // viewport={{ once: true, amount: 0.1 }}
-        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1152,10 +1232,6 @@ useEffect(() => {
         {/* HOW TO BUY LAND SECTION */}
         <motion.section
           className="relative py-32 bg-white z-30"
-        // initial="hidden"
-        // whileInView="visible"
-        // viewport={{ once: true, amount: 0.1 }}
-        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1175,19 +1251,16 @@ useEffect(() => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  // step: '01',
                   icon: '🔍',
                   title: 'Search & Filter',
                   description: 'Use our advanced filters to find land by type, zoning, price, area, and facing direction.'
                 },
                 {
-                  // step: '02',
                   icon: '📋',
                   title: 'Verify & Compare',
                   description: 'Check land verification status, legal documents, zoning regulations, and compare options.'
                 },
                 {
-                  // step: '03',
                   icon: '🤝',
                   title: 'Connect & Close',
                   description: 'Contact owners directly, schedule site visits, and get legal assistance for registration.'
@@ -1202,9 +1275,6 @@ useEffect(() => {
                   viewport={{ once: true }}
                   whileHover={{ y: -10, boxShadow: "0 25px 60px rgba(16,185,129,0.15)" }}
                 >
-                  {/* <div className="absolute -top-4 -right-4 text-7xl font-bold text-gray-50 group-hover:text-emerald-50 transition-colors">
-                    {item.step}
-                  </div> */}
                   <div className="text-6xl mb-4">{item.icon}</div>
                   <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
                   <p className="text-gray-600">{item.description}</p>
@@ -1220,10 +1290,6 @@ useEffect(() => {
         {/* WHY CHOOSE PGI LAND REALTORS */}
         <motion.section
           className="relative py-32 bg-white z-30"
-        // initial="hidden"
-        // whileInView="visible"
-        // viewport={{ once: true, amount: 0.1 }}
-        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>

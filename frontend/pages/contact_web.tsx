@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import Head from 'next/head';
 import { motion, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, Sparkles } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import PageHero from '../components/Pagehero'
 import FAQ from '../components/FAQ';
 import CTASection from '../components/Ctasection';
@@ -106,8 +107,10 @@ interface ContactForm {
 
 type FormErrors = Partial<Record<keyof ContactForm, string>>;
 
-// Apna Web3Forms access key yaha daalein
-const WEB3FORMS_ACCESS_KEY = "76661e44-c122-4c1b-bec6-c6f6269e6818";
+// EmailJS credentials
+const EMAILJS_SERVICE_ID = 'service_dcysrhv';
+const EMAILJS_TEMPLATE_ID = 'template_ie9y6ba';
+const EMAILJS_PUBLIC_KEY = 'SUQvbb7NIv9GeYI9B';
 
 export default function Contact() {
   const [form, setForm] = useState<ContactForm>({
@@ -144,38 +147,25 @@ export default function Contact() {
     setSubmitError('');
 
     try {
-      const payload = {
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `New Contact Enquiry — ${form.queryType || 'General'}`,
-        from_name: "PGI Land Realtors Website",
-        first_name: form.firstName,
-        last_name: form.lastName,
-        name: `${form.firstName} ${form.lastName}`.trim(),
-        email: form.email,
-        phone: form.phone,
-        query_type: form.queryType,
-        message: form.message,
-      };
-
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          first_name: form.firstName,
+          last_name: form.lastName,
+          name: `${form.firstName} ${form.lastName}`.trim(),
+          email: form.email,
+          phone: form.phone,
+          query_type: form.queryType,
+          message: form.message,
         },
-        body: JSON.stringify(payload),
-      });
+        EMAILJS_PUBLIC_KEY
+      );
 
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitted(true);
-        setForm({ firstName: '', lastName: '', email: '', phone: '', queryType: '', message: '' });
-      } else {
-        setSubmitError(data.message || 'Something went wrong. Please try again.');
-      }
+      setSubmitted(true);
+      setForm({ firstName: '', lastName: '', email: '', phone: '', queryType: '', message: '' });
     } catch (err) {
-      setSubmitError('Network error. Please check your connection and try again.');
+      setSubmitError('Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -339,7 +329,7 @@ export default function Contact() {
                         <div>
                           <label className="text-sm font-medium text-gray-700 block mb-1">Phone Number*</label>
                           <input
-                            type="number"
+                            type="tel"
                             className={inputClass('phone')}
                             value={form.phone}
                             onChange={(e) => setForm({ ...form, phone: e.target.value })}

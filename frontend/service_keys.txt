@@ -1,0 +1,6 @@
+service id   :: service_dcysrhv
+
+template id :: template_40pyim4
+
+
+public key :: SUQvbb7NIv9GeYI9B
