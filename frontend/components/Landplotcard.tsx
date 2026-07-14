@@ -1,16 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 /**
  * LandPlotCard
- * Enhanced version of the featured-land card:
- * - Cycles through 2-3 real photos per plot (crossfade) so the card feels
- *   "alive" without needing licensed GIF assets.
- * - Each active photo gets a slow continuous Ken-Burns zoom/pan.
- * - Auto-advance pauses on hover so people can actually look at a photo.
- * - Clickable dot indicators to jump to a specific photo.
- * - Wishlist heart (local UI state only — wire up to your save/favorites
- *   API if you have one).
+ * - Cycles through photos per plot using pure CSS crossfade (no JS-driven animation)
+ * - Ken-Burns zoom done via CSS keyframes (GPU composited, doesn't block scroll)
+ * - Auto-advance pauses on hover
+ * - Clickable dot indicators
+ * - Wishlist heart with CSS pulse instead of JS animation
  */
 export default function LandPlotCard({ land, index = 0 }) {
   const images = land.images && land.images.length > 0 ? land.images : [land.image];
@@ -28,38 +25,44 @@ export default function LandPlotCard({ land, index = 0 }) {
   }, [images.length, isHovered]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.6 }}
-      viewport={{ once: true }}
-      className="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100"
-      whileHover={{ y: -10 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+    <div
+      className="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-2.5 transition-all duration-300 border border-gray-100"
+      style={{ contain: 'content' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Live cycling image gallery */}
       <div className="relative h-56 overflow-hidden bg-gray-100">
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={activeImg}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.9, ease: 'easeInOut' }}
+        {images.map((img, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 transition-opacity"
+            style={{
+              opacity: i === activeImg ? 1 : 0,
+              transitionDuration: '900ms',
+              transitionTimingFunction: 'ease-in-out',
+              zIndex: i === activeImg ? 1 : 0,
+              pointerEvents: 'none',
+            }}
           >
-            <motion.img
-              src={images[activeImg]}
-              alt={`${land.title} — view ${activeImg + 1}`}
-              className="w-full h-full object-cover"
-              initial={{ scale: 1 }}
-              animate={{ scale: 1.12 }}
-              transition={{ duration: 4.5, ease: 'linear' }}
-            />
-          </motion.div>
-        </AnimatePresence>
-
+            <div
+              className="w-full h-full"
+              style={{
+                animation: i === activeImg ? 'kenburns 4.5s linear forwards' : 'none',
+                willChange: 'transform',
+              }}
+            >
+              <Image
+                src={img}
+                alt={`${land.title} — view ${i + 1}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                priority={index < 4 && i === 0}
+              />
+            </div>
+          </div>
+        ))}
 
         <div className="absolute top-3 left-3 px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-full z-10">
           {land.type}
@@ -77,13 +80,11 @@ export default function LandPlotCard({ land, index = 0 }) {
             className="w-7 h-7 flex items-center justify-center backdrop-blur-sm rounded-full hover:scale-110 transition-transform"
             aria-label={isSaved ? 'Remove from saved' : 'Save plot'}
           >
-            <motion.span
-              animate={isSaved ? { scale: [1, 1.3, 1] } : {}}
-              transition={{ duration: 0.3 }}
-              className={isSaved ? 'text-red-500' : 'text-gray-400'}
+            <span
+              className={`${isSaved ? 'text-red-500 animate-heart-pop' : 'text-gray-400'}`}
             >
               {isSaved ? '❤️' : '🤍'}
-            </motion.span>
+            </span>
           </button>
         </div>
 
@@ -124,11 +125,6 @@ export default function LandPlotCard({ land, index = 0 }) {
             ✅ {land.verification}
           </span>
         </div>
-        {/* <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">📍 {land.location}</p> */}
-        {/* <div className="flex items-center justify-between mb-3">
-          <span className="text-xl font-bold text-emerald-600">{land.price}</span>
-          <span className="text-xs text-gray-500">{land.measurement}</span>
-        </div> */}
 
         <div className="flex flex-wrap gap-1 mb-3">
           {land.amenities.slice(0, 3).map((amenity, i) => (
@@ -142,18 +138,7 @@ export default function LandPlotCard({ land, index = 0 }) {
             </span>
           )}
         </div>
-
-        {/* <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-          <span className="text-xs text-gray-600">👤 {land.owner}</span>
-          <motion.button
-            className="px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl text-xs font-bold hover:shadow-lg transition-all"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View Details
-          </motion.button>
-        </div> */}
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -1,73 +1,59 @@
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99], staggerChildren: 0.15 } }
-};
+import { useRouter } from 'next/router';
 
 /**
  * Closing call-to-action band. Drop this in wherever you want a final push
  * toward search or listing (home page, land-plots page, etc).
  *
- * - "Start Your Land Search Now" routes to /landplots
- * - "List Your Land Plot" routes to /contact (swap this for a dedicated
- *   listing-submission page/route if you build one later)
+ * - "Start Your Land Search Now" smooth-scrolls to #search (same page)
+ *   or navigates + scrolls (from a different page)
+ * - "List Your Land Plot" routes to /landplots
  */
 export default function CTASection() {
+  const router = useRouter();
+
+const handleSearchClick = (e: React.MouseEvent) => {
+  const target = document.getElementById('search');
+  if (!target) return; // link ko normal navigate karne do agar target hi nahi mila
+
+  if (router.pathname === '/') {
+    e.preventDefault();
+    const lenis = (window as any).lenis;
+
+    if (lenis && typeof lenis.scrollTo === 'function') {
+      lenis.scrollTo(target, { offset: -20, duration: 1.5 });
+    } else {
+      // Lenis available nahi ya broken — fallback native smooth scroll
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+};
+
   return (
-    <motion.section
-      className="relative py-32 bg-gradient-to-br from-emerald-600 via-green-700 to-black text-white z-30"
-      // initial="hidden"
-      // whileInView="visible"
-      // viewport={{ once: true, amount: 0.1 }}
-      // variants={fadeInUp}
-    >
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-emerald-400/20 blur-3xl"
-          animate={{
-            x: [0, 80, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: 'easeInOut'
-          }}
-        />
-      </div>
+    <section className="relative py-32 bg-gradient-to-br from-emerald-600 via-green-700 to-black text-white z-30 overflow-hidden">
+      <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-emerald-400/20 blur-3xl animate-cta-glow" />
 
       <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-        <motion.h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" variants={fadeInUp}>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
           Ready to Find Your{' '}
           <span className="text-emerald-300">Perfect Land Plot</span>?
-        </motion.h2>
-        <motion.p className="text-xl text-gray-200 mb-10" variants={fadeInUp}>
+        </h2>
+        <p className="text-xl text-gray-200 mb-10">
           Join 15,000+ happy land owners who found their perfect plot through PGI Land Realtors
-        </motion.p>
-        <motion.div className="flex flex-col sm:flex-row gap-4 justify-center" variants={fadeInUp}>
-          <Link href="/contact">
-            <motion.button
-              className="w-full sm:w-auto px-10 py-4 bg-white text-emerald-700 rounded-2xl font-bold shadow-2xl hover:shadow-emerald-500/30 transition-all"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/#search" onClick={handleSearchClick}>
+            <button className="w-full sm:w-auto px-10 py-4 bg-white text-emerald-700 rounded-2xl font-bold shadow-2xl transition-all duration-300 hover:shadow-emerald-500/30 hover:scale-105 active:scale-95">
               Start Your Land Search Now →
-            </motion.button>
+            </button>
           </Link>
           <Link href="/landplots">
-            <motion.button
-              className="w-full sm:w-auto px-10 py-4 border-2 border-white/50 text-white rounded-2xl font-medium hover:bg-white/10 transition-all"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <button className="w-full sm:w-auto px-10 py-4 border-2 border-white/50 text-white rounded-2xl font-medium transition-all duration-300 hover:bg-white/10 hover:scale-105 active:scale-95">
               List Your Land Plot
-            </motion.button>
+            </button>
           </Link>
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

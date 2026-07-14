@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import PageHero from '../components/Pagehero';
 import LandPlotCard from '../components/Landplotcard';
@@ -68,7 +70,6 @@ export const allLands = [
     facing: 'West',
     owner: 'Bombay Land Developers',
     images: [
-      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
       "/commercial1.jpg",
       "/commercial2.jpg",
       "/commercial3.jpg",
@@ -90,7 +91,6 @@ export const allLands = [
     facing: 'South',
     owner: 'Industrial Estates Ltd',
     images: [
-      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
       "/industrial1.jpg",
       "/industrial2.jpg",
       "/industrial3.jpg"
@@ -139,6 +139,131 @@ export const allLands = [
 ];
 
 const landTypes = ['All', 'Residential Land', 'Commercial Land', 'Agricultural Land', 'Industrial Land', 'Farm Land'];
+
+// Category cards shown at the top — background image + count pulled live from allLands
+const categories = [
+  {
+    label: 'Residential Land',
+    route : 'residential-land',
+    icon: '🏡',
+    image: '/residential3.png',
+    match: (l) => l.type === 'Residential Land'
+  },
+  {
+    label: 'Commercial Land',
+    route : 'commercial-land',
+    icon: '🏢',
+    image: '/commercial1.jpg',
+    match: (l) => l.type === 'Commercial Land'
+  },
+  {
+    label: 'Agricultural Land',
+    route : 'agricultural-land',
+    icon: '🌾',
+    image: '/agri1.jpg',
+    match: (l) => l.type === 'Agricultural Land'
+  },
+  {
+    label: 'Industrial Land',
+    route : 'industrial-land',
+    icon: '🏭',
+    image: '/industrial1.jpg',
+    match: (l) => l.type === 'Industrial Land'
+  },
+  {
+    label: 'Mixed-Use Land',
+    route : 'mixed-use-land',
+    icon: '🏘️',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800',
+    match: (l) => (l.amenities || []).some((a) => /mixed/i.test(a))
+  },
+  {
+    label: 'Plotted Development',
+    route : 'plotted-development',
+    icon: '📐',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800',
+    match: (l) => /plotted|layout/i.test(l.title)
+  },
+  {
+    label: 'Farm Land',
+    route : 'farm-land',
+    icon: '🌱',
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
+    match: (l) => l.type === 'Farm Land'
+  },
+  {
+    label: 'Hill View Plot',
+    route : 'hill-view-plot',
+    icon: '⛰️',
+    image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800',
+    match: (l) => (l.amenities || []).some((a) => /hill/i.test(a)) || /hill/i.test(l.title)
+  }
+];
+
+function CategoryGrid() {
+  const counts = useMemo(
+    () => categories.map((c) => allLands.filter(c.match).length),
+    []
+  );
+
+  return (
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+      <div className="text-center mb-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Browse by Category</h2>
+        <p className="text-gray-500 mt-2">Browse through various land categories and zoning classifications</p>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+        {categories.map((cat, i) => (
+          <motion.div
+            key={cat.label}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: (i % 5) * 0.06 }}
+          >
+            <Link
+              href={`/land/${encodeURIComponent(cat.route)}`}
+              scroll={false}
+              className="group relative block h-40 sm:h-44 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 ring-1 ring-black/5"
+            >
+              {/* background image, slow zoom on hover */}
+              <motion.img
+                src={cat.image}
+                alt={cat.label}
+                className="absolute inset-0 w-full h-full object-cover"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+              />
+
+              {/* gradient overlay for text legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/0 group-hover:from-emerald-900/85 transition-colors duration-300" />
+
+              {/* count badge */}
+              {counts[i] > 0 && (
+                <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-white/90 text-[11px] font-bold text-emerald-700">
+                  {counts[i]} {counts[i] === 1 ? 'plot' : 'plots'}
+                </span>
+              )}
+
+              {/* content */}
+              <div className="absolute inset-x-0 bottom-0 p-3.5 flex items-center gap-2">
+                <span className="text-2xl drop-shadow-sm">{cat.icon}</span>
+                <span className="text-white font-semibold text-sm sm:text-[15px] leading-tight drop-shadow-sm">
+                  {cat.label}
+                </span>
+              </div>
+
+              {/* subtle border glow on hover */}
+              <div className="absolute inset-0 rounded-2xl ring-2 ring-emerald-400/0 group-hover:ring-emerald-400/70 transition-all duration-300 pointer-events-none" />
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 /**
  * CardImage
@@ -211,8 +336,17 @@ function CardImage({ land }) {
 }
 
 export default function LandPlots() {
+  const router = useRouter();
   const [search, setSearch] = useState('');
   const [type, setType] = useState('All');
+
+  // If a category card is clicked (?type=Residential Land), pick it up and
+  // filter the list below automatically.
+  // useEffect(() => {
+  //   if (router.query.type && landTypes.includes(router.query.type)) {
+  //     setType(router.query.type);
+  //   }
+  // }, [router.query.type]);
 
   const filtered = useMemo(() => {
     return allLands.filter((land) => {
@@ -238,6 +372,9 @@ export default function LandPlots() {
           titleLine2="Land Plots"
           subtitle={`${filtered.length} verified plots available right now, across residential, commercial, agricultural, and industrial zones.`}
         />
+
+        <CategoryGrid />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20">
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-3 mb-10 max-w-3xl mx-auto">

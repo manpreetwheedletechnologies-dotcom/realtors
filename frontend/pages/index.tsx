@@ -55,159 +55,6 @@ const scaleIn = {
   }
 };
 
-const floatingAnimation = {
-  y: [0, -20, 0],
-  transition: {
-    duration: 4,
-    repeat: Infinity,
-    ease: "easeInOut"
-  }
-};
-
-const pulseAnimation = {
-  scale: [1, 1.08, 1],
-  transition: {
-    duration: 2.5,
-    repeat: Infinity,
-    ease: "easeInOut"
-  }
-};
-
-const shimmerAnimation = {
-  backgroundPosition: ["0%", "200%", "0%"],
-  transition: {
-    duration: 4,
-    repeat: Infinity,
-    ease: "linear"
-  }
-};
-
-// Land/Lot listing data
-const featuredLands = [
-  {
-    id: 1,
-    title: 'Prime Residential Plot - South Delhi',
-    location: 'South Delhi, Delhi',
-    price: '₹2.5 Cr',
-    size: '450 sq.yds',
-    type: 'Residential Land',
-    zoning: 'Residential R-3',
-    dimensions: '30ft × 45ft',
-    facing: 'North-East',
-    owner: 'Shree Builders Pvt Ltd',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
-    possession: 'Immediate',
-    rating: 4.9,
-    reviews: 128,
-    amenities: ['Corner Plot', 'Wide Road', 'Water Supply', 'Electricity', 'Drainage'],
-    verification: 'Approved',
-    measurement: '30ft x 45ft = 1350 sq.ft',
-    coordinates: '28.6139° N, 77.2090° E'
-  },
-  {
-    id: 2,
-    title: 'Agricultural Land - Whitefield',
-    location: 'Whitefield, Bangalore',
-    price: '₹1.8 Cr',
-    size: '2 acres',
-    type: 'Agricultural Land',
-    zoning: 'Agricultural Zone',
-    dimensions: '200ft × 435ft',
-    facing: 'East',
-    owner: 'Green Valley Farms',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',
-    possession: '3 Months',
-    rating: 4.7,
-    reviews: 89,
-    amenities: ['Fertile Soil', 'Water Borewell', 'Fencing', 'Farm House'],
-    verification: 'Verified',
-    measurement: '200ft x 435ft = 87,000 sq.ft',
-    coordinates: '12.9716° N, 77.5946° E'
-  },
-  {
-    id: 3,
-    title: 'Commercial Land - BKC',
-    location: 'BKC, Mumbai',
-    price: '₹8.5 Cr',
-    size: '1200 sq.yds',
-    type: 'Commercial Land',
-    zoning: 'Commercial C-1',
-    dimensions: '60ft × 80ft',
-    facing: 'West',
-    owner: 'Bombay Land Developers',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
-    possession: '6 Months',
-    rating: 4.8,
-    reviews: 67,
-    amenities: ['Prime Location', 'Road Access', 'Parking Space', 'Construction Allowed'],
-    verification: 'Approved',
-    measurement: '60ft x 80ft = 4,800 sq.ft',
-    coordinates: '19.0760° N, 72.8777° E'
-  },
-  {
-    id: 4,
-    title: 'Industrial Plot - Andheri',
-    location: 'Andheri, Mumbai',
-    price: '₹3.2 Cr',
-    size: '650 sq.yds',
-    type: 'Industrial Land',
-    zoning: 'Industrial I-2',
-    dimensions: '50ft × 52ft',
-    facing: 'South',
-    owner: 'Industrial Estates Ltd',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
-    possession: 'Immediate',
-    rating: 4.6,
-    reviews: 54,
-    amenities: ['Power Supply', 'Water Access', 'Loading Bay', 'Security'],
-    verification: 'Verified',
-    measurement: '50ft x 52ft = 2,600 sq.ft',
-    coordinates: '19.1190° N, 72.8443° E'
-  }
-];
-
-// Construction Projects Data
-const constructionProjects = [
-  {
-    id: 1,
-    name: 'Mumbai-Delhi Expressway',
-    type: 'Highway Construction',
-    location: 'Mumbai to Delhi',
-    progress: 65,
-    length: '1,350 km',
-    estimatedCompletion: 'Dec 2025',
-    contractor: 'L&T Construction',
-    status: 'Active',
-    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600',
-    measurement: 'Width: 45m, Length: 1,350km'
-  },
-  {
-    id: 2,
-    name: 'High-Speed Rail Corridor',
-    type: 'Railway Construction',
-    location: 'Mumbai-Ahmedabad',
-    progress: 42,
-    length: '508 km',
-    estimatedCompletion: 'Dec 2026',
-    contractor: 'NHSRCL',
-    status: 'Active',
-    image: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?w=600',
-    measurement: 'Gauge: 1435mm, Speed: 320km/h'
-  },
-  {
-    id: 3,
-    name: 'Greenfield Airport',
-    type: 'Infrastructure Project',
-    location: 'Navi Mumbai',
-    progress: 78,
-    length: '1,160 hectares',
-    estimatedCompletion: 'Dec 2024',
-    contractor: 'Adani Group',
-    status: 'Active',
-    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600',
-    measurement: 'Terminal: 25,00,000 sq.ft'
-  }
-];
 
 // Measurement Tools Data
 const measurementTools = [
@@ -237,33 +84,6 @@ const measurementTools = [
   }
 ];
 
-// 360° Virtual Tours Data
-const virtualTours = [
-  {
-    id: 1,
-    title: 'Residential Colony Tour',
-    location: 'South Delhi',
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600',
-    duration: '5:30',
-    features: ['Interactive 360°', 'VR Ready', 'Voice Guide']
-  },
-  {
-    id: 2,
-    title: 'Commercial Complex Walkthrough',
-    location: 'BKC, Mumbai',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600',
-    duration: '4:45',
-    features: ['Interactive 360°', 'VR Ready', 'Night Mode']
-  },
-  {
-    id: 3,
-    title: 'Industrial Zone Preview',
-    location: 'Andheri, Mumbai',
-    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600',
-    duration: '6:15',
-    features: ['Interactive 360°', 'Measurement Tools', 'Virtual Walk']
-  }
-];
 
 const landTypes = [
   'Residential Land',
@@ -337,43 +157,6 @@ const landCategoryLinks = [
 ];
 
 
-
-// FAQ Data
-const faqs = [
-  {
-    question: 'What types of land plots are available on PGI Land Realtors?',
-    answer: 'We offer a wide variety of land plots including Residential Land, Commercial Land, Agricultural Land, Industrial Land, Mixed-Use Land, Plotted Development, Farm Land, Hill View Plot, Waterfront Land, and Corner Plots across 50+ cities in India.'
-  },
-  {
-    question: 'How can I verify the legal status of a land plot?',
-    answer: 'Each land listing on our platform goes through a rigorous verification process. We provide complete legal documentation including title deeds, encumbrance certificates, zoning approvals, and DTCP/RERA registrations. You can also schedule a legal consultation through our platform.'
-  },
-  {
-    question: 'What measurement tools are available on the platform?',
-    answer: 'PGI Land Realtors offers advanced measurement tools including Area Calculator for sq.ft, sq.yds, acres, and hectares conversion; Distance Measurement with GPS integration; Elevation Analysis with contour mapping; and Construction Estimator for cost and material calculations.'
-  },
-  {
-    question: 'How do I schedule a site visit for a land plot?',
-    answer: 'You can schedule a site visit directly through the land listing page. Simply click on "Schedule Visit" and choose your preferred date and time. Our team will coordinate with the owner and accompany you during the visit for a seamless experience.'
-  },
-  {
-    question: 'What financing options are available for land purchase?',
-    answer: 'We have partnerships with leading banks and financial institutions offering land purchase loans. Our EMI calculator helps you estimate monthly payments based on loan amount, interest rate, and tenure. We also provide assistance with loan documentation and processing.'
-  },
-  {
-    question: 'Can I list my land plot for sale on your platform?',
-    answer: 'Yes, absolutely! You can list your land plot by clicking on "List Your Land Plot" button. Our team will verify your property details, legal documents, and coordinate with potential buyers. We provide professional photography, virtual tours, and marketing support for your listing.'
-  },
-  {
-    question: 'What is the process of buying land through your platform?',
-    answer: 'The process is simple: 1) Search and filter land plots based on your requirements, 2) Verify the land details, legal documents, and zoning regulations, 3) Schedule a site visit, 4) Connect with the owner for price negotiation, 5) Complete the legal documentation and registration with our assistance, 6) Get possession of your land.'
-  },
-  {
-    question: 'Do you offer virtual tours for land properties?',
-    answer: 'Yes, we provide 360° immersive virtual tours for select properties. These interactive tours allow you to experience the property remotely with features like VR compatibility, voice guide, night mode, and measurement tools integrated into the tour experience.'
-  }
-];
-
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [activeVideo, setActiveVideo] = useState(0);
@@ -432,18 +215,33 @@ export default function Home() {
   };
   const heroVideos = [
     '/hero3.jpg',
-    '/hero2.png',
-    '/hero1.png',
-    '/hero4.png',
     '/hero5.png',
-    '/hero6.png',
+    '/hero_8.jpeg',
+    '/hero_9.jpeg',
+    '/hero_10.jpeg',
   ];
 
   const facings = ['All', 'North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'];
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+useEffect(() => {
+  setMounted(true);
+
+  // agar URL mein #search hash hai (kisi doosre page se navigate karke aaye ho)
+  if (window.location.hash === '#search') {
+    // Lenis ready hone ka thoda wait karo
+    const timer = setTimeout(() => {
+      const lenis = (window as any).lenis;
+      const target = document.getElementById('search');
+      if (lenis && target) {
+        lenis.scrollTo(target, { offset: -20, duration: 1.5 });
+      } else if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }
+}, []);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -477,23 +275,23 @@ export default function Home() {
           <div className="absolute inset-0 z-0 overflow-hidden bg-black">
 
             <AnimatePresence>
-  <motion.img
-    key={activeVideo}
-    initial={{ opacity: 1, scale: 0.15, x: '38%', y: '38%' }}
-    animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-    exit={{ opacity: 0 }}
-    transition={{
-      scale: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
-      x: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
-      y: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
-      opacity: { duration: 0.8, delay: 0.6 }
-    }}
-    style={{ transformOrigin: 'bottom right' }}
-    className="absolute inset-0 w-full h-full object-cover"
-    src={heroVideos[activeVideo]}
-    alt="Hero background"
-  />
-</AnimatePresence>
+              <motion.img
+                key={activeVideo}
+                initial={{ opacity: 1, scale: 0.15, x: '38%', y: '38%' }}
+                animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  scale: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+                  x: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+                  y: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+                  opacity: { duration: 0.8, delay: 0.6 }
+                }}
+                style={{ transformOrigin: 'bottom right' }}
+                className="absolute inset-0 w-full h-full object-cover"
+                src={heroVideos[activeVideo]}
+                alt="Hero background"
+              />
+            </AnimatePresence>
             {/* <AnimatePresence mode="wait">
               <motion.video
                 key={activeVideo}
@@ -511,9 +309,9 @@ export default function Home() {
               />
             </AnimatePresence> */}
 
-           
+
           </div>
-{/* SEARCH YOUR LAND SECTION */}
+          {/* SEARCH YOUR LAND SECTION */}
 
 
           <div className="relative z-20 text-center px-4 max-w-6xl mx-auto w-full">
@@ -674,7 +472,7 @@ export default function Home() {
 
 
           {/* LEFT CORNER DESCRIPTION TEXT */}
-        {/* LEFT CORNER HEADING + DESCRIPTION TEXT */}
+          {/* LEFT CORNER HEADING + DESCRIPTION TEXT */}
           <motion.div
             className="absolute bottom-10 left-4 sm:left-8 md:left-12 z-20 max-w-md text-left"
             initial={{ opacity: 0, x: -60 }}
@@ -729,7 +527,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-       {/* BOTTOM RIGHT SCATTERED PHOTO STACK */}
+          {/* BOTTOM RIGHT SCATTERED PHOTO STACK */}
           <motion.div
             className="absolute bottom-10 right-4 sm:right-8 md:right-16 z-20 w-28 h-20 md:w-36 md:h-24"
             initial={{ opacity: 0 }}
@@ -802,191 +600,188 @@ export default function Home() {
           </div>
         </motion.section>
         {/* SEARCH YOUR LAND SECTION */}
-<motion.section
-  className="sticky top-0 z-20 min-h-screen py-16 md:py-20 bg-gradient-to-b from-[#0A1A12] via-[#0F281D] to-[#0A1A12] overflow-hidden"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.1 }}
-  variants={fadeInUp}
->
-  {/* Premium grid pattern overlay */}
-  <div
-    className="absolute inset-0 opacity-[0.04]"
-    style={{
-      backgroundImage: `
+        <section
+          className="sticky top-0 z-20 min-h-screen py-16 md:py-20 bg-gradient-to-b from-[#0A1A12] via-[#0F281D] to-[#0A1A12] overflow-hidden"
+          id = "search"
+        >
+          {/* Premium grid pattern overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: `
         linear-gradient(to right, #ffffff 1px, transparent 1px),
         linear-gradient(to bottom, #ffffff 1px, transparent 1px)
       `,
-      backgroundSize: '60px 60px'
-    }}
-  />
-  
-  {/* Diagonal accent lines */}
-  <div className="absolute inset-0 opacity-[0.03]">
-    <div className="absolute top-0 left-0 w-full h-full" style={{
-      backgroundImage: 'repeating-linear-gradient(45deg, #10b981 0px, #10b981 1px, transparent 1px, transparent 20px)',
-      backgroundSize: '30px 30px'
-    }} />
-  </div>
- 
-  {/* Multiple glow layers */}
-  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-emerald-500/15 rounded-full blur-[150px] pointer-events-none" />
-  <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] pointer-events-none" />
-  <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-400/10 rounded-full blur-[100px] pointer-events-none" />
- 
-  {/* Corner accent markers */}
-  <div className="absolute top-8 left-8 w-10 h-10 border-t-2 border-l-2 border-emerald-400/50 hidden lg:block" />
-  <div className="absolute top-8 right-8 w-10 h-10 border-t-2 border-r-2 border-emerald-400/50 hidden lg:block" />
-  <div className="absolute bottom-8 left-8 w-10 h-10 border-b-2 border-l-2 border-emerald-400/50 hidden lg:block" />
-  <div className="absolute bottom-8 right-8 w-10 h-10 border-b-2 border-r-2 border-emerald-400/50 hidden lg:block" />
- 
-  <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-10 md:mb-12" >
-      <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-[11px] uppercase tracking-[0.35em] text-emerald-300 font-semibold backdrop-blur-sm">
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-400/50" />
-        Premium Land Locator
-      </span>
-      <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mt-5 mb-3 text-white leading-tight">
-        Search Your{' '}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-400 to-emerald-300 animate-gradient">
-          Dream Land
-        </span>
-      </h2>
-      <p className="text-white/50 max-w-xl mx-auto text-xs md:text-sm lg:text-base">
-        Discover premium plots with precision — filter by location, type, zoning, and verification status.
-      </p>
-    </div>
- 
-    {/* Enhanced SEARCH CARD with white accent */}
-    <motion.div
-      className="relative max-w-4xl mx-auto rounded-[28px] md:rounded-[32px] p-[1.5px] md:p-[2px] bg-gradient-to-br from-emerald-400/40 via-white/15 to-transparent shadow-2xl shadow-emerald-500/10"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="rounded-[27px] md:rounded-[30px] bg-[#0F281D]/95 backdrop-blur-2xl p-5 md:p-7 lg:p-8 border border-white/10 shadow-inner shadow-white/5">
-        {/* Main search row */}
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] lg:grid-cols-[1.4fr_1fr_auto] gap-2.5 md:gap-3">
-          <div className="relative flex items-center group">
-            <span className="absolute left-3 md:left-4 text-emerald-400 text-base md:text-lg">📍</span>
-            <input
-              type="text"
-              placeholder="Enter city or locality..."
-              className="w-full pl-9 md:pl-12 pr-3 md:pr-4 py-3 md:py-3.5 lg:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white placeholder-white/30 text-xs md:text-sm border border-white/10 focus:border-emerald-400/60 focus:bg-white/10 outline-none transition-all group-hover:border-white/20"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <div className="absolute right-2 md:right-3 text-white/20 text-[10px] md:text-xs hidden sm:block">⌘K</div>
+              backgroundSize: '60px 60px'
+            }}
+          />
+
+          {/* Diagonal accent lines */}
+          <div className="absolute inset-0 opacity-[0.03]">
+            <div className="absolute top-0 left-0 w-full h-full" style={{
+              backgroundImage: 'repeating-linear-gradient(45deg, #10b981 0px, #10b981 1px, transparent 1px, transparent 20px)',
+              backgroundSize: '30px 30px'
+            }} />
           </div>
- 
-          <div className="relative">
-            <select
-              className="w-full px-3 md:px-4 py-3 md:py-3.5 lg:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white text-xs md:text-sm border border-white/10 focus:border-emerald-400/60 focus:bg-white/10 outline-none transition-all appearance-none cursor-pointer"
-              value={selectedLandType}
-              onChange={(e) => setSelectedLandType(e.target.value)}
+
+          {/* Multiple glow layers */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-emerald-500/15 rounded-full blur-[150px] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-400/10 rounded-full blur-[100px] pointer-events-none" />
+
+          {/* Corner accent markers */}
+          <div className="absolute top-8 left-8 w-10 h-10 border-t-2 border-l-2 border-emerald-400/50 hidden lg:block" />
+          <div className="absolute top-8 right-8 w-10 h-10 border-t-2 border-r-2 border-emerald-400/50 hidden lg:block" />
+          <div className="absolute bottom-8 left-8 w-10 h-10 border-b-2 border-l-2 border-emerald-400/50 hidden lg:block" />
+          <div className="absolute bottom-8 right-8 w-10 h-10 border-b-2 border-r-2 border-emerald-400/50 hidden lg:block" />
+
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10 md:mb-12" >
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-[11px] uppercase tracking-[0.35em] text-emerald-300 font-semibold backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-400/50" />
+                Premium Land Locator
+              </span>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mt-5 mb-3 text-white leading-tight">
+                Search Your{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-400 to-emerald-300 animate-gradient">
+                  Dream Land
+                </span>
+              </h2>
+              <p className="text-white/50 max-w-xl mx-auto text-xs md:text-sm lg:text-base">
+                Discover premium plots with precision — filter by location, type, zoning, and verification status.
+              </p>
+            </div>
+
+            {/* Enhanced SEARCH CARD with white accent */}
+            <motion.div
+              className="relative max-w-4xl mx-auto rounded-[28px] md:rounded-[32px] p-[1.5px] md:p-[2px] bg-gradient-to-br from-emerald-400/40 via-white/15 to-transparent shadow-2xl shadow-emerald-500/10"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
             >
-              <option value="All" className="text-gray-900 bg-white">🏠 All Land Types</option>
-              {landTypes.map(type => (
-                <option key={type} value={type} className="text-gray-900 bg-white">{type}</option>
+              <div className="rounded-[27px] md:rounded-[30px] bg-[#0F281D]/95 backdrop-blur-2xl p-5 md:p-7 lg:p-8 border border-white/10 shadow-inner shadow-white/5">
+                {/* Main search row */}
+                <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] lg:grid-cols-[1.4fr_1fr_auto] gap-2.5 md:gap-3">
+                  <div className="relative flex items-center group">
+                    <span className="absolute left-3 md:left-4 text-emerald-400 text-base md:text-lg">📍</span>
+                    <input
+                      type="text"
+                      placeholder="Enter city or locality..."
+                      className="w-full pl-9 md:pl-12 pr-3 md:pr-4 py-3 md:py-3.5 lg:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white placeholder-white/30 text-xs md:text-sm border border-white/10 focus:border-emerald-400/60 focus:bg-white/10 outline-none transition-all group-hover:border-white/20"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <div className="absolute right-2 md:right-3 text-white/20 text-[10px] md:text-xs hidden sm:block">⌘K</div>
+                  </div>
+
+                  <div className="relative">
+                    <select
+                      className="w-full px-3 md:px-4 py-3 md:py-3.5 lg:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white text-xs md:text-sm border border-white/10 focus:border-emerald-400/60 focus:bg-white/10 outline-none transition-all appearance-none cursor-pointer"
+                      value={selectedLandType}
+                      onChange={(e) => setSelectedLandType(e.target.value)}
+                    >
+                      <option value="All" className="text-gray-900 bg-white">🏠 All Land Types</option>
+                      {landTypes.map(type => (
+                        <option key={type} value={type} className="text-gray-900 bg-white">{type}</option>
+                      ))}
+                    </select>
+                    <div className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 text-white/30 text-[10px] md:text-xs">▼</div>
+                  </div>
+
+                  <motion.button
+                    className="px-5 md:px-7 lg:px-8 py-3 md:py-3.5 lg:py-4 bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-400 bg-[length:200%_100%] text-[#0A1A12] rounded-xl md:rounded-2xl font-bold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/50 transition-all whitespace-nowrap text-xs md:text-sm hover:bg-right animate-shimmer"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Find Now →
+                  </motion.button>
+                </div>
+
+                {/* Filter chips */}
+                <div className="flex flex-wrap gap-1.5 md:gap-2 mt-4 md:mt-5 pt-4 md:pt-5 border-t border-white/10">
+                  <select
+                    className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-emerald-100/80 text-[10px] md:text-xs font-medium border border-white/10 outline-none cursor-pointer hover:border-emerald-400/50 hover:bg-white/10 transition-all backdrop-blur-sm"
+                    value={selectedZoning}
+                    onChange={(e) => setSelectedZoning(e.target.value)}
+                  >
+                    <option value="All" className="text-gray-900 bg-white">📐 Zoning: All</option>
+                    {landZoning.map(zone => (
+                      <option key={zone} value={zone} className="text-gray-900 bg-white">{zone}</option>
+                    ))}
+                  </select>
+
+                  <select
+                    className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-emerald-100/80 text-[10px] md:text-xs font-medium border border-white/10 outline-none cursor-pointer hover:border-emerald-400/50 hover:bg-white/10 transition-all backdrop-blur-sm"
+                    value={selectedFacing}
+                    onChange={(e) => setSelectedFacing(e.target.value)}
+                  >
+                    <option value="All" className="text-gray-900 bg-white">🧭 Facing: All</option>
+                    {facings.slice(1).map(facing => (
+                      <option key={facing} value={facing} className="text-gray-900 bg-white">{facing}</option>
+                    ))}
+                  </select>
+
+                  <select
+                    className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-emerald-100/80 text-[10px] md:text-xs font-medium border border-white/10 outline-none cursor-pointer hover:border-emerald-400/50 hover:bg-white/10 transition-all backdrop-blur-sm"
+                    value={verificationStatus}
+                    onChange={(e) => setVerificationStatus(e.target.value)}
+                  >
+                    <option value="All" className="text-gray-900 bg-white">✅ Status: All</option>
+                    <option value="Verified" className="text-gray-900 bg-white">✅ Verified</option>
+                    <option value="Approved" className="text-gray-900 bg-white">📋 Approved</option>
+                    <option value="Pending" className="text-gray-900 bg-white">⏳ Pending</option>
+                  </select>
+
+                  <motion.span
+                    className="px-3 md:px-3.5 py-1.5 md:py-2 bg-emerald-400/10 rounded-full text-emerald-300 text-[10px] md:text-xs font-medium border border-emerald-400/30 cursor-pointer flex items-center gap-1 backdrop-blur-sm"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    📊 {areaRange.min}–{areaRange.max} sq.yds
+                  </motion.span>
+
+                  <motion.span
+                    className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-white/60 text-[10px] md:text-xs font-medium border border-white/10 cursor-pointer flex items-center gap-1 backdrop-blur-sm hover:bg-white/10 transition-all"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    ⭐ Prime
+                  </motion.span>
+                </div>
+
+              </div>
+            </motion.div>
+
+            {/* Enhanced Stats ticker */}
+            <motion.div
+              className="flex flex-wrap justify-center divide-x divide-white/10 max-w-3xl mx-auto mt-10 md:mt-14 rounded-xl md:rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-4 md:p-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              {[
+                { label: 'Land Plots', value: '5,000+', icon: '🏗️' },
+                { label: 'Cities', value: '50+', icon: '🌆' },
+                { label: 'Verified Owners', value: '1,200+', icon: '👤' },
+                { label: 'Happy Buyers', value: '15,000+', icon: '⭐' }
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  className="text-center px-3 md:px-6 lg:px-10 first:pl-0 last:pr-0 py-1"
+                  whileHover={{ y: -3 }}
+                >
+                  <div className="text-xl md:text-2xl lg:text-3xl font-bold text-emerald-300">{stat.value}</div>
+                  <div className="text-[9px] md:text-[11px] uppercase tracking-widest text-white/40 mt-0.5 md:mt-1 flex items-center justify-center gap-1">
+                    <span className="text-xs md:text-sm">{stat.icon}</span> {stat.label}
+                  </div>
+                </motion.div>
               ))}
-            </select>
-            <div className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 text-white/30 text-[10px] md:text-xs">▼</div>
+            </motion.div>
           </div>
- 
-          <motion.button
-            className="px-5 md:px-7 lg:px-8 py-3 md:py-3.5 lg:py-4 bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-400 bg-[length:200%_100%] text-[#0A1A12] rounded-xl md:rounded-2xl font-bold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/50 transition-all whitespace-nowrap text-xs md:text-sm hover:bg-right animate-shimmer"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Find Now →
-          </motion.button>
-        </div>
- 
-        {/* Filter chips */}
-        <div className="flex flex-wrap gap-1.5 md:gap-2 mt-4 md:mt-5 pt-4 md:pt-5 border-t border-white/10">
-          <select
-            className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-emerald-100/80 text-[10px] md:text-xs font-medium border border-white/10 outline-none cursor-pointer hover:border-emerald-400/50 hover:bg-white/10 transition-all backdrop-blur-sm"
-            value={selectedZoning}
-            onChange={(e) => setSelectedZoning(e.target.value)}
-          >
-            <option value="All" className="text-gray-900 bg-white">📐 Zoning: All</option>
-            {landZoning.map(zone => (
-              <option key={zone} value={zone} className="text-gray-900 bg-white">{zone}</option>
-            ))}
-          </select>
- 
-          <select
-            className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-emerald-100/80 text-[10px] md:text-xs font-medium border border-white/10 outline-none cursor-pointer hover:border-emerald-400/50 hover:bg-white/10 transition-all backdrop-blur-sm"
-            value={selectedFacing}
-            onChange={(e) => setSelectedFacing(e.target.value)}
-          >
-            <option value="All" className="text-gray-900 bg-white">🧭 Facing: All</option>
-            {facings.slice(1).map(facing => (
-              <option key={facing} value={facing} className="text-gray-900 bg-white">{facing}</option>
-            ))}
-          </select>
- 
-          <select
-            className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-emerald-100/80 text-[10px] md:text-xs font-medium border border-white/10 outline-none cursor-pointer hover:border-emerald-400/50 hover:bg-white/10 transition-all backdrop-blur-sm"
-            value={verificationStatus}
-            onChange={(e) => setVerificationStatus(e.target.value)}
-          >
-            <option value="All" className="text-gray-900 bg-white">✅ Status: All</option>
-            <option value="Verified" className="text-gray-900 bg-white">✅ Verified</option>
-            <option value="Approved" className="text-gray-900 bg-white">📋 Approved</option>
-            <option value="Pending" className="text-gray-900 bg-white">⏳ Pending</option>
-          </select>
- 
-          <motion.span
-            className="px-3 md:px-3.5 py-1.5 md:py-2 bg-emerald-400/10 rounded-full text-emerald-300 text-[10px] md:text-xs font-medium border border-emerald-400/30 cursor-pointer flex items-center gap-1 backdrop-blur-sm"
-            whileHover={{ scale: 1.05 }}
-          >
-            📊 {areaRange.min}–{areaRange.max} sq.yds
-          </motion.span>
-          
-          <motion.span
-            className="px-3 md:px-3.5 py-1.5 md:py-2 bg-white/5 rounded-full text-white/60 text-[10px] md:text-xs font-medium border border-white/10 cursor-pointer flex items-center gap-1 backdrop-blur-sm hover:bg-white/10 transition-all"
-            whileHover={{ scale: 1.05 }}
-          >
-            ⭐ Prime
-          </motion.span>
-        </div>
- 
-      </div>
-    </motion.div>
- 
-    {/* Enhanced Stats ticker */}
-    <motion.div
-      className="flex flex-wrap justify-center divide-x divide-white/10 max-w-3xl mx-auto mt-10 md:mt-14 rounded-xl md:rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-4 md:p-6"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-    >
-      {[
-        { label: 'Land Plots', value: '5,000+', icon: '🏗️' },
-        { label: 'Cities', value: '50+', icon: '🌆' },
-        { label: 'Verified Owners', value: '1,200+', icon: '👤' },
-        { label: 'Happy Buyers', value: '15,000+', icon: '⭐' }
-      ].map((stat, i) => (
-        <motion.div
-          key={i}
-          className="text-center px-3 md:px-6 lg:px-10 first:pl-0 last:pr-0 py-1"
-          whileHover={{ y: -3 }}
-        >
-          <div className="text-xl md:text-2xl lg:text-3xl font-bold text-emerald-300">{stat.value}</div>
-          <div className="text-[9px] md:text-[11px] uppercase tracking-widest text-white/40 mt-0.5 md:mt-1 flex items-center justify-center gap-1">
-            <span className="text-xs md:text-sm">{stat.icon}</span> {stat.label}
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
-  </div>
-</motion.section>
- 
-{/* Add custom animations to your global CSS */}
-<style jsx>{`
+        </section>
+
+        {/* Add custom animations to your global CSS */}
+        <style jsx>{`
   @keyframes shimmer {
     0% { background-position: 200% 50%; }
     100% { background-position: 0% 50%; }
@@ -1009,15 +804,19 @@ export default function Home() {
 `}</style>
 
         {/* FEATURED LAND PLOTS SECTION with Measurements */}
-        <FeaturedLandPlotsSection />
+        <motion.section
+          className="relative bg-white z-30">
+          <FeaturedLandPlotsSection />
+
+        </motion.section>
 
         {/* ADVANCED MEASUREMENT TOOLS SECTION */}
         <motion.section
           className="relative bg-white z-30"
-          // initial="hidden"
-          // whileInView="visible"
-          // viewport={{ once: true, amount: 0.1 }}
-          // variants={fadeInUp}
+        // initial="hidden"
+        // whileInView="visible"
+        // viewport={{ once: true, amount: 0.1 }}
+        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1185,21 +984,21 @@ export default function Home() {
         {/* VIDEO WALKTHROUGH SECTION */}
         <motion.section
           className="relative bg-white z-30"
-          // initial="hidden"
-          // whileInView="visible"
-          // viewport={{ once: true, amount: 0.1 }}
-          // variants={fadeInUp}
+        // initial="hidden"
+        // whileInView="visible"
+        // viewport={{ once: true, amount: 0.1 }}
+        // variants={fadeInUp}
         >
-        <VideoShowcaseSection/>
+          <VideoShowcaseSection />
         </motion.section>
 
         {/* LAND TYPES & ZONING SECTION */}
         <motion.section
           className="relative py-32 bg-white z-30"
-          // initial="hidden"
-          // whileInView="visible"
-          // viewport={{ once: true, amount: 0.1 }}
-          // variants={fadeInUp}
+        // initial="hidden"
+        // whileInView="visible"
+        // viewport={{ once: true, amount: 0.1 }}
+        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1228,25 +1027,25 @@ export default function Home() {
             </motion.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-  {landCategoryLinks.map((item, i) => (
-    <Link key={i} href={item.href}>
-      <motion.div
-        className="p-4 bg-white rounded-2xl border-2 border-gray-100 text-center group hover:border-emerald-400 transition-all cursor-pointer"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ delay: i * 0.05, duration: 0.4 }}
-        viewport={{ once: true }}
-        whileHover={{
-          scale: 1.05,
-          boxShadow: "0 10px 40px rgba(16,185,129,0.15)"
-        }}
-      >
-        <div className="text-3xl mb-2">{item.icon}</div>
-        <h4 className="text-sm font-bold text-gray-900">{item.label}</h4>
-      </motion.div>
-    </Link>
-  ))}
-</div>
+              {landCategoryLinks.map((item, i) => (
+                <Link key={i} href={item.href}>
+                  <motion.div
+                    className="p-4 bg-white rounded-2xl border-2 border-gray-100 text-center group hover:border-emerald-400 transition-all cursor-pointer"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.05, duration: 0.4 }}
+                    viewport={{ once: true }}
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 10px 40px rgba(16,185,129,0.15)"
+                    }}
+                  >
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <h4 className="text-sm font-bold text-gray-900">{item.label}</h4>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
 
             {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {landTypes.slice(0, 10).map((type, i) => (
@@ -1284,10 +1083,10 @@ export default function Home() {
         {/* LAND USEFULIES & FEATURES */}
         <motion.section
           className="relative bg-white z-30"
-          // initial="hidden"
-          // whileInView="visible"
-          // viewport={{ once: true, amount: 0.1 }}
-          // variants={fadeInUp}
+        // initial="hidden"
+        // whileInView="visible"
+        // viewport={{ once: true, amount: 0.1 }}
+        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1353,10 +1152,10 @@ export default function Home() {
         {/* HOW TO BUY LAND SECTION */}
         <motion.section
           className="relative py-32 bg-white z-30"
-          // initial="hidden"
-          // whileInView="visible"
-          // viewport={{ once: true, amount: 0.1 }}
-          // variants={fadeInUp}
+        // initial="hidden"
+        // whileInView="visible"
+        // viewport={{ once: true, amount: 0.1 }}
+        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
@@ -1421,10 +1220,10 @@ export default function Home() {
         {/* WHY CHOOSE PGI LAND REALTORS */}
         <motion.section
           className="relative py-32 bg-white z-30"
-          // initial="hidden"
-          // whileInView="visible"
-          // viewport={{ once: true, amount: 0.1 }}
-          // variants={fadeInUp}
+        // initial="hidden"
+        // whileInView="visible"
+        // viewport={{ once: true, amount: 0.1 }}
+        // variants={fadeInUp}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div className="text-center mb-16" variants={fadeInUp}>
