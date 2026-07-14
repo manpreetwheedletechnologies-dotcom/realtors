@@ -151,7 +151,7 @@ export default function Contact() {
         <title>Contact Us | PGI Land Realtors</title>
         <meta name="description" content="Get in touch with PGI Land Realtors for land buying, selling, and listing enquiries." />
       </Head>
-      <main className="min-h-screen bg-emerald-50/40 text-gray-800">
+      <main className="min-h-screen w-full overflow-x-hidden bg-emerald-50/40 text-gray-800">
         {/* Hero with overlay form */}
          <PageHero
           image="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600"
@@ -162,11 +162,11 @@ export default function Contact() {
           height="h-[50vh] min-h-[380px]"
         />
        {/* Hero with overlay form — premium glass + 3D tilt */}
-        <section className="relative">
+        <section className="relative overflow-hidden">
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             {/* Ambient spotlight glows */}
-            <div className="pointer-events-none absolute -top-16 -right-16 w-[380px] h-[380px] bg-emerald-400/15 rounded-full blur-[120px] z-0" />
-            <div className="pointer-events-none absolute top-1/2 -left-20 w-[320px] h-[320px] bg-green-500/10 rounded-full blur-[110px] z-0" />
+            <div className="pointer-events-none absolute -top-16 -right-16 w-[220px] h-[220px] sm:w-[380px] sm:h-[380px] bg-emerald-400/15 rounded-full blur-[120px] z-0" />
+            <div className="pointer-events-none absolute top-1/2 -left-20 w-[200px] h-[200px] sm:w-[320px] sm:h-[320px] bg-green-500/10 rounded-full blur-[110px] z-0" />
 
             <div className="relative rounded-3xl overflow-hidden min-h-[560px] flex" style={{ perspective: '1800px' }}>
               <img
@@ -204,7 +204,7 @@ export default function Contact() {
                   <div className="hidden md:flex flex-col gap-4 mt-10">
                     {[
                       { icon: Phone, label: '+91 99909 60187' },
-                      { icon: Mail, label: 'pragatigreens5@gmail.com' },
+                      { icon: Mail, label: 'hello@pgilandrealtors.in' },
                       { icon: Clock, label: 'Mon–Sat, 10am – 7pm IST' },
                     ].map((item, i) => (
                       <motion.div
@@ -261,7 +261,7 @@ export default function Contact() {
                         className="bg-white/95 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/50 space-y-4"
                         noValidate
                       >
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="text-sm font-medium text-gray-700 block mb-1">First Name*</label>
                             <input
@@ -381,7 +381,7 @@ export default function Contact() {
             >
               {[
                 { icon: Phone, title: 'Phone', value: '+91 99909 60187', href: 'tel:+919990960187' },
-                { icon: Mail, title: 'Email', value: 'pragatigreens5@gmail.com', href: 'mailto:pragatigreens5@gmail.com' },
+                { icon: Mail, title: 'Email', value: 'hello@pgilandrealtors.in', href: 'mailto:hello@pgilandrealtors.in' },
                 { icon: MapPin, title: 'Address', value: 'Pilot no. 8c, near 100 x school, techzone 4, Greater Noida, India' },
                 { icon: Clock, title: 'Hours', value: 'Mon–Sat, 10am – 7pm IST' },
               ].map((item, i) => (
