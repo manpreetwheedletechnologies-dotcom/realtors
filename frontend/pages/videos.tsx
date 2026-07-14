@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Head from 'next/head';
-import { motion, AnimatePresence, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useSpring, useScroll, useTransform, useMotionValue, useVelocity } from 'framer-motion';
 
 import {
   Play, X, ChevronLeft, ChevronRight, Volume2, VolumeX,
   Sparkles, MapPin, Clock, Grid3x3, List, Filter,
   Eye, Calendar, Building2, Trees, Factory, ShoppingBag,
-  Mountain, Waves, ArrowRight, Film, Layers
+  Mountain, Waves, ArrowRight, Film, Layers, Maximize2, Compass
 } from 'lucide-react';
 import PageHero from '../components/Pagehero';
 import FAQ from '../components/FAQ';
@@ -180,12 +180,20 @@ function AmbientField() {
 
 // ============ Stat pill for the metrics strip ============
 function StatPill({ icon: Icon, value, label, delay }: { icon: any; value: string; label: string; delay: number }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [30, 0, -30]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8]);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
+      ref={ref}
+      style={{ y, opacity, scale }}
       className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/70 backdrop-blur-md border border-emerald-100 shadow-[0_10px_30px_-12px_rgba(16,185,129,0.25)]"
     >
       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-md shadow-emerald-500/30">
@@ -199,7 +207,7 @@ function StatPill({ icon: Icon, value, label, delay }: { icon: any; value: strin
   );
 }
 
-// Enhanced Video Tile Component - Autoplay on load, with cursor-tracked glare + 3D tilt
+// Enhanced Video Tile Component with scroll-driven 3D effects
 function VideoTile({
   video,
   featured = false,
@@ -218,10 +226,24 @@ function VideoTile({
   const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // 3D showcase tilt — mouse position se rotateX/rotateY drive hota hai
+  // Scroll-based 3D transforms
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
   const rotateX = useSpring(0, { stiffness: 220, damping: 22 });
   const rotateY = useSpring(0, { stiffness: 220, damping: 22 });
+  
+  // Scroll-driven transforms
+  const scrollRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -15]);
+  const scrollRotateY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [-10, 0, 5, 0]);
+  const scrollScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 0.85]);
+  const scrollOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
+  const scrollY = useTransform(scrollYProgress, [0, 0.5, 1], [60, 0, -60]);
+  const scrollZ = useTransform(scrollYProgress, [0, 0.5, 1], [-100, 0, 100]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -258,160 +280,187 @@ function VideoTile({
 
   return (
     <motion.div
-      ref={cardRef}
-      onClick={onClick}
-      onMouseMove={handleMouseMove}
-      onHoverStart={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      initial={skipEntryAnim ? false : { opacity: 0, y: 20 }}
-      animate={skipEntryAnim ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: skipEntryAnim ? 0 : index * 0.05 }}
-      whileHover={{
-        scale: featured ? 1.015 : 1.035,
-        z: 40,
-        transition: { type: 'spring', stiffness: 300, damping: 20 },
-      }}
+      ref={containerRef}
       style={{
-        rotateX,
-        rotateY,
+        rotateX: scrollRotateX,
+        rotateY: scrollRotateY,
+        scale: scrollScale,
+        opacity: scrollOpacity,
+        y: scrollY,
+        z: scrollZ,
         transformPerspective: 1200,
         transformStyle: 'preserve-3d',
       }}
-      className={`group relative bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden cursor-pointer shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] hover:shadow-[0_35px_80px_-15px_rgba(16,185,129,0.35)] hover:ring-2 hover:ring-emerald-400/40 transition-shadow duration-500 ${
-        featured ? 'aspect-[16/7]' : 'aspect-video'
-      }`}
+      onClick={onClick}
     >
-      {/* Glass showcase edge highlight */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl border border-white/10 z-[6]" />
-
-      {/* Cursor-tracked glare — reinforces the glass/3D feel beyond the tilt */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[5] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(280px circle at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,0.16), transparent 60%)`,
-        }}
-      />
-
-      {/* Premium shimmer sweep on hover */}
       <motion.div
-        className="pointer-events-none absolute inset-0 z-[5]"
-        initial={false}
-        animate={isHovered ? { x: ['-120%', '120%'] } : { x: '-120%' }}
-        transition={{ duration: 1.1, ease: 'easeInOut' }}
-        style={{
-          background: 'linear-gradient(75deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%)',
-          width: '60%',
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onHoverStart={() => setIsHovered(true)}
+        onMouseLeave={handleMouseLeave}
+        whileHover={{
+          scale: featured ? 1.015 : 1.035,
+          z: 40,
+          transition: { type: 'spring', stiffness: 300, damping: 20 },
         }}
-      />
-
-      {/* Video - Always playing */}
-      <video
-        ref={videoRef}
-        className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-500"
-        loop
-        muted
-        playsInline
-        src={video.src}
-      />
-
-      {/* Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/70 transition-all duration-500" />
-      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-transparent to-emerald-500/0 group-hover:from-emerald-500/5 group-hover:to-emerald-500/5 transition-all duration-700" />
-
-      {/* Live Indicator */}
-      <motion.div
-        className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-white/10"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
+        style={{
+          rotateX,
+          rotateY,
+          transformPerspective: 1200,
+          transformStyle: 'preserve-3d',
+        }}
+        className={`group relative bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden cursor-pointer shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] hover:shadow-[0_35px_80px_-15px_rgba(16,185,129,0.35)] hover:ring-2 hover:ring-emerald-400/40 transition-shadow duration-500 ${
+          featured ? 'aspect-[16/7]' : 'aspect-video'
+        }`}
       >
-        <motion.span
-          className="w-2 h-2 rounded-full bg-red-500"
-          animate={{ opacity: [1, 0.3, 1] }}
-          transition={{ duration: 1.4, repeat: Infinity }}
+        {/* Glass showcase edge highlight */}
+        <div className="pointer-events-none absolute inset-0 rounded-2xl border border-white/10 z-[6]" />
+
+        {/* Cursor-tracked glare — reinforces the glass/3D feel beyond the tilt */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[5] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(280px circle at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,0.16), transparent 60%)`,
+          }}
         />
-        <span className="text-[10px] font-bold text-white uppercase tracking-wider">Live</span>
-      </motion.div>
 
-      {/* Tags */}
-      <div className="absolute top-4 right-4 flex gap-2 flex-wrap">
-        {video.badge && (
-          <span className="px-3 py-1.5 bg-gradient-to-r from-amber-400 to-orange-400 text-black text-[10px] font-bold rounded-full shadow-lg">
-            {video.badge}
-          </span>
-        )}
-        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-[10px] font-bold rounded-full shadow-lg">
-          <TagIcon className="w-3 h-3" />
-          {video.tag}
-        </span>
-        <span className="px-3 py-1.5 bg-white/10 backdrop-blur-md text-white text-[10px] font-bold rounded-full border border-white/10">
-          {video.duration}
-        </span>
-      </div>
-
-      {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-        <h4 className={`text-white font-bold ${featured ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-sm md:text-base'} leading-tight mb-1 transition-colors duration-300 line-clamp-2`}>
-          <WaveText
-            text={video.title}
-            active={isHovered}
-            letterClassName={isHovered ? 'text-emerald-300' : ''}
-          />
-        </h4>
-        <p className="text-white/80 text-xs md:text-sm flex items-center gap-1.5 truncate">
-          <MapPin className="w-3 h-3 flex-shrink-0" />
-          {video.location}
-        </p>
-        {featured && (
-          <motion.div
-            className="flex items-center gap-4 mt-3 text-white/60 text-xs"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <span className="flex items-center gap-1">
-              <Eye className="w-3 h-3" />
-              {video.views} views
-            </span>
-            <span className="flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              {video.date}
-            </span>
-          </motion.div>
-        )}
-      </div>
-
-      {/* Play Button Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
+        {/* Premium shimmer sweep on hover */}
         <motion.div
-          whileHover={{ scale: 1.1 }}
-          transition={{ type: 'spring', stiffness: 400 }}
-          className="relative"
-        >
-          <div className="absolute inset-0 rounded-full bg-emerald-500/30 blur-xl animate-pulse" />
-          <div className={`relative rounded-full bg-white/20 backdrop-blur-md border-2 border-white/50 flex items-center justify-center shadow-2xl ${featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
-            <Play className={`${featured ? 'w-8 h-8' : 'w-5 h-5'} text-white fill-white ml-0.5`} />
-          </div>
-        </motion.div>
-      </div>
+          className="pointer-events-none absolute inset-0 z-[5]"
+          initial={false}
+          animate={isHovered ? { x: ['-120%', '120%'] } : { x: '-120%' }}
+          transition={{ duration: 1.1, ease: 'easeInOut' }}
+          style={{
+            background: 'linear-gradient(75deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%)',
+            width: '60%',
+          }}
+        />
 
-      {/* Featured Badge */}
-      {featured && (
-        <div className="absolute top-4 left-4">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-400/90 backdrop-blur-sm text-black text-[10px] font-bold rounded-full">
-            <Sparkles className="w-3 h-3" />
-            Featured
+        {/* Video - Always playing */}
+        <video
+          ref={videoRef}
+          className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-500"
+          loop
+          muted
+          playsInline
+          src={video.src}
+        />
+
+        {/* Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/70 transition-all duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-transparent to-emerald-500/0 group-hover:from-emerald-500/5 group-hover:to-emerald-500/5 transition-all duration-700" />
+
+        {/* 3D Depth Layers */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-500/10 via-transparent to-emerald-500/5 transform translate-z-20" />
+          <div className="absolute -inset-2 bg-gradient-to-r from-emerald-400/5 via-transparent to-green-400/5 rounded-2xl blur-xl transform -translate-z-10" />
+        </div>
+
+        {/* Live Indicator */}
+        <motion.div
+          className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-white/10"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.span
+            className="w-2 h-2 rounded-full bg-red-500"
+            animate={{ opacity: [1, 0.3, 1] }}
+            transition={{ duration: 1.4, repeat: Infinity }}
+          />
+          <span className="text-[10px] font-bold text-white uppercase tracking-wider">Live</span>
+        </motion.div>
+
+        {/* Tags */}
+        <div className="absolute top-4 right-4 flex gap-2 flex-wrap">
+          {video.badge && (
+            <span className="px-3 py-1.5 bg-gradient-to-r from-amber-400 to-orange-400 text-black text-[10px] font-bold rounded-full shadow-lg">
+              {video.badge}
+            </span>
+          )}
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-[10px] font-bold rounded-full shadow-lg">
+            <TagIcon className="w-3 h-3" />
+            {video.tag}
+          </span>
+          <span className="px-3 py-1.5 bg-white/10 backdrop-blur-md text-white text-[10px] font-bold rounded-full border border-white/10">
+            {video.duration}
           </span>
         </div>
-      )}
+
+        {/* Content */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+          <h4 className={`text-white font-bold ${featured ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-sm md:text-base'} leading-tight mb-1 transition-colors duration-300 line-clamp-2`}>
+            <WaveText
+              text={video.title}
+              active={isHovered}
+              letterClassName={isHovered ? 'text-emerald-300' : ''}
+            />
+          </h4>
+          <p className="text-white/80 text-xs md:text-sm flex items-center gap-1.5 truncate">
+            <MapPin className="w-3 h-3 flex-shrink-0" />
+            {video.location}
+          </p>
+          {featured && (
+            <motion.div
+              className="flex items-center gap-4 mt-3 text-white/60 text-xs"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="flex items-center gap-1">
+                <Eye className="w-3 h-3" />
+                {video.views} views
+              </span>
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3 h-3" />
+                {video.date}
+              </span>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Play Button Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: 'spring', stiffness: 400 }}
+            className="relative"
+          >
+            <div className="absolute inset-0 rounded-full bg-emerald-500/30 blur-xl animate-pulse" />
+            <div className={`relative rounded-full bg-white/20 backdrop-blur-md border-2 border-white/50 flex items-center justify-center shadow-2xl ${featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
+              <Play className={`${featured ? 'w-8 h-8' : 'w-5 h-5'} text-white fill-white ml-0.5`} />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Featured Badge */}
+        {featured && (
+          <div className="absolute top-4 left-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-400/90 backdrop-blur-sm text-black text-[10px] font-bold rounded-full">
+              <Sparkles className="w-3 h-3" />
+              Featured
+            </span>
+          </div>
+        )}
+      </motion.div>
     </motion.div>
   );
 }
 
-// ============ 3D COVERFLOW SHOWCASE (top hero carousel) ============
+// ============ 3D COVERFLOW SHOWCASE (top hero carousel) with scroll parallax ============
 function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) => void }) {
   const [active, setActive] = useState(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const containerRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const stageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
+  const stageOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.5, 1, 1, 0.5]);
+  const stageY = useTransform(scrollYProgress, [0, 0.5, 1], [40, 0, -40]);
 
   const go = (dir: number) => {
     setActive((prev) => (prev + dir + videos.length) % videos.length);
@@ -430,7 +479,11 @@ function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) =
   const activeVideo = videos[active];
 
   return (
-    <div className="relative">
+    <motion.div 
+      ref={containerRef}
+      style={{ scale: stageScale, opacity: stageOpacity, y: stageY }}
+      className="relative"
+    >
       {/* Museum stage background */}
       <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#0a0f0d] via-[#0d1512] to-[#050706] py-16 md:py-24">
         {/* Spotlights */}
@@ -588,11 +641,11 @@ function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) =
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-// ============ 3D SHOWCASE WALL (grid below, columns at alternating depth/tilt) ============
+// ============ 3D SHOWCASE WALL (grid below, columns at alternating depth/tilt) with scroll parallax ============
 function ShowcaseWall({
   videos,
   isAllGrid,
@@ -604,12 +657,29 @@ function ShowcaseWall({
   onOpen: (v: Video) => void;
   viewMode: string;
 }) {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const wallRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [5, 0, -5]);
+  const wallScale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.95]);
+  const wallY = useTransform(scrollYProgress, [0, 0.5, 1], [30, 0, -30]);
+
   const columnsForRow = 3;
 
   return (
-    <div
+    <motion.div
+      ref={containerRef}
+      style={{ 
+        rotateX: wallRotateX, 
+        scale: wallScale, 
+        y: wallY,
+        transformPerspective: 2000,
+        transformStyle: 'preserve-3d'
+      }}
       className="relative rounded-[2rem] border border-gray-100 bg-gradient-to-b from-gray-50 to-white p-4 sm:p-8 md:p-12 overflow-hidden"
-      style={{ perspective: '2000px' }}
     >
       <div className="pointer-events-none absolute -top-32 left-1/4 w-[520px] h-[520px] bg-emerald-400/10 rounded-full blur-[140px]" />
       <div className="pointer-events-none absolute -bottom-32 right-1/4 w-[440px] h-[440px] bg-green-500/10 rounded-full blur-[130px]" />
@@ -636,10 +706,11 @@ function ShowcaseWall({
             const rowIndex = Math.floor(i / columnsForRow);
             const fromLeft = rowIndex % 2 === 0;
 
-            // Column ke hisaab se permanent tilt — "display wall" feel (depth hata di, hover-hit-test breaking thi)
-            const colTilt = viewMode === 'grid' ? (col - 1) * -7 : 0; // left col +7deg, center 0, right -7deg
+            // Column ke hisaab se permanent tilt — "display wall" feel
+            const colTilt = viewMode === 'grid' ? (col - 1) * -7 : 0;
             const colDepth = 0;
-            const colLift = viewMode === 'grid' ? (col === 1 ? -14 : 0) : 0; // center column thoda upar-lifted pedestal jaisa
+            const colLift = viewMode === 'grid' ? (col === 1 ? -14 : 0) : 0;
+            
             return (
               <motion.div
                 key={video.id}
@@ -686,7 +757,7 @@ function ShowcaseWall({
           })}
         </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -696,6 +767,7 @@ export default function VideoWalkthroughs() {
   const [filter, setFilter] = useState('All');
   const [muted, setMuted] = useState(true);
   const [viewMode, setViewMode] = useState('grid');
+  const pageRef = useRef<HTMLDivElement>(null);
 
   const filtered = filter === 'All' ? videos : videos.filter((v) => v.tag === filter);
 
@@ -743,13 +815,21 @@ export default function VideoWalkthroughs() {
     return () => window.removeEventListener('keydown', onKey);
   }, [active, closeVideo, step]);
 
+  // Parallax scroll effect for the entire page
+  const { scrollYProgress } = useScroll({
+    target: pageRef,
+    offset: ["start start", "end end"]
+  });
+
+  const pageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.98, 1, 0.98]);
+
   return (
     <>
       <Head>
         <title>Video Walkthroughs | BuildSmart Construction</title>
         <meta name="description" content="Watch detailed 3D construction animations and property walkthroughs by BuildSmart." />
       </Head>
-      <main className="min-h-screen bg-gradient-to-b from-white via-emerald-50/10 to-white">
+      <main ref={pageRef} className="min-h-screen bg-gradient-to-b from-white via-emerald-50/10 to-white">
         <PageHero
           image="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600"
           badge="🎬 3D Construction Video Showcases"
