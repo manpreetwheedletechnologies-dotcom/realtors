@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Head from 'next/head';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useSpring } from 'framer-motion';
 
-import { 
-  Play, X, ChevronLeft, ChevronRight, Volume2, VolumeX, 
-  Sparkles, MapPin, Clock, Grid3x3, List, Filter, 
+import {
+  Play, X, ChevronLeft, ChevronRight, Volume2, VolumeX,
+  Sparkles, MapPin, Clock, Grid3x3, List, Filter,
   Eye, Calendar, Building2, Trees, Factory, ShoppingBag,
-  Mountain, Waves, ArrowRight
+  Mountain, Waves, ArrowRight, Film, Layers
 } from 'lucide-react';
 import PageHero from '../components/Pagehero';
 import FAQ from '../components/FAQ';
@@ -39,8 +39,6 @@ interface Video {
   size: string;
   featured: boolean;
 }
-
-
 
 // Map tags to icons
 const tagIcons: Record<string, any> = {
@@ -129,17 +127,6 @@ function ThrownInHeading({ segments }: { segments: { text: string; className: st
   );
 }
 
-// Map tags to icons
-// const tagIcons: Record<string, any> = {
-//   'Featured': Sparkles,
-//   'Commercial': ShoppingBag,
-//   'Agricultural': Trees,
-//   'Industrial': Factory,
-//   'Residential': Building2,
-//   'Waterfront': Waves,
-//   'Farm Land': Mountain,
-// };
-
 // Transform JSON data to match component structure
 const transformVideoData = (data: VideoData[]): Video[] => {
   return data.map((video, index) => ({
@@ -162,23 +149,73 @@ const transformVideoData = (data: VideoData[]): Video[] => {
 const videos: Video[] = transformVideoData(videosData);
 const filters: string[] = ['All', ...Array.from(new Set(videos.map((v) => v.tag)))];
 
-// Enhanced Video Tile Component - Autoplay on load
-function VideoTile({ 
-  video, 
-  featured = false, 
-  onClick, 
+// ============ Ambient floating particles — subtle depth cue across the page ============
+function AmbientField() {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 18 }).map((_, i) => ({
+        id: i,
+        size: 2 + Math.random() * 4,
+        left: Math.random() * 100,
+        delay: Math.random() * 8,
+        duration: 14 + Math.random() * 12,
+        drift: (Math.random() - 0.5) * 60,
+      })),
+    []
+  );
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {particles.map((p) => (
+        <motion.span
+          key={p.id}
+          className="absolute rounded-full bg-emerald-400/25"
+          style={{ width: p.size, height: p.size, left: `${p.left}%`, bottom: '-5%' }}
+          animate={{ y: ['0%', '-1200%'], x: [0, p.drift], opacity: [0, 0.6, 0] }}
+          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'linear' }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// ============ Stat pill for the metrics strip ============
+function StatPill({ icon: Icon, value, label, delay }: { icon: any; value: string; label: string; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/70 backdrop-blur-md border border-emerald-100 shadow-[0_10px_30px_-12px_rgba(16,185,129,0.25)]"
+    >
+      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-md shadow-emerald-500/30">
+        <Icon className="w-5 h-5 text-white" />
+      </div>
+      <div>
+        <p className="text-lg font-extrabold text-gray-900 leading-none">{value}</p>
+        <p className="text-[11px] text-gray-500 uppercase tracking-wider mt-1">{label}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+// Enhanced Video Tile Component - Autoplay on load, with cursor-tracked glare + 3D tilt
+function VideoTile({
+  video,
+  featured = false,
+  onClick,
   index = 0,
   skipEntryAnim = false,
-}: { 
-  video: Video; 
-  featured?: boolean; 
-  onClick: () => void; 
+}: {
+  video: Video;
+  featured?: boolean;
+  onClick: () => void;
   index?: number;
   skipEntryAnim?: boolean;
 }) {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -195,6 +232,7 @@ function VideoTile({
     const strength = featured ? 4.5 : 9;
     rotateY.set((px - 0.5) * strength * 2);
     rotateX.set(-(py - 0.5) * strength * 2);
+    setGlarePos({ x: px * 100, y: py * 100 });
   };
 
   const handleMouseLeave = () => {
@@ -210,7 +248,6 @@ function VideoTile({
         await videoRef.current?.play();
         setIsPlaying(true);
       } catch (error) {
-        console.log('Autoplay prevented:', error);
         setIsPlaying(false);
       }
     };
@@ -229,10 +266,10 @@ function VideoTile({
       initial={skipEntryAnim ? false : { opacity: 0, y: 20 }}
       animate={skipEntryAnim ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: skipEntryAnim ? 0 : index * 0.05 }}
-      whileHover={{ 
+      whileHover={{
         scale: featured ? 1.015 : 1.035,
         z: 40,
-        transition: { type: "spring", stiffness: 300, damping: 20 }
+        transition: { type: 'spring', stiffness: 300, damping: 20 },
       }}
       style={{
         rotateX,
@@ -247,6 +284,14 @@ function VideoTile({
       {/* Glass showcase edge highlight */}
       <div className="pointer-events-none absolute inset-0 rounded-2xl border border-white/10 z-[6]" />
 
+      {/* Cursor-tracked glare — reinforces the glass/3D feel beyond the tilt */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[5] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(280px circle at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,0.16), transparent 60%)`,
+        }}
+      />
+
       {/* Premium shimmer sweep on hover */}
       <motion.div
         className="pointer-events-none absolute inset-0 z-[5]"
@@ -260,14 +305,13 @@ function VideoTile({
       />
 
       {/* Video - Always playing */}
-      <video 
-        ref={videoRef} 
-        className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-500" 
-        loop 
-        muted 
-        playsInline 
+      <video
+        ref={videoRef}
+        className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-500"
+        loop
+        muted
+        playsInline
         src={video.src}
-        onLoadedData={() => setIsLoaded(true)}
       />
 
       {/* Gradient Overlays */}
@@ -319,7 +363,7 @@ function VideoTile({
           {video.location}
         </p>
         {featured && (
-          <motion.div 
+          <motion.div
             className="flex items-center gap-4 mt-3 text-white/60 text-xs"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -341,7 +385,7 @@ function VideoTile({
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
         <motion.div
           whileHover={{ scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 400 }}
+          transition={{ type: 'spring', stiffness: 400 }}
           className="relative"
         >
           <div className="absolute inset-0 rounded-full bg-emerald-500/30 blur-xl animate-pulse" />
@@ -383,6 +427,7 @@ function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) =
 
   // Sirf active ke aas-paas ke cards render karo (performance)
   const visibleRange = 3;
+  const activeVideo = videos[active];
 
   return (
     <div className="relative">
@@ -392,6 +437,7 @@ function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) =
         <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-emerald-400/15 rounded-full blur-[130px]" />
         <div className="pointer-events-none absolute top-10 left-1/4 w-[300px] h-[300px] bg-green-400/10 rounded-full blur-[100px]" />
         <div className="pointer-events-none absolute top-10 right-1/4 w-[300px] h-[300px] bg-emerald-300/10 rounded-full blur-[100px]" />
+        <AmbientField />
         {/* Faint stage floor lines */}
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-40 opacity-[0.08]"
@@ -479,18 +525,41 @@ function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) =
                   </>
                 )}
 
-                {!isCenter && (
-                  <div className="absolute inset-0 bg-black/30" />
-                )}
+                {!isCenter && <div className="absolute inset-0 bg-black/30" />}
               </motion.div>
             );
           })}
         </div>
 
-        {/* Reflective floor illusion under carousel */}
+        {/* Mirror reflection of the active card — grounds the stage, sells the "showcase floor" */}
         <div
-          className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 w-[70%] h-16 rounded-[100%] bg-emerald-400/10 blur-2xl"
-        />
+          className="relative mx-auto mt-2 hidden md:block"
+          style={{ width: 'min(60vw, 720px)', height: 90, perspective: '2200px' }}
+        >
+          <div
+            className="absolute inset-x-0 top-0 rounded-2xl overflow-hidden opacity-30"
+            style={{
+              height: 90,
+              transform: 'scaleY(-1)',
+              maskImage: 'linear-gradient(to bottom, black, transparent)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black, transparent)',
+            }}
+          >
+            {activeVideo && (
+              <video
+                className="w-full h-full object-cover blur-[1px]"
+                loop
+                muted
+                autoPlay
+                playsInline
+                src={activeVideo.src}
+              />
+            )}
+          </div>
+        </div>
+
+        {/* Reflective floor illusion under carousel */}
+        <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 w-[70%] h-16 rounded-[100%] bg-emerald-400/10 blur-2xl" />
 
         {/* Nav arrows */}
         <button
@@ -567,8 +636,7 @@ function ShowcaseWall({
             const rowIndex = Math.floor(i / columnsForRow);
             const fromLeft = rowIndex % 2 === 0;
 
-            // Column ke hisaab se permanent depth/tilt — "display wall" feel
-           // Column ke hisaab se permanent tilt — "display wall" feel (depth hata di, hover-hit-test breaking thi)
+            // Column ke hisaab se permanent tilt — "display wall" feel (depth hata di, hover-hit-test breaking thi)
             const colTilt = viewMode === 'grid' ? (col - 1) * -7 : 0; // left col +7deg, center 0, right -7deg
             const colDepth = 0;
             const colLift = viewMode === 'grid' ? (col === 1 ? -14 : 0) : 0; // center column thoda upar-lifted pedestal jaisa
@@ -630,7 +698,20 @@ export default function VideoWalkthroughs() {
   const [viewMode, setViewMode] = useState('grid');
 
   const filtered = filter === 'All' ? videos : videos.filter((v) => v.tag === filter);
-  const featured = videos.find(v => v.featured) || videos[0];
+
+  // Category counts — drives the new stat-driven category cards below the coverflow
+  const categoryCounts = useMemo(() => {
+    const map: Record<string, number> = {};
+    videos.forEach((v) => {
+      map[v.tag] = (map[v.tag] || 0) + 1;
+    });
+    return map;
+  }, []);
+
+  const totalViews = useMemo(
+    () => videos.reduce((sum, v) => sum + parseInt(v.views.replace('+', ''), 10), 0),
+    []
+  );
 
   const openVideo = (video: Video) => {
     const idx = videos.findIndex((v) => v.id === video.id);
@@ -681,6 +762,7 @@ export default function VideoWalkthroughs() {
           {/* Ambient decorative glow — premium depth feel */}
           <div className="pointer-events-none absolute -top-20 -right-20 w-[420px] h-[420px] bg-emerald-400/10 rounded-full blur-[120px]" />
           <div className="pointer-events-none absolute top-1/3 -left-24 w-[360px] h-[360px] bg-green-500/10 rounded-full blur-[110px]" />
+
           {/* Featured Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -689,7 +771,7 @@ export default function VideoWalkthroughs() {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-           <div className="flex items-center gap-4 mb-2">
+            <div className="flex items-center gap-4 mb-2">
               <motion.span
                 className="w-1.5 h-10 bg-gradient-to-b from-emerald-500 to-green-600 rounded-full"
                 initial={{ scaleY: 0, opacity: 0 }}
@@ -703,12 +785,18 @@ export default function VideoWalkthroughs() {
             </div>
           </motion.div>
 
-          {/* Featured Video */}
           {/* 3D Coverflow Showcase */}
-<Coverflow3D videos={videos} onOpen={openVideo} />
+          <Coverflow3D videos={videos} onOpen={openVideo} />
+
+          {/* Stats strip — content-driven, replaces generic filler under the hero showcase */}
+          <div className="flex flex-wrap items-center justify-center gap-4 -mt-2 mb-14 md:mb-16">
+            <StatPill icon={Film} value={`${videos.length}`} label="Total Videos" delay={0} />
+            <StatPill icon={Layers} value={`${filters.length - 1}`} label="Categories" delay={0.08} />
+            <StatPill icon={Eye} value={`${totalViews.toLocaleString()}+`} label="Total Views" delay={0.16} />
+          </div>
 
           {/* Controls Bar */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-16 mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold flex flex-wrap">
                 <ThrownInHeading
@@ -725,15 +813,15 @@ export default function VideoWalkthroughs() {
                 Showing {filtered.length} of {videos.length} videos
               </p>
             </div>
-            
+
             <div className="flex items-center gap-3">
               {/* View Mode Toggle */}
               <div className="flex rounded-full bg-gray-100 p-1">
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`p-2 rounded-full transition-all ${
-                    viewMode === 'grid' 
-                      ? 'bg-white shadow-md text-emerald-600' 
+                    viewMode === 'grid'
+                      ? 'bg-white shadow-md text-emerald-600'
                       : 'text-gray-500 hover:text-gray-700'
                   }`}
                 >
@@ -742,8 +830,8 @@ export default function VideoWalkthroughs() {
                 <button
                   onClick={() => setViewMode('list')}
                   className={`p-2 rounded-full transition-all ${
-                    viewMode === 'list' 
-                      ? 'bg-white shadow-md text-emerald-600' 
+                    viewMode === 'list'
+                      ? 'bg-white shadow-md text-emerald-600'
                       : 'text-gray-500 hover:text-gray-700'
                   }`}
                 >
@@ -753,66 +841,49 @@ export default function VideoWalkthroughs() {
             </div>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap gap-2 mb-10">
+          {/* Category Cards — 3D tilt cards with per-category counts, replaces flat filter pills */}
+          <div className="flex flex-wrap gap-3 mb-10" style={{ perspective: '1000px' }}>
             {filters.map((f) => {
               const Icon = f !== 'All' ? tagIcons[f] : Filter;
+              const isActive = filter === f;
+              const count = f === 'All' ? videos.length : categoryCounts[f] || 0;
               return (
                 <motion.button
                   key={f}
                   onClick={() => setFilter(f)}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, rotateX: -6, y: -3 }}
                   whileTap={{ scale: 0.95 }}
-                 className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-                    filter === f
+                  style={{ transformStyle: 'preserve-3d' }}
+                  className={`inline-flex items-center gap-2.5 pl-4 pr-3 py-2.5 rounded-2xl text-sm font-medium transition-colors ${
+                    isActive
                       ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-500/40 ring-2 ring-emerald-300/50'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   {Icon && <Icon className="w-4 h-4" />}
                   {f}
+                  <span
+                    className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                      isActive ? 'bg-white/25 text-white' : 'bg-white text-gray-500'
+                    }`}
+                  >
+                    {count}
+                  </span>
                 </motion.button>
               );
             })}
           </div>
-{/* 3D Showcase Wall */}
+
+          {/* 3D Showcase Wall */}
           <ShowcaseWall
             videos={filtered}
             isAllGrid={filter === 'All' && viewMode === 'grid'}
             onOpen={openVideo}
             viewMode={viewMode}
           />
-          {/* <div className={`grid ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
-              : 'grid-cols-1'
-          } gap-6`}>
-            <AnimatePresence mode="popLayout">
-              {filtered.map((video, i) => (
-                <motion.div
-                  key={video.id}
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ delay: i * 0.05, duration: 0.4 }}
-                >
-                  <VideoTile 
-                    video={video} 
-                    onClick={() => openVideo(video)} 
-                    index={i + 1}
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div> */}
 
           {filtered.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-16"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-16">
               <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 mb-4">
                 <Filter className="w-10 h-10 text-gray-400" />
               </div>
@@ -837,7 +908,7 @@ export default function VideoWalkthroughs() {
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-50 to-green-50 rounded-full border border-emerald-200/50">
               <Clock className="w-4 h-4 text-emerald-600" />
               <span className="text-sm text-gray-700">
-                New animations added weekly. 
+                New animations added weekly.
                 <button className="ml-2 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors">
                   Subscribe for updates →
                 </button>
@@ -846,7 +917,7 @@ export default function VideoWalkthroughs() {
           </motion.div>
         </div>
 
-        {/* Fullscreen Modal */}
+        {/* Fullscreen Modal — now with a real 3D flip-in and a thumbnail strip for quick navigation */}
         <AnimatePresence>
           {active && (
             <motion.div
@@ -855,11 +926,12 @@ export default function VideoWalkthroughs() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeVideo}
+              style={{ perspective: '1800px' }}
             >
               {/* Close Button */}
               <button
                 onClick={closeVideo}
-                className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xl transition-colors backdrop-blur-sm"
+                className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xl transition-colors backdrop-blur-sm z-10"
                 aria-label="Close"
               >
                 <X className="w-6 h-6" />
@@ -868,14 +940,14 @@ export default function VideoWalkthroughs() {
               {/* Prev / Next Arrows */}
               <button
                 onClick={(e) => { e.stopPropagation(); step(-1); }}
-                className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-2xl transition-colors backdrop-blur-sm"
+                className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white text-2xl transition-colors backdrop-blur-sm z-10"
                 aria-label="Previous video"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); step(1); }}
-                className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-2xl transition-colors backdrop-blur-sm"
+                className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white text-2xl transition-colors backdrop-blur-sm z-10"
                 aria-label="Next video"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -884,23 +956,24 @@ export default function VideoWalkthroughs() {
               {/* Video Content */}
               <motion.div
                 key={active.id}
-                initial={{ scale: 0.92, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.92, opacity: 0 }}
-                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1.0] }}
+                initial={{ scale: 0.9, opacity: 0, rotateY: -35 }}
+                animate={{ scale: 1, opacity: 1, rotateY: 0 }}
+                exit={{ scale: 0.9, opacity: 0, rotateY: 35 }}
+                transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1.0] }}
                 className="max-w-5xl w-full"
+                style={{ transformStyle: 'preserve-3d' }}
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
-                  <video 
-                    className="w-full max-h-[75vh] object-contain" 
-                    autoPlay 
-                    loop 
-                    muted={muted} 
-                    controls={false} 
-                    src={active.src} 
+                  <video
+                    className="w-full max-h-[70vh] object-contain"
+                    autoPlay
+                    loop
+                    muted={muted}
+                    controls={false}
+                    src={active.src}
                   />
-                  
+
                   {/* Mute Toggle */}
                   <button
                     onClick={() => setMuted((m) => !m)}
@@ -928,11 +1001,11 @@ export default function VideoWalkthroughs() {
 
                   {/* Progress indicator */}
                   <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
-                    <motion.div 
+                    <motion.div
                       className="h-full bg-gradient-to-r from-emerald-500 to-green-600"
                       initial={{ width: 0 }}
                       animate={{ width: '100%' }}
-                      transition={{ duration: 30, ease: "linear" }}
+                      transition={{ duration: 30, ease: 'linear' }}
                     />
                   </div>
                 </div>
@@ -944,7 +1017,7 @@ export default function VideoWalkthroughs() {
                     <MapPin className="w-4 h-4" />
                     {active.location}
                   </p>
-                  
+
                   <div className="flex items-center justify-center gap-6 mt-5">
                     <button
                       className="px-8 py-3 bg-white text-black rounded-xl font-bold hover:bg-gray-100 transition-colors shadow-lg"
@@ -962,12 +1035,33 @@ export default function VideoWalkthroughs() {
                       <ArrowRight className="w-4 h-4" />
                     </motion.a>
                   </div>
-                  
+
                   <p className="text-gray-500 text-xs mt-4 flex items-center justify-center gap-4">
                     <span>← → Browse videos</span>
                     <span>•</span>
                     <span>Esc Close</span>
                   </p>
+                </div>
+
+                {/* Thumbnail strip — quick jump to nearby videos without leaving the modal */}
+                <div className="mt-6 flex items-center justify-center gap-2 overflow-x-auto pb-2">
+                  {videos.map((v, i) => (
+                    <button
+                      key={v.id}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveIndex(i);
+                        setActive(v);
+                        setMuted(true);
+                      }}
+                      className={`relative flex-shrink-0 w-20 h-12 md:w-24 md:h-14 rounded-lg overflow-hidden border-2 transition-all ${
+                        i === activeIndex ? 'border-emerald-400 scale-105' : 'border-white/10 opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      <video className="w-full h-full object-cover" muted playsInline src={v.src} />
+                      {i === activeIndex && <div className="absolute inset-0 bg-emerald-400/10" />}
+                    </button>
+                  ))}
                 </div>
               </motion.div>
             </motion.div>
