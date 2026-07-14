@@ -156,10 +156,10 @@ export default function NavBar() {
   // /video-walkthroughs, /land-categories), update the hrefs below to match.
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/measurement', label: 'Measurements' },
-    { href: '/videos', label: '3D Showcases' },
     { href: '/about', label: 'About' },
-    // { href: '/contact', label: 'Contact' },
+    { href: '/videos', label: '3D Showcases' },
+    { href: '/measurement', label: 'Measurements' },
+    
   ];
 
   // Don't render anything during SSR to avoid hydration mismatches
@@ -502,15 +502,18 @@ export default function NavBar() {
                   >
                     Login
                   </button> */}
-                  <button
-                    className="w-full px-4 py-3 text-base font-bold text-white bg-gradient-to-r from-emerald-500 to-green-600 rounded-lg shadow-md hover:shadow-emerald-500/30 transition-all"
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      setIsRegisterOpen(true);
-                    }}
-                  >
-                    Get Started
-                  </button>
+             <Link href="/contact">
+              <motion.button
+                className="px-4 sm:px-5 py-1.5 sm:py-2 text-sm font-bold text-white rounded-lg shadow-md transition-all"
+                style={{
+                  background: 'linear-gradient(to right, #1F6B3D, #123B22)'
+                }}
+                whileHover={{ scale: 1.05, boxShadow: '0 4px 20px rgba(31, 107, 61, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+              >
+                 contact us
+              </motion.button>
+              </Link>
                 </div>
               </div>
             </motion.div>

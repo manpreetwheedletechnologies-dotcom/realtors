@@ -204,7 +204,7 @@ export default function Contact() {
                   <div className="hidden md:flex flex-col gap-4 mt-10">
                     {[
                       { icon: Phone, label: '+91 99909 60187' },
-                      { icon: Mail, label: 'hello@pgilandrealtors.in' },
+                      { icon: Mail, label: 'pragatigreens5@gmail.com' },
                       { icon: Clock, label: 'Mon–Sat, 10am – 7pm IST' },
                     ].map((item, i) => (
                       <motion.div
@@ -381,7 +381,7 @@ export default function Contact() {
             >
               {[
                 { icon: Phone, title: 'Phone', value: '+91 99909 60187', href: 'tel:+919990960187' },
-                { icon: Mail, title: 'Email', value: 'hello@pgilandrealtors.in', href: 'mailto:hello@pgilandrealtors.in' },
+                { icon: Mail, title: 'Email', value: 'pragatigreens5@gmail.com', href: 'mailto:pragatigreens5@gmail.com' },
                 { icon: MapPin, title: 'Address', value: 'Pilot no. 8c, near 100 x school, techzone 4, Greater Noida, India' },
                 { icon: Clock, title: 'Hours', value: 'Mon–Sat, 10am – 7pm IST' },
               ].map((item, i) => (

@@ -68,9 +68,10 @@ export default function About() {
         <PageHero
           image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600"
           badge="About Us"
-          titleLine1="Strategic land investments,"
-          titleLine2="backed by real due diligence"
-          subtitle="PGI Land Realtors is a real estate advisory and land solutions company specializing in Residential, Commercial, Industrial, Agricultural, Institutional, and Warehouse & Logistics land across India — helping investors, businesses, developers and institutions make informed, long-term decisions."
+titleLine1="Strategic land investments,"
+titleLine2="with real due diligence"
+subtitle="PGI Land Realtors — pan-India land advisory for all sectors. Trusted by investors & developers."
+
         />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20">
