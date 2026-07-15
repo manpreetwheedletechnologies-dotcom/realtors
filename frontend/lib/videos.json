@@ -2,7 +2,7 @@
     {
     "src": "/videos/residential_video1.mp4",
     "title": "BuildSmart Luxury Residence Design",
-    "subtitle": "Contemporary Homes Crafted for Modern Living",
+    "subtitle": "",
     "badge": "HD Animation",
     "size": "large",
     "tag": "Featured"
@@ -12,7 +12,7 @@
   {
     "src": "/videos/residential_video2.mp4",
     "title": "BuildSmart Premium Villa Development",
-    "subtitle": "Elegant Architecture with Thoughtful Spaces",
+    "subtitle": "",
     "badge": "HD Animation",
     "size": "large",
     "tag": "Featured"
@@ -21,7 +21,7 @@
   {
     "src": "/videos/residential_video3.mp4",
      "title": "BuildSmart Modern Apartment Planning",
-    "subtitle": "Smartly Designed Residences for Everyday Comfort",
+    "subtitle": "",
     "badge": "HD Animation",
     "size": "large",
     "tag": "Featured"
@@ -30,7 +30,7 @@
   {
     "src": "/videos/residential_video4.mp4",
    "title": "BuildSmart Custom Home Creation",
-    "subtitle": "Future-Ready Homes Built with Precision",
+    "subtitle": "",
     "badge": "HD Animation",
     "size": "large",
     "tag": "Featured"
@@ -39,14 +39,14 @@
   {
     "src": "/videos/agri_video1.mp4",
    "title": "BuildSmart Modern Farm Infrastructure",
-    "subtitle": "Designed for Efficient Agricultural Operations",
+    "subtitle": "",
     "size": "small",
     "tag": "Agricultural"
   },
   {
     "src": "/videos/agri_video2.mp4",
    "title": "BuildSmart Greenhouse Development",
-    "subtitle": "Climate-Controlled Solutions for Sustainable Farming",
+    "subtitle": "",
     "size": "small",
     "tag": "Agricultural"
   },
@@ -54,7 +54,7 @@
   {
     "src": "/videos/agri_video3.mp4",
    "title": "BuildSmart Agri Processing Facility",
-    "subtitle": "Engineered for Reliable Post-Harvest Operations",
+    "subtitle": "",
     "size": "small",
     "tag": "Agricultural"
   },
@@ -62,7 +62,7 @@
   {
     "src": "/videos/agri_video4.mp4",
     "title": "BuildSmart Livestock Facility Design",
-    "subtitle": "Optimized Spaces for Modern Animal Farming",
+    "subtitle": "",
     "size": "small",
     "tag": "Agricultural"
   },
@@ -70,7 +70,7 @@
   {
     "src": "/videos/agri_video5.mp4",
      "title": "BuildSmart Storage & Grain Facility",
-    "subtitle": "Secure Infrastructure for Agricultural Resources",
+    "subtitle": "",
     "size": "small",
     "tag": "Agricultural"
   },
@@ -78,7 +78,7 @@
   {
     "src": "/videos/agri_video6.mp4",
     "title": "BuildSmart Agricultural Campus Planning",
-    "subtitle": "Future-Ready Infrastructure for Growing Farms",
+    "subtitle": "",
     "size": "small",
     "tag": "Agricultural"
   },
@@ -88,7 +88,7 @@
  {
     "src": "/videos/commercial_video1.mp4",
    "title": "BuildSmart Office Tower Development",
-    "subtitle": "Modern Workspaces Built for Success",
+    "subtitle": "",
     "size": "small",
     "tag": "Commercial"
   },
@@ -96,7 +96,7 @@
   {
     "src": "/videos/commercial_video2.mp4",
    "title": "BuildSmart Retail Space Creation",
-    "subtitle": "Designed for High-Impact Customer Experiences",
+    "subtitle": "",
     "size": "small",
     "tag": "Commercial"
   },
@@ -104,7 +104,7 @@
   {
     "src": "/videos/commercial_video3.mp4",
     "title": "BuildSmart Business Complex Design",
-    "subtitle": "Smart Planning for Modern Enterprises",
+    "subtitle": "",
     "size": "small",
     "tag": "Commercial"
   },
@@ -112,7 +112,7 @@
   {
     "src": "/videos/commercial_video4.mp4",
     "title": "BuildSmart Commercial Property Development",
-    "subtitle": "Engineered for Long-Term Business Growth",
+    "subtitle": "",
     "size": "small",
     "tag": "Commercial"
   },
@@ -121,7 +121,7 @@
   {
     "src": "/videos/industrial_video1.mp4",
      "title": "BuildSmart Industrial Facility Development",
-    "subtitle": "Engineered for Efficient Project Execution",
+    "subtitle": "",
     "badge": "New",
     "size": "large",
     "tag": "Industrial"
@@ -130,7 +130,7 @@
    {
     "src": "/videos/industrial_video2.mp4",
      "title": "BuildSmart Manufacturing Plant Design",
-    "subtitle": "Optimized for Productivity and Performance",
+    "subtitle": "",
     "badge": "New",
     "size": "large",
     "tag": "Industrial"
@@ -139,7 +139,7 @@
    {
     "src": "/videos/industrial_video3.mp4",
     "title": "BuildSmart Warehouse Infrastructure",
-    "subtitle": "Smart Planning for Scalable Operations",
+    "subtitle": "",
     "badge": "New",
     "size": "large",
     "tag": "Industrial"
@@ -149,7 +149,7 @@
   {
     "src": "/videos/industrial_video4.mp4",
     "title": "BuildSmart Industrial Campus Planning",
-    "subtitle": "Designed for Growth and Operational Excellence",
+    "subtitle": "",
     "badge": "New",
     "size": "large",
     "tag": "Industrial"
@@ -158,7 +158,7 @@
   {
     "src": "/videos/industrial_video5.mp4",
     "title": "BuildSmart Production Facility Creation",
-    "subtitle": "Future-Ready Designs with Precision Engineering",
+    "subtitle": "",
     "badge": "New",
     "size": "large",
     "tag": "Industrial"

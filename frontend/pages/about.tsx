@@ -278,7 +278,7 @@ subtitle="PGI Land Realtors — pan-India land advisory for all sectors. Trusted
           </motion.div>
 
           {/* Team */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-24">
+          {/* <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-24">
             <div className="grid md:grid-cols-2 gap-6 items-end mb-8">
               <div>
                 <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase text-emerald-600 mb-3">
@@ -302,7 +302,7 @@ subtitle="PGI Land Realtors — pan-India land advisory for all sectors. Trusted
                 </div>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Closing statement */}
           <motion.div

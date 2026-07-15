@@ -158,7 +158,7 @@ export default function LandFeatureCard({ land, index = 0 }) {
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+        {/* <div className="flex items-center justify-between pt-3 border-t border-gray-100">
           <span className="text-xs text-gray-600">👤 {land.owner}</span>
           <motion.button
             className="px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl text-xs font-bold hover:shadow-lg transition-all"
@@ -167,7 +167,7 @@ export default function LandFeatureCard({ land, index = 0 }) {
           >
             View Details
           </motion.button>
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );
