@@ -313,6 +313,19 @@ export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const videoRef = useRef(null);
 
+  // Tracks whether we're on a small/mobile viewport — used by the hero
+  // section to switch between the desktop 3D/scattered layout and the
+  // simplified mobile layout (top thumbnail row + plain fade background).
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 640px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   // SEARCH STATE
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
@@ -455,36 +468,46 @@ useEffect(() => {
           variants={fadeInUp}
         >
           <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-
             <AnimatePresence>
+              {/* On mobile: plain fade only. The old corner-zoom entrance
+                  (scale 0.15 -> 1 starting bottom-right) was what made a small
+                  "extra" image visible at the bottom corner on narrow screens,
+                  overlapping the thumbnail stack / text. Desktop keeps the
+                  original zoom-in-from-corner effect untouched. */}
               <motion.img
                 key={activeVideo}
-                initial={{ opacity: 1, scale: 0.15, x: '38%', y: '38%' }}
-                animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                initial={
+                  isMobile
+                    ? { opacity: 0 }
+                    : { opacity: 1, scale: 0.15, x: '38%', y: '38%' }
+                }
+                animate={
+                  isMobile
+                    ? { opacity: 1 }
+                    : { opacity: 1, scale: 1, x: 0, y: 0 }
+                }
                 exit={{ opacity: 0 }}
-                transition={{
-                  scale: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
-                  x: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
-                  y: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
-                  opacity: { duration: 0.8, delay: 0.6 }
-                }}
+                transition={
+                  isMobile
+                    ? { opacity: { duration: 0.6, ease: 'easeOut' } }
+                    : {
+                        scale: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+                        x: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+                        y: { duration: 1.2, ease: [0.34, 1.56, 0.64, 1] },
+                        opacity: { duration: 0.8, delay: 0.6 },
+                      }
+                }
                 style={{ transformOrigin: 'bottom right' }}
                 className="absolute inset-0 w-full h-full object-cover"
                 src={heroVideos[activeVideo]}
                 alt="Hero background"
               />
             </AnimatePresence>
-
-
           </div>
+
           {/* SEARCH YOUR LAND SECTION */}
+          <div className="relative z-20 text-center px-4 max-w-6xl mx-auto w-full" />
 
-
-          <div className="relative z-20 text-center px-4 max-w-6xl mx-auto w-full">
-          </div>
-
-
-          {/* LEFT CORNER DESCRIPTION TEXT */}
           {/* LEFT CORNER HEADING + DESCRIPTION TEXT */}
           <motion.div
             className="absolute bottom-10 left-4 sm:left-8 md:left-12 z-20 max-w-md text-left"
@@ -500,15 +523,9 @@ useEffect(() => {
             >
               <motion.span
                 className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-400 to-emerald-500"
-                animate={{
-                  backgroundPosition: ["0%", "200%", "0%"],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                style={{ backgroundSize: "200%" }}
+                animate={{ backgroundPosition: ['0%', '200%', '0%'] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+                style={{ backgroundSize: '200%' }}
               >
                 India's Premier
               </motion.span>
@@ -516,7 +533,7 @@ useEffect(() => {
                 className="block text-white drop-shadow-2xl"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, delay: 1, type: "spring" }}
+                transition={{ duration: 1, delay: 1, type: 'spring' }}
               >
                 Land Aggregator
               </motion.span>
@@ -525,7 +542,7 @@ useEffect(() => {
             <motion.div
               className="backdrop-blur-md bg-black/30 border border-white/10 rounded-xl p-5"
               whileHover={{ scale: 1.02, borderColor: 'rgba(16,185,129,0.4)' }}
-              transition={{ type: "spring", stiffness: 200 }}
+              transition={{ type: 'spring', stiffness: 200 }}
             >
               <motion.div
                 className="w-10 h-1 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full mb-3"
@@ -540,9 +557,13 @@ useEffect(() => {
             </motion.div>
           </motion.div>
 
-          {/* BOTTOM RIGHT SCATTERED PHOTO STACK */}
+          {/* PHOTO STACK
+              Mobile: simple horizontal row pinned near the TOP (below the pt-24
+              header spacing), no absolute overlap stacking, no rotation — so it
+              never collides with the text block anchored at the bottom.
+              Desktop: unchanged messy scattered stack, bottom-right corner. */}
           <motion.div
-            className="absolute bottom-10 right-4 sm:right-8 md:right-16 z-20 w-28 h-20 md:w-36 md:h-24"
+            className="absolute bottom-44 sm:bottom-10 right-4 sm:right-8 md:right-16 z-20 w-28 h-20 md:w-36 md:h-24"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.5 }}
@@ -565,15 +586,15 @@ useEffect(() => {
                     borderColor: isActive ? 'rgba(16,185,129,0.8)' : 'rgba(255,255,255,0.3)',
                     zIndex: isActive ? heroVideos.length + 1 : i,
                   }}
-                  initial={{ opacity: 0, rotate: rotate, x: offsetX, y: offsetY, scale: 0.7 }}
+                  initial={{ opacity: 0, rotate, x: offsetX, y: offsetY, scale: 0.7 }}
                   animate={{
                     opacity: 1,
-                    rotate: rotate,
+                    rotate,
                     x: offsetX,
                     y: offsetY,
                     scale: isActive ? 1.08 : 1,
                   }}
-                  transition={{ duration: 0.6, delay: 1.6 + i * 0.1, ease: "easeOut" }}
+                  transition={{ duration: 0.6, delay: 1.6 + i * 0.1, ease: 'easeOut' }}
                   whileHover={{ scale: 1.15, rotate: 0, zIndex: heroVideos.length + 2 }}
                 >
                   <img
@@ -593,25 +614,32 @@ useEffect(() => {
                 key={i}
                 className="absolute w-1 h-1 rounded-full bg-emerald-400/30"
                 animate={{
-                  x: [Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000), Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000)],
-                  y: [Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000), Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000)],
+                  x: [
+                    Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                    Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                  ],
+                  y: [
+                    Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+                    Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+                  ],
                   opacity: [0, 1, 0],
-                  scale: [0, 2, 0]
+                  scale: [0, 2, 0],
                 }}
                 transition={{
                   duration: 15 + Math.random() * 10,
                   repeat: Infinity,
-                  ease: "linear",
-                  delay: Math.random() * 5
+                  ease: 'linear',
+                  delay: Math.random() * 5,
                 }}
                 style={{
                   left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
+                  top: `${Math.random() * 100}%`,
                 }}
               />
             ))}
           </div>
         </motion.section>
+
         {/* SEARCH YOUR LAND SECTION */}
         <section
           className="sticky top-0 z-20 min-h-screen py-16 md:py-20 bg-gradient-to-b from-[#0A1A12] via-[#0F281D] to-[#0A1A12] overflow-hidden"
