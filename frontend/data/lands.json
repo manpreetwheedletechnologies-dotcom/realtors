@@ -444,7 +444,7 @@
         },
         {
           "id": 203,
-          "title": "Commercial Corner Plot - Whitefield",
+          "title": "Commercial Corner Plot",
           "size": "700 sq.yds",
           "type": "Commercial Land",
           "dimensions": "42ft × 75ft",
@@ -1540,7 +1540,7 @@
       "plots": [
         {
           "id": 1001,
-          "title": "Institutional Plot - Greater Noida Knowledge Park",
+          "title": "Institutional Plot ",
           "size": "5 acres",
           "type": "Institutional Land",
           "dimensions": "Irregular - Survey Marked",
@@ -1584,7 +1584,7 @@
         },
         {
           "id": 1003,
-          "title": "Research Centre Plot - Whitefield Bengaluru",
+          "title": "Research Centre Plot ",
           "size": "2.5 acres",
           "type": "Institutional Land",
           "dimensions": "Irregular - Survey Marked",

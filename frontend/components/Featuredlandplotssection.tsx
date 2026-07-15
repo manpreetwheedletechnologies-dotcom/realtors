@@ -29,7 +29,7 @@ export const featuredLands = [
   },
   {
     id: 2,
-    title: 'Agricultural Land - Whitefield',
+    title: 'Agricultural Land ',
     location: '',
     price: '₹1.8 Cr',
     size: '2 acres',
@@ -54,7 +54,7 @@ export const featuredLands = [
   },
   {
     id: 3,
-    title: 'Commercial Land - BKC',
+    title: 'Commercial Land ',
     location: '',
     price: '₹8.5 Cr',
     size: '1200 sq.yds',

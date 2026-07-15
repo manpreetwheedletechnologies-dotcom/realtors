@@ -161,7 +161,7 @@ const dummyLandPlots = [
   {
     id: 1,
     title: 'Green Meadows Residential Plot',
-    location: 'Whitefield, Bangalore',
+    location: '',
     type: 'Residential Land',
     zoning: 'Residential R-1',
     facing: 'North-East',

@@ -169,8 +169,8 @@ export default function VideoWalkthroughSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <h4 className="text-white font-bold text-sm">Commercial Complex BKC</h4>
-                  <p className="text-white/80 text-xs">Mumbai • Premium Office Space</p>
+                  <h4 className="text-white font-bold text-sm">Commercial Complex</h4>
+                  <p className="text-white/80 text-xs">Premium Office Space</p>
                 </div>
               </motion.div>
               
@@ -190,7 +190,7 @@ export default function VideoWalkthroughSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-3">
                   <h4 className="text-white font-bold text-sm">Agricultural Land Tour</h4>
-                  <p className="text-white/80 text-xs">Bangalore • 2 Acres Farm</p>
+                  <p className="text-white/80 text-xs"> 2 Acres Farm</p>
                 </div>
               </motion.div>
             </div>
