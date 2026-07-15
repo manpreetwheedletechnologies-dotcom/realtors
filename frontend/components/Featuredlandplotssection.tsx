@@ -70,7 +70,7 @@ export const featuredLands = [
   },
   {
     id: 4,
-    title: 'Industrial Plot - Andheri',
+    title: 'Industrial Plot -',
     location: '',
     price: '₹3.2 Cr',
     size: '650 sq.yds',
