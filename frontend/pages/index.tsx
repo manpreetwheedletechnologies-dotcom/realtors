@@ -93,9 +93,7 @@ const landTypes = [
   'Mixed-Use Land',
   'Plotted Development',
   'Farm Land',
-  'Hill View Plot',
-  'Waterfront Land',
-  'Corner Plot'
+  'Hill View Plot'
 ];
 
 const landZoning = [
@@ -151,9 +149,7 @@ const landCategoryLinks = [
   { label: 'Mixed-Use Land', href: '/land/mixed-use-land', icon: '🏘️' },
   { label: 'Plotted Development', href: '/land/plotted-development', icon: '📐' },
   { label: 'Farm Land', href: '/land/farm-land', icon: '🌿' },
-  { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' },
-  { label: 'Waterfront Land', href: '/land/waterfront-land', icon: '🏖️' },
-  { label: 'Corner Plot', href: '/land/corner-plot', icon: '📍' }
+  { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' }
 ];
 
 // DUMMY LAND PLOTS DATA (replace with real API data later)
@@ -197,7 +193,7 @@ const dummyLandPlots = [
   {
     id: 4,
     title: 'Industrial Warehouse Plot',
-    location: 'MIDC, Pune',
+    location: '',
     type: 'Industrial Land',
     zoning: 'Industrial I-1',
     facing: 'West',

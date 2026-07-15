@@ -422,7 +422,7 @@
         },
         {
           "id": 202,
-          "title": "Business District Plot - OMR",
+          "title": "Business District Plot ",
           "size": "900 sq.yds",
           "type": "Commercial Land",
           "dimensions": "50ft × 90ft",
@@ -708,7 +708,7 @@
         },
         {
           "id": 302,
-          "title": "Coconut Grove Farmland - ECR Outskirts",
+          "title": "Coconut Grove Farmland",
           "size": "2.5 acres",
           "type": "Agricultural Land",
           "dimensions": "Irregular - Survey Marked",
@@ -993,19 +993,19 @@
         },
         {
           "id": 402,
-          "title": "Industrial Plot - Sriperumbudur SIPCOT",
+          "title": "Industrial Plot",
           "size": "2 acres",
           "type": "Industrial Land",
           "dimensions": "175ft × 500ft",
           "facing": "East",
-          "owner": "SIPCOT Allottee Estates",
+          "owner": " Allottee Estates",
           "images": [
             "/industrial_land2.png",
             "/industrial3.jpg"
           ],
           "rating": 4.9,
           "amenities": [
-            "SIPCOT Zone",
+            "",
             "High-Capacity Power",
             "Effluent Treatment Access",
             "Wide Road"
@@ -1037,19 +1037,19 @@
         },
         {
           "id": 404,
-          "title": "Industrial Plot - MIDC ",
+          "title": "Industrial Plot  ",
           "size": "1.8 acres",
           "type": "Industrial Land",
           "dimensions": "160ft × 490ft",
           "facing": "North-East",
-          "owner": "MIDC Allottee Estates",
+          "owner": "",
           "images": [
             "/industrial_land4.png",
             "/industrial_land2.png"
           ],
           "rating": 4.8,
           "amenities": [
-            "MIDC Zone",
+            " Zone",
             "Heavy Vehicle Access",
             "High-Capacity Power",
             "Water Supply"
@@ -1277,7 +1277,7 @@
         },
         {
           "id": 902,
-          "title": "Fulfilment Centre Plot - Bhiwandi Logistics Hub",
+          "title": "Fulfilment Centre Plot",
           "size": "4 acres",
           "type": "Warehouse & Logistics Land",
           "dimensions": "220ft × 790ft",
@@ -1299,7 +1299,7 @@
         },
         {
           "id": 903,
-          "title": "Cold Storage Plot - Sriperumbudur Freight Corridor",
+          "title": "Cold Storage Plot ",
           "size": "2.5 acres",
           "type": "Warehouse & Logistics Land",
           "dimensions": "180ft × 605ft",
@@ -1326,7 +1326,7 @@
           "type": "Warehouse & Logistics Land",
           "dimensions": "210ft × 725ft",
           "facing": "North-East",
-          "owner": "MIDC Logistics Ventures",
+          "owner": " Logistics Ventures",
           "images": [
             "/logistics_land4.png",
             "/logistics_land1.png"
@@ -1562,7 +1562,7 @@
         },
         {
           "id": 1002,
-          "title": "Healthcare Campus Plot - OMR Chennai",
+          "title": "Healthcare Campus Plot -  Chennai",
           "size": "3 acres",
           "type": "Institutional Land",
           "dimensions": "Irregular - Survey Marked",
@@ -2585,7 +2585,7 @@
       "plots": [
         {
           "id": 801,
-          "title": "Valley View Plot - Outskirts",
+          "title": "Valley View Plot ",
           "size": "400 sq.yds",
           "type": "Hill View Plot",
           "dimensions": "30ft × 55ft",
@@ -2629,7 +2629,7 @@
         },
         {
           "id": 803,
-          "title": "Sunrise Point Plot - Hills Vicinity",
+          "title": "Sunrise Point Plot - Hills",
           "size": "320 sq.yds",
           "type": "Hill View Plot",
           "dimensions": "26ft × 48ft",

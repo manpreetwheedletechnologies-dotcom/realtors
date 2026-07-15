@@ -17,8 +17,6 @@ const landTypes = [
   { name: 'Plotted Development', icon: '📐', desc: 'Pre-approved layouts ready for individual plot sale.' },
   { name: 'Farm Land', icon: '🌿', desc: 'Countryside plots for farmhouses and agri-tourism.' },
   { name: 'Hill View Plot', icon: '⛰️', desc: 'Scenic elevated land, popular for weekend homes.' },
-  { name: 'Waterfront Land', icon: '🏖️', desc: 'Coastal or riverside plots with premium views.' },
-  { name: 'Corner Plot', icon: '📍', desc: 'Two-road-facing plots with higher resale value.' }
 ];
 
 const landZoning = [
