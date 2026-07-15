@@ -102,7 +102,7 @@ export const allLands = [
   },
   {
     id: 5,
-    title: 'Waterfront Plot - ECR',
+    title: 'Waterfront Plot',
     location: '',
     price: '₹4.1 Cr',
     size: '800 sq.yds',
@@ -120,7 +120,7 @@ export const allLands = [
   },
   {
     id: 6,
-    title: 'Hill View Plot - Lonavala',
+    title: 'Hill View Plot',
     location: '',
     price: '₹95 Lakh',
     size: '1 acre',

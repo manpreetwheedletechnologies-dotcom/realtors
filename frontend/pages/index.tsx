@@ -221,7 +221,7 @@ const dummyLandPlots = [
   {
     id: 6,
     title: 'Hill View Farm Plot',
-    location: 'Lonavala, Maharashtra',
+    location: '',
     type: 'Hill View Plot',
     zoning: 'Special Zone',
     facing: 'North-West',
