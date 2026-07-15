@@ -146,7 +146,7 @@ export default function VideoWalkthroughSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <h4 className="text-white font-bold">Premium Residential Colony</h4>
-                <p className="text-white/80 text-sm">South Delhi • 3 BHK Apartments</p>
+                <p className="text-white/80 text-sm">3 BHK Apartments</p>
               </div>
               <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-full">
                 HD Tour

@@ -7,8 +7,8 @@ import LandPlotCard from './Landplotcard';
 export const featuredLands = [
   {
     id: 1,
-    title: 'Prime Residential Plot - South Delhi',
-    location: 'South Delhi, Delhi',
+    title: 'Prime Residential Plot',
+    location: '',
     price: '₹2.5 Cr',
     size: '450 sq.yds',
     type: 'Residential Land',
@@ -30,7 +30,7 @@ export const featuredLands = [
   {
     id: 2,
     title: 'Agricultural Land - Whitefield',
-    location: 'Whitefield, Bangalore',
+    location: '',
     price: '₹1.8 Cr',
     size: '2 acres',
     type: 'Agricultural Land',
@@ -55,7 +55,7 @@ export const featuredLands = [
   {
     id: 3,
     title: 'Commercial Land - BKC',
-    location: 'BKC, Mumbai',
+    location: '',
     price: '₹8.5 Cr',
     size: '1200 sq.yds',
     type: 'Commercial Land',
@@ -71,7 +71,7 @@ export const featuredLands = [
   {
     id: 4,
     title: 'Industrial Plot - Andheri',
-    location: 'Andheri, Mumbai',
+    location: '',
     price: '₹3.2 Cr',
     size: '650 sq.yds',
     type: 'Industrial Land',

@@ -14,8 +14,8 @@ const fadeInUp = {
 export const allLands = [
   {
     id: 1,
-    title: 'Prime Residential Plot - South Delhi',
-    location: 'South Delhi, Delhi',
+    title: 'Prime Residential Plot',
+    location: '',
     price: '₹2.5 Cr',
     size: '450 sq.yds',
     type: 'Residential Land',
@@ -37,7 +37,7 @@ export const allLands = [
   {
     id: 2,
     title: 'Agricultural Land - Whitefield',
-    location: 'Whitefield, Bangalore',
+    location: '',
     price: '₹1.8 Cr',
     size: '2 acres',
     type: 'Agricultural Land',
@@ -62,7 +62,7 @@ export const allLands = [
   {
     id: 3,
     title: 'Commercial Land - BKC',
-    location: 'BKC, Mumbai',
+    location: '',
     price: '₹8.5 Cr',
     size: '1200 sq.yds',
     type: 'Commercial Land',
@@ -83,7 +83,7 @@ export const allLands = [
   {
     id: 4,
     title: 'Industrial Plot - Andheri',
-    location: 'Andheri, Mumbai',
+    location: '',
     price: '₹3.2 Cr',
     size: '650 sq.yds',
     type: 'Industrial Land',
@@ -103,7 +103,7 @@ export const allLands = [
   {
     id: 5,
     title: 'Waterfront Plot - ECR',
-    location: 'ECR, Chennai',
+    location: '',
     price: '₹4.1 Cr',
     size: '800 sq.yds',
     type: 'Residential Land',
@@ -121,7 +121,7 @@ export const allLands = [
   {
     id: 6,
     title: 'Hill View Plot - Lonavala',
-    location: 'Lonavala, Maharashtra',
+    location: '',
     price: '₹95 Lakh',
     size: '1 acre',
     type: 'Farm Land',
