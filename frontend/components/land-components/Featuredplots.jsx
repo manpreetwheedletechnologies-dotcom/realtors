@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import LandFeatureCard from './LandFeatureCard';
+import LandFeatureCard from './Landfeaturecard';
 
 /**
  * FeaturedPlots
