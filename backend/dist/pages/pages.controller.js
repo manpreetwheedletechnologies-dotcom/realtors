@@ -46,7 +46,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PagesController.prototype, "list", null);
 exports.PagesController = PagesController = __decorate([
-    (0, common_1.Controller)('api/pages'),
+    (0, common_1.Controller)('api/v1/pages'),
     __metadata("design:paramtypes", [pages_service_1.PagesService])
 ], PagesController);
 //# sourceMappingURL=pages.controller.js.map

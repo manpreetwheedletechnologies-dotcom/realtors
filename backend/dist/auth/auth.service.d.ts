@@ -1,12 +1,14 @@
+import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
+import { UserDocument } from './user.schema';
 export interface JwtPayload {
     sub: string;
     email: string;
 }
 export declare class AuthService {
+    private readonly userModel;
     private readonly jwtService;
-    private readonly admin;
-    constructor(jwtService: JwtService);
+    constructor(userModel: Model<UserDocument>, jwtService: JwtService);
     validateUser(email: string, password: string): Promise<{
         _id: string;
         email: string;

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Lock, Mail, ArrowRight } from 'lucide-react';
 import Logo from '../components/Logo';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 export default function Login() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/auth/login`, {
+      const res = await fetch(`${API_URL}/api/v1/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

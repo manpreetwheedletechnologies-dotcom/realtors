@@ -25,6 +25,7 @@ interface VideoData {
 }
 
 interface Video {
+  _id?: string;
   id: number;
   src: string;
   title: string;
@@ -145,8 +146,16 @@ function ThrownInHeading({ segments }: { segments: { text: string; className: st
 // Transform JSON data to match component structure
 const transformVideoData = (data: VideoData[]): Video[] => {
   return data.map((video, index) => ({
+    _id: (video as any)._id || (video as any).id || undefined,
     id: index + 1,
-    src: video.src || '',
+    src: (() => {
+      const src = video.src || '';
+      if (src.startsWith('/uploads/')) {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+        return `${API_URL}${src}`;
+      }
+      return src;
+    })(),
     title: video.title || 'Video Tour',
     subtitle: video.subtitle || '',
     location: video.subtitle || '',
@@ -549,7 +558,7 @@ function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) =
 
             return (
               <div
-                key={video.id}
+                key={video._id || video.id}
                 data-index={i}
                 ref={(el) => { mobileCardRefs.current[i] = el; }}
                 onClick={() => (isActive ? onOpen(video) : scrollToMobileCard(i))}
@@ -670,7 +679,7 @@ function Coverflow3D({ videos, onOpen }: { videos: Video[]; onOpen: (v: Video) =
 
             return (
               <motion.div
-                key={video.id}
+                key={video._id || video.id}
                 className="absolute rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
                 style={{
                   width: isCenter ? 'min(60vw, 720px)' : 'min(38vw, 420px)',
@@ -867,7 +876,7 @@ function ShowcaseWall({
             
             return (
               <motion.div
-                key={video.id}
+                key={video._id || video.id}
                 layout
                 className="relative"
                 style={{ transformStyle: 'preserve-3d' }}
@@ -916,6 +925,29 @@ function ShowcaseWall({
 }
 
 export default function VideoWalkthroughs() {
+  const [videosState, setVideosState] = useState<Video[]>([]);
+
+  useEffect(() => {
+    // Start with static fallback data
+    setVideosState(transformVideoData(videosData));
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    fetch(`${API_URL}/api/v1/videos`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setVideosState(transformVideoData(data));
+        }
+      })
+      .catch((err) => console.error('Error fetching videos from API:', err));
+  }, []);
+
+  const videos = videosState;
+
+  const filters = useMemo(() => {
+    return ['All', ...Array.from(new Set(videos.map((v) => v.tag)))];
+  }, [videos]);
+
   const [active, setActive] = useState<Video | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [filter, setFilter] = useState('All');
@@ -933,15 +965,15 @@ export default function VideoWalkthroughs() {
       map[v.tag] = (map[v.tag] || 0) + 1;
     });
     return map;
-  }, []);
+  }, [videos]);
 
   const totalViews = useMemo(
     () => videos.reduce((sum, v) => sum + parseInt(v.views.replace('+', ''), 10), 0),
-    []
+    [videos]
   );
 
   const openVideo = (video: Video) => {
-    const idx = videos.findIndex((v) => v.id === video.id);
+    const idx = videos.findIndex((v) => v.id === video.id || (v._id && v._id === video._id));
     setActiveIndex(idx);
     setActive(video);
     setMuted(true);
@@ -1211,7 +1243,7 @@ export default function VideoWalkthroughs() {
 
               {/* Video Content */}
               <motion.div
-                key={active.id}
+                key={active._id || active.id}
                 initial={{ scale: 0.9, opacity: 0, rotateY: -35 }}
                 animate={{ scale: 1, opacity: 1, rotateY: 0 }}
                 exit={{ scale: 0.9, opacity: 0, rotateY: 35 }}
@@ -1304,7 +1336,7 @@ export default function VideoWalkthroughs() {
                 <div className="mt-5 sm:mt-6 flex items-center justify-center gap-2 overflow-x-auto pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {videos.map((v, i) => (
                     <button
-                      key={v.id}
+                      key={v._id || v.id}
                       onClick={(e) => {
                         e.stopPropagation();
                         setActiveIndex(i);

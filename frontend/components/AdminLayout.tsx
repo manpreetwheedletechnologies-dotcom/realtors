@@ -10,7 +10,8 @@ import {
   Bell, 
   Search, 
   Menu,
-  LogOut
+  LogOut,
+  Film
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -26,9 +27,8 @@ export default function AdminLayout({ children, title = "Admin Panel" }: { child
 
   const navItems = [
     { icon: LayoutDashboard, label: 'Overview', path: '/admin' },
-    { icon: FolderKanban, label: 'Projects', path: '/admin/projects' },
-    { icon: Box, label: '3D Models', path: '/admin/models' },
-    { icon: Activity, label: 'Drone Logs', path: '/admin/logs' },
+    { icon: FolderKanban, label: 'Manage Plots', path: '/admin/plots' },
+    { icon: Film, label: 'Manage Videos', path: '/admin/videos' },
     { icon: Settings, label: 'Settings', path: '/admin/settings' }
   ];
 

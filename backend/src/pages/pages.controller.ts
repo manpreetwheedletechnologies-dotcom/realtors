@@ -8,7 +8,7 @@ import {
 import { PagesService } from './pages.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
-@Controller('api/pages')
+@Controller('api/v1/pages')
 export class PagesController {
   constructor(private readonly pagesService: PagesService) {}
 

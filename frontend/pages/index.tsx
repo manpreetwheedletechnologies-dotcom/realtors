@@ -276,10 +276,14 @@ const dummyLandPlots = [
   }
 ];
 
-const formatPrice = (price: number) => {
-  if (price >= 10000000) return `₹${(price / 10000000).toFixed(2)} Cr`;
-  if (price >= 100000) return `₹${(price / 100000).toFixed(2)} L`;
-  return `₹${price.toLocaleString('en-IN')}`;
+const formatPrice = (price: any) => {
+  if (typeof price === 'string') return price;
+  if (typeof price === 'number') {
+    if (price >= 10000000) return `₹${(price / 10000000).toFixed(2)} Cr`;
+    if (price >= 100000) return `₹${(price / 100000).toFixed(2)} L`;
+    return `₹${price.toLocaleString('en-IN')}`;
+  }
+  return '';
 };
 
 
@@ -327,10 +331,23 @@ export default function Home() {
   }, []);
 
   // SEARCH STATE
+  const [landsList, setLandsList] = useState<any[]>(dummyLandPlots);
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
-  const [searchResults, setSearchResults] = useState<typeof dummyLandPlots>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    fetch(`${API_URL}/api/v1/lands`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setLandsList(data);
+        }
+      })
+      .catch((err) => console.error('Error fetching lands for search:', err));
+  }, []);
 
   // EMI Calculator
   const calculateEMI = () => {
@@ -366,17 +383,28 @@ export default function Home() {
 
     const query = searchQuery.trim().toLowerCase();
 
-    const results = dummyLandPlots.filter((plot) => {
+    const results = landsList.filter((plot) => {
       const matchesQuery =
         query === '' ||
         plot.title.toLowerCase().includes(query) ||
-        plot.location.toLowerCase().includes(query);
+        (plot.location && plot.location.toLowerCase().includes(query));
 
       const matchesType = selectedLandType === 'All' || plot.type === selectedLandType;
-      const matchesZoning = selectedZoning === 'All' || plot.zoning === selectedZoning;
-      const matchesFacing = selectedFacing === 'All' || plot.facing === selectedFacing;
-      const matchesStatus = verificationStatus === 'All' || plot.verified === verificationStatus;
-      const matchesArea = plot.area >= areaRange.min && plot.area <= areaRange.max;
+      
+      const zoningVal = plot.zoning || '';
+      const matchesZoning = selectedZoning === 'All' || zoningVal === selectedZoning;
+      
+      const facingVal = plot.facing || '';
+      const matchesFacing = selectedFacing === 'All' || facingVal === selectedFacing;
+      
+      const verifiedVal = plot.verified || plot.verification || '';
+      const matchesStatus = verificationStatus === 'All' || verifiedVal === verificationStatus;
+      
+      let areaVal = plot.area;
+      if (areaVal === undefined && plot.size) {
+        areaVal = parseFloat(plot.size.replace(/[^0-9.]/g, '')) || 0;
+      }
+      const matchesArea = areaVal === undefined || (areaVal >= areaRange.min && areaVal <= areaRange.max);
 
       return matchesQuery && matchesType && matchesZoning && matchesFacing && matchesStatus && matchesArea;
     });
@@ -880,7 +908,7 @@ useEffect(() => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                         {searchResults.map((plot, i) => (
                           <motion.div
-                            key={plot.id}
+                            key={plot._id || plot.id}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.06, duration: 0.4 }}
@@ -888,9 +916,9 @@ useEffect(() => {
                             className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm transition-all"
                           >
                             <div className="flex items-start justify-between mb-3">
-                              <span className="text-3xl">{plot.icon}</span>
+                              <span className="text-3xl">{plot.icon || '🏡'}</span>
                               <span className="text-[10px] px-2 py-1 rounded-full bg-emerald-400/10 text-emerald-300 border border-emerald-400/30 font-medium">
-                                {plot.verified}
+                                {plot.verified || plot.verification || 'Verified'}
                               </span>
                             </div>
                             <h4 className="text-white font-bold text-sm md:text-base mb-1">{plot.title}</h4>
@@ -905,7 +933,7 @@ useEffect(() => {
                                 🧭 {plot.facing}
                               </span>
                               <span className="text-[10px] px-2 py-1 bg-white/5 text-white/60 rounded-full border border-white/10">
-                                📊 {plot.area} sq.yds
+                                📊 {plot.area !== undefined ? `${plot.area} sq.yds` : (plot.size || 'N/A')}
                               </span>
                             </div>
                             <div className="flex items-center justify-between pt-3 border-t border-white/10">

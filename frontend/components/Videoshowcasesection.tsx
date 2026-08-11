@@ -580,7 +580,29 @@ function VideoShowcaseDesktop({
    ========================================================================= */
 export default function VideoShowcaseSection() {
   const router = useRouter();
-  const allVideos: VideoData[] = (primaryVideos as VideoData[]).slice(0, MAX_SHOWCASE_VIDEOS);
+  const [videosState, setVideosState] = useState<VideoData[]>([]);
+
+  useEffect(() => {
+    setVideosState((primaryVideos as VideoData[]).slice(0, MAX_SHOWCASE_VIDEOS));
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    fetch(`${API_URL}/api/v1/videos`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const resolved = data.slice(0, MAX_SHOWCASE_VIDEOS).map((video: any) => {
+            if (video.src && video.src.startsWith('/uploads/')) {
+              return { ...video, src: `${API_URL}${video.src}` };
+            }
+            return video;
+          });
+          setVideosState(resolved);
+        }
+      })
+      .catch((err) => console.error('Error fetching videos for showcase:', err));
+  }, []);
+
+  const allVideos = videosState;
 
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   useEffect(() => {

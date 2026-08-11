@@ -12,6 +12,9 @@ const config_1 = require("@nestjs/config");
 const mongoose_1 = require("@nestjs/mongoose");
 const auth_module_1 = require("./auth/auth.module");
 const pages_module_1 = require("./pages/pages.module");
+const lands_module_1 = require("./lands/lands.module");
+const videos_module_1 = require("./videos/videos.module");
+const upload_module_1 = require("./upload/upload.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -22,6 +25,9 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/pgi3drelators'),
             auth_module_1.AuthModule,
             pages_module_1.PagesModule,
+            lands_module_1.LandsModule,
+            videos_module_1.VideosModule,
+            upload_module_1.UploadModule,
         ],
     })
 ], AppModule);

@@ -1,5 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
+import { User, UserDocument } from './user.schema';
 
 export interface JwtPayload {
   sub: string; // user id
@@ -8,19 +11,15 @@ export interface JwtPayload {
 
 @Injectable()
 export class AuthService {
-  // Mock admin user – replace with real DB lookup later
-  private readonly admin = {
-    _id: 'admin-id-123',
-    email: 'admin@3dbharat.com',
-    password: 'adminpass', // never store plain passwords in production
-  };
-
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    private readonly jwtService: JwtService
+  ) {}
 
   async validateUser(email: string, password: string) {
-    if (email === this.admin.email && password === this.admin.password) {
-      const { password, ...result } = this.admin;
-      return result;
+    const user = await this.userModel.findOne({ email }).exec();
+    if (user && user.password === password) {
+      return { _id: user._id.toString(), email: user.email };
     }
     return null;
   }

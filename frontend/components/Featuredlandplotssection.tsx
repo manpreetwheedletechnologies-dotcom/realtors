@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import LandPlotCard from './Landplotcard';
 
@@ -87,6 +88,20 @@ export const featuredLands = [
 ];
 
 export default function FeaturedLandPlotsSection() {
+  const [lands, setLands] = useState<any[]>(featuredLands);
+
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    fetch(`${API_URL}/api/v1/lands`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setLands(data.slice(0, 4));
+        }
+      })
+      .catch((err) => console.error('Error fetching lands for home page:', err));
+  }, []);
+
   return (
     <section className="relative py-32 bg-white z-30">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,8 +126,8 @@ export default function FeaturedLandPlotsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {featuredLands.map((land, index) => (
-            <LandPlotCard key={land.id} land={land} index={index} />
+          {lands.map((land, index) => (
+            <LandPlotCard key={land._id || land.id} land={land} index={index} />
           ))}
         </div>
 

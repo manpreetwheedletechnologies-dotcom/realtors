@@ -10,7 +10,20 @@ import Image from 'next/image';
  * - Wishlist heart with CSS pulse instead of JS animation
  */
 export default function LandPlotCard({ land, index = 0 }) {
-  const images = land.images && land.images.length > 0 ? land.images : [land.image];
+  let images = land.images && land.images.length > 0 ? land.images : [land.image];
+  // Sanitize image paths to ensure Next.js image compatibility (starts with / or http/https)
+  images = (images || []).map((img) => {
+    if (!img || typeof img !== 'string') return '/residential1.png';
+    const trimmed = img.trim();
+    if (trimmed.startsWith('/uploads/')) {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+      return `${API_URL}${trimmed}`;
+    }
+    if (trimmed.startsWith('/') || trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:')) {
+      return trimmed;
+    }
+    return '/' + trimmed;
+  });
   const [activeImg, setActiveImg] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isSaved, setIsSaved] = useState(false);

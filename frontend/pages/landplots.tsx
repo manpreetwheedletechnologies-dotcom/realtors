@@ -200,10 +200,10 @@ const categories = [
   }
 ];
 
-function CategoryGrid() {
+function CategoryGrid({ lands = [] }) {
   const counts = useMemo(
-    () => categories.map((c) => allLands.filter(c.match).length),
-    []
+    () => categories.map((c) => lands.filter(c.match).length),
+    [lands]
   );
 
   return (
@@ -339,24 +339,29 @@ export default function LandPlots() {
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [type, setType] = useState('All');
+  const [lands, setLands] = useState<any[]>(allLands);
 
-  // If a category card is clicked (?type=Residential Land), pick it up and
-  // filter the list below automatically.
-  // useEffect(() => {
-  //   if (router.query.type && landTypes.includes(router.query.type)) {
-  //     setType(router.query.type);
-  //   }
-  // }, [router.query.type]);
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    fetch(`${API_URL}/api/v1/lands`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setLands(data);
+        }
+      })
+      .catch((err) => console.error('Error fetching lands from API:', err));
+  }, []);
 
   const filtered = useMemo(() => {
-    return allLands.filter((land) => {
+    return lands.filter((land) => {
       const matchesSearch =
         land.title.toLowerCase().includes(search.toLowerCase()) ||
         land.location.toLowerCase().includes(search.toLowerCase());
       const matchesType = type === 'All' || land.type === type;
       return matchesSearch && matchesType;
     });
-  }, [search, type]);
+  }, [search, type, lands]);
 
   return (
     <>
@@ -373,7 +378,7 @@ export default function LandPlots() {
           subtitle={`${filtered.length} verified plots available right now, across residential, commercial, agricultural, and industrial zones.`}
         />
 
-        <CategoryGrid />
+        <CategoryGrid lands={lands} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20">
           {/* Filters */}
@@ -402,7 +407,7 @@ export default function LandPlots() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((land, index) => (
-                <LandPlotCard key={land.id} land={land} index={index} />
+                <LandPlotCard key={land._id || land.id} land={land} index={index} />
               ))}
             </div>
           )}
