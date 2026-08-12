@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Search, Plus, Edit2, Trash2, X, MapPin, Compass, DollarSign, User, ShieldCheck } from 'lucide-react';
 import AdminLayout from '../../components/AdminLayout';
+import { resolveMediaUrl } from '../../utils/resolveMediaUrl';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
@@ -321,7 +322,7 @@ export default function AdminPlots() {
                       <div className="flex items-center gap-4">
                         <div className="w-14 h-14 bg-gray-100 rounded-xl overflow-hidden relative shrink-0 border">
                           <img 
-                            src={plot.images[0] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=150'} 
+                            src={plot.images[0] ? resolveMediaUrl(plot.images[0]) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=150'} 
                             alt={plot.title} 
                             className="w-full h-full object-cover"
                           />
@@ -566,15 +567,9 @@ export default function AdminPlots() {
                   {/* Preview Grid */}
                   <div className="flex flex-wrap gap-3 mb-3">
                     {formData.imagesRaw.split('\n').map(x => x.trim()).filter(Boolean).map((imgUrl, idx) => {
-                      // Uploaded images are served through the backend
-                      // (reached via /pgi/... in production) — only prefix
-                      // paths that actually contain "upload".
-                      const resolvedSrc = imgUrl.includes('upload') && !imgUrl.startsWith('http')
-                        ? `${API_URL}${imgUrl.startsWith('/') ? imgUrl : '/' + imgUrl}`
-                        : imgUrl;
                       return (
                         <div key={idx} className="relative w-24 h-24 border border-gray-200 rounded-xl overflow-hidden shadow-sm group">
-                          <img src={resolvedSrc} alt="Preview" className="w-full h-full object-cover" />
+                          <img src={resolveMediaUrl(imgUrl)} alt="Preview" className="w-full h-full object-cover" />
                           <button
                             type="button"
                             onClick={() => handleRemoveImage(idx)}

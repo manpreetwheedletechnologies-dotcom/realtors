@@ -7,6 +7,7 @@ import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import CTASection from '../components/Ctasection';
 import VideoShowcaseSection from '../components/Videoshowcasesection';
+import { resolveMediaUrl } from '../utils/resolveMediaUrl';
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
@@ -461,16 +462,7 @@ export default function Home() {
     }
   };
 
-  // Uploaded hero images are served through the backend (reached via
-  // /pgi/... in production) — only prefix paths that actually contain
-  // "upload". Bundled defaults (e.g. /hero3.jpg) stay as-is.
-  const heroVideos = heroImages.map((img) => {
-    if (img.includes('upload') && !img.startsWith('http')) {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-      return `${API_URL}${img.startsWith('/') ? img : '/' + img}`;
-    }
-    return img;
-  });
+  const heroVideos = heroImages.map((img) => resolveMediaUrl(img));
 
   const facings = ['All', 'North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'];
 

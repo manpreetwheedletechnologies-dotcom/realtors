@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import PageHero from '../components/Pagehero';
 import LandPlotCard from '../components/Landplotcard';
+import { resolveMediaUrl } from '../utils/resolveMediaUrl';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -272,8 +273,9 @@ function CategoryGrid({ lands = [] }) {
  * so old data without an array still works.
  */
 function CardImage({ land }) {
-  const images =
+  const rawImages =
     land.images && land.images.length > 0 ? land.images : [land.image];
+  const images = rawImages.map((img) => resolveMediaUrl(img));
   const [activeImg, setActiveImg] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef(null);

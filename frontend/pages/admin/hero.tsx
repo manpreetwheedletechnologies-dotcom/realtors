@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, ArrowUp, ArrowDown, ImageIcon, Save } from 'lucide-react';
 import AdminLayout from '../../components/AdminLayout';
+import { resolveMediaUrl } from '../../utils/resolveMediaUrl';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
@@ -20,12 +21,7 @@ export default function AdminHero() {
     return '';
   };
 
-  // Uploaded images are served through the backend (reached via /pgi/...
-  // in production) — only prefix paths that actually contain "upload".
-  const resolveSrc = (img: string) =>
-    img.includes('upload') && !img.startsWith('http')
-      ? `${API_URL}${img.startsWith('/') ? img : '/' + img}`
-      : img;
+  const resolveSrc = (img: string) => resolveMediaUrl(img);
 
   const fetchHero = async () => {
     setLoading(true);

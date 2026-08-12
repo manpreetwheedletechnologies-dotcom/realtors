@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { resolveMediaUrl } from '../../utils/resolveMediaUrl';
 
 /**
  * LandFeatureCard
@@ -15,7 +16,8 @@ import { motion, AnimatePresence } from 'framer-motion';
  * Props: land (plot object), index (for stagger delay)
  */
 export default function LandFeatureCard({ land, index = 0 }) {
-  const images = land.images && land.images.length > 0 ? land.images : [land.image];
+  const rawImages = land.images && land.images.length > 0 ? land.images : [land.image];
+  const images = rawImages.map((img) => resolveMediaUrl(img));
   const [activeImg, setActiveImg] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
