@@ -1,12 +1,12 @@
 import Head from 'next/head';
 
-import LandPageHero from '../../components/land-components/LandPageHero';
-import StatsStrip from '../../components/land-components/StatsStrip';
+import LandPageHero from '../../components/land-components/Landpagehero';
+import StatsStrip from '../../components/land-components/Statsstrip';
 import Features from '../../components/land-components/Features';
-import VerificationJourney from '../../components/land-components/VerificationJourney';
+import VerificationJourney from '../../components/land-components/Verificationjourney';
 import FeaturedPlots from '../../components/land-components/Featuredplots';
-import FaqSection from '../../components/land-components/FaqSection';
-import FinalCta from '../../components/land-components/FinalCta';
+import FaqSection from '../../components/land-components/Faqsection';
+import FinalCta from '../../components/land-components/Finalcta';
 
 import { getAllLandSlugs, getLandBySlug } from '../../lib/lands';
 
