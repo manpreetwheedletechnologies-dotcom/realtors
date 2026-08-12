@@ -13,7 +13,7 @@ async function bootstrap() {
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
   app.enableCors({
-    origin: ['https://www.pgirealtors.com', 'https://pgirealtors.com'],
+    origin: 'https://www.pgirealtors.com',
     credentials: true,
   });
 
