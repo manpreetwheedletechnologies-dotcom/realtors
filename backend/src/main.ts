@@ -13,11 +13,11 @@ async function bootstrap() {
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
   app.enableCors({
-    origin: 'http://localhost:3001',
+    origin: ['https://www.pgirealtors.com', 'https://pgirealtors.com'],
     credentials: true,
   });
 
-  const port = process.env.NEST_PORT || 4000;
+  const port = Number(process.env.NEST_PORT) || 4000;
   await app.listen(port);
   console.log(`🚀 Backend listening on http://localhost:${port}`);
 }
