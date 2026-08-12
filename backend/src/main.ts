@@ -9,16 +9,22 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
-  // Serve static uploads
-  app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
-app.enableCors({
-  origin: [
-    'http://localhost:3001',
-    'https://www.pgirealtors.com',
-  ],
-  credentials: true,
-});
+  const uploadsPath = join(process.cwd(), 'uploads');
+
+  console.log('UPLOADS PATH:', uploadsPath);
+
+  app.use('/uploads', express.static(uploadsPath));
+  // Serve static uploads
+  // app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
+
+  app.enableCors({
+    origin: [
+      'http://localhost:3001',
+      'https://www.pgirealtors.com',
+    ],
+    credentials: true,
+  });
 
   const port = process.env.NEST_PORT || 4000;
   await app.listen(port);

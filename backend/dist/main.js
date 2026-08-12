@@ -8,7 +8,9 @@ const path_1 = require("path");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true }));
-    app.use('/uploads', express.static((0, path_1.join)(__dirname, '..', 'uploads')));
+    const uploadsPath = (0, path_1.join)(process.cwd(), 'uploads');
+    console.log('UPLOADS PATH:', uploadsPath);
+    app.use('/uploads', express.static(uploadsPath));
     app.enableCors({
         origin: [
             'http://localhost:3001',
