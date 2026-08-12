@@ -12,10 +12,13 @@ async function bootstrap() {
   // Serve static uploads
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
-  app.enableCors({
-    origin: 'http://localhost:3002',
-    credentials: true,
-  });
+app.enableCors({
+  origin: [
+    'http://localhost:3001',
+    'https://www.pgirealtors.com',
+  ],
+  credentials: true,
+});
 
   const port = process.env.NEST_PORT || 4000;
   await app.listen(port);

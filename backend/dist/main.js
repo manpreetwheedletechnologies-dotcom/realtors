@@ -10,7 +10,10 @@ async function bootstrap() {
     app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true }));
     app.use('/uploads', express.static((0, path_1.join)(__dirname, '..', 'uploads')));
     app.enableCors({
-        origin: 'http://localhost:3002',
+        origin: [
+            'http://localhost:3001',
+            'https://www.pgirealtors.com',
+        ],
         credentials: true,
     });
     const port = process.env.NEST_PORT || 4000;
