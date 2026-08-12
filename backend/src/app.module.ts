@@ -13,7 +13,7 @@ import { HeroModule } from './hero/hero.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/pgi3drelators'),
+    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb+srv://devclientg:SCpLNaejWusV7mcR@cluster0.vyinynw.mongodb.net/realtors'),
     AuthModule,
     PagesModule,
     LandsModule,

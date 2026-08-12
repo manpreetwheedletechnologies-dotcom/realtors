@@ -23,7 +23,7 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({ isGlobal: true }),
-            mongoose_1.MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/pgi3drelators'),
+            mongoose_1.MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb+srv://devclientg:SCpLNaejWusV7mcR@cluster0.vyinynw.mongodb.net/realtors'),
             auth_module_1.AuthModule,
             pages_module_1.PagesModule,
             lands_module_1.LandsModule,
