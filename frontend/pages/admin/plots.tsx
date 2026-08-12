@@ -566,10 +566,12 @@ export default function AdminPlots() {
                   {/* Preview Grid */}
                   <div className="flex flex-wrap gap-3 mb-3">
                     {formData.imagesRaw.split('\n').map(x => x.trim()).filter(Boolean).map((imgUrl, idx) => {
-                      let resolvedSrc = imgUrl;
-                      if (imgUrl.startsWith('/uploads/')) {
-                        resolvedSrc = `${API_URL}${imgUrl}`;
-                      }
+                      // Uploaded images are served through the backend
+                      // (reached via /pgi/... in production) — only prefix
+                      // paths that actually contain "upload".
+                      const resolvedSrc = imgUrl.includes('upload') && !imgUrl.startsWith('http')
+                        ? `${API_URL}${imgUrl.startsWith('/') ? imgUrl : '/' + imgUrl}`
+                        : imgUrl;
                       return (
                         <div key={idx} className="relative w-24 h-24 border border-gray-200 rounded-xl overflow-hidden shadow-sm group">
                           <img src={resolvedSrc} alt="Preview" className="w-full h-full object-cover" />

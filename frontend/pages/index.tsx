@@ -461,13 +461,13 @@ export default function Home() {
     }
   };
 
-  // Resolve each hero image path: uploaded images are stored as relative
-  // "/uploads/..." paths served by the backend, everything else (the
-  // bundled /hero3.jpg-style defaults) is served by the frontend itself.
+  // Uploaded hero images are served through the backend (reached via
+  // /pgi/... in production) — only prefix paths that actually contain
+  // "upload". Bundled defaults (e.g. /hero3.jpg) stay as-is.
   const heroVideos = heroImages.map((img) => {
-    if (img.startsWith('/uploads/')) {
+    if (img.includes('upload') && !img.startsWith('http')) {
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-      return `${API_URL}${img}`;
+      return `${API_URL}${img.startsWith('/') ? img : '/' + img}`;
     }
     return img;
   });

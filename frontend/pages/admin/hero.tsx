@@ -20,8 +20,12 @@ export default function AdminHero() {
     return '';
   };
 
+  // Uploaded images are served through the backend (reached via /pgi/...
+  // in production) — only prefix paths that actually contain "upload".
   const resolveSrc = (img: string) =>
-    img.startsWith('/uploads/') ? `${API_URL}${img}` : img;
+    img.includes('upload') && !img.startsWith('http')
+      ? `${API_URL}${img.startsWith('/') ? img : '/' + img}`
+      : img;
 
   const fetchHero = async () => {
     setLoading(true);

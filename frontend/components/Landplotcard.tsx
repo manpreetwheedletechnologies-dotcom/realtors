@@ -12,12 +12,19 @@ import Image from 'next/image';
 export default function LandPlotCard({ land, index = 0 }) {
   let images = land.images && land.images.length > 0 ? land.images : [land.image];
   // Sanitize image paths to ensure Next.js image compatibility (starts with / or http/https)
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
   images = (images || []).map((img) => {
     if (!img || typeof img !== 'string') return '/residential1.png';
     const trimmed = img.trim();
-    if (trimmed.startsWith('/uploads/')) {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-      return `${API_URL}${trimmed}`;
+    // Uploaded files are served through the backend (reached via the
+    // /pgi/... reverse-proxy path in production) — only paths that contain
+    // "upload" need that prefix. Bundled/default images (e.g. /residential1.png)
+    // are served by the frontend itself and must NOT get the prefix.
+    if (trimmed.includes('upload')) {
+      if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+        return trimmed;
+      }
+      return `${API_URL}${trimmed.startsWith('/') ? trimmed : '/' + trimmed}`;
     }
     if (trimmed.startsWith('/') || trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:')) {
       return trimmed;
