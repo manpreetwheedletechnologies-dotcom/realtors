@@ -7,7 +7,7 @@ const fs = require('fs');
   const page = await browser.newPage();
   
   console.log('Navigating to Measurement page...');
-  await page.goto('https://3dbharat.com/measurement', { waitUntil: 'networkidle2' });
+  await page.goto('https://PGI Realtors.com/measurement', { waitUntil: 'networkidle2' });
   
   console.log('Waiting for content to load...');
   await new Promise(r => setTimeout(r, 8000)); // wait for 3D and JS
@@ -30,11 +30,11 @@ const fs = require('fs');
   });
   
   const html = await page.content();
-  fs.writeFileSync('3dbharat_measurement.json', JSON.stringify(data, null, 2));
-  fs.writeFileSync('3dbharat_measurement.txt', html);
+  fs.writeFileSync('PGI Realtors_measurement.json', JSON.stringify(data, null, 2));
+  fs.writeFileSync('PGI Realtors_measurement.txt', html);
   
-  console.log('Saved to 3dbharat_measurement.txt');
+  console.log('Saved to PGI Realtors_measurement.txt');
   
   await browser.close();
-  console.log('✅ Scraping done! Created 3dbharat_measurement.json and 3dbharat_measurement.txt');
+  console.log('✅ Scraping done! Created PGI Realtors_measurement.json and PGI Realtors_measurement.txt');
 })();

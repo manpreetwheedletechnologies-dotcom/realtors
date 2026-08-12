@@ -337,8 +337,33 @@ export default function Home() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
 
+  // HERO SECTION IMAGES — these used to be a hardcoded array. They now come
+  // from the backend (managed from Admin Dashboard -> Hero Section) so the
+  // rotating hero background can be changed without touching code. The
+  // array below is only the fallback shown before the fetch resolves (or if
+  // it fails), so the hero section never renders empty.
+  const [heroImages, setHeroImages] = useState<string[]>([
+    '/hero3.jpg',
+    '/hero5.png',
+    '/hero_8.jpeg',
+    '/hero_9.jpeg',
+    '/hero_10.jpeg',
+  ]);
+
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+    fetch(`${API_URL}/api/v1/hero`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.images) && data.images.length > 0) {
+          setHeroImages(data.images);
+        }
+      })
+      .catch((err) => console.error('Error fetching hero images:', err));
+  }, []);
+
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
     fetch(`${API_URL}/api/v1/lands`)
       .then((res) => res.json())
       .then((data) => {
@@ -436,13 +461,16 @@ export default function Home() {
     }
   };
 
-  const heroVideos = [
-    '/hero3.jpg',
-    '/hero5.png',
-    '/hero_8.jpeg',
-    '/hero_9.jpeg',
-    '/hero_10.jpeg',
-  ];
+  // Resolve each hero image path: uploaded images are stored as relative
+  // "/uploads/..." paths served by the backend, everything else (the
+  // bundled /hero3.jpg-style defaults) is served by the frontend itself.
+  const heroVideos = heroImages.map((img) => {
+    if (img.startsWith('/uploads/')) {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+      return `${API_URL}${img}`;
+    }
+    return img;
+  });
 
   const facings = ['All', 'North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'];
 
@@ -467,11 +495,20 @@ useEffect(() => {
 
 
   useEffect(() => {
+    if (heroVideos.length === 0) return;
     const interval = setInterval(() => {
       setActiveVideo((prev) => (prev + 1) % heroVideos.length);
     }, 4000); // har 4 second me image change hogi
     return () => clearInterval(interval);
-  }, []);
+  }, [heroVideos.length]);
+
+  // Guard against an out-of-range index if the admin removes images and the
+  // list shrinks while activeVideo was pointing further along.
+  useEffect(() => {
+    if (activeVideo >= heroVideos.length && heroVideos.length > 0) {
+      setActiveVideo(0);
+    }
+  }, [heroVideos.length, activeVideo]);
 
   if (!mounted) return null;
 

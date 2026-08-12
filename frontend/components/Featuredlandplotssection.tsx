@@ -91,7 +91,7 @@ export default function FeaturedLandPlotsSection() {
   const [lands, setLands] = useState<any[]>(featuredLands);
 
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
     fetch(`${API_URL}/api/v1/lands`)
       .then((res) => res.json())
       .then((data) => {

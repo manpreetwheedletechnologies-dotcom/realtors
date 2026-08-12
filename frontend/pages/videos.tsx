@@ -151,7 +151,7 @@ const transformVideoData = (data: VideoData[]): Video[] => {
     src: (() => {
       const src = video.src || '';
       if (src.startsWith('/uploads/')) {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
         return `${API_URL}${src}`;
       }
       return src;
@@ -931,7 +931,7 @@ export default function VideoWalkthroughs() {
     // Start with static fallback data
     setVideosState(transformVideoData(videosData));
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
     fetch(`${API_URL}/api/v1/videos`)
       .then((res) => res.json())
       .then((data) => {

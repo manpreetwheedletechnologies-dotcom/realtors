@@ -141,7 +141,7 @@ export default function VideoWalkthroughSection() {
                 loop
                 muted
                 playsInline
-                src="https://3dbharat.com/video/header-video1.mp4"
+                src="https://PGI Realtors.com/video/header-video1.mp4"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -165,7 +165,7 @@ export default function VideoWalkthroughSection() {
                   loop
                   muted
                   playsInline
-                  src="https://3dbharat.com/video/header-video2.mp4"
+                  src="https://PGI Realtors.com/video/header-video2.mp4"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-3">
@@ -185,7 +185,7 @@ export default function VideoWalkthroughSection() {
                   loop
                   muted
                   playsInline
-                  src="https://3dbharat.com/video/header-video1.mp4"
+                  src="https://PGI Realtors.com/video/header-video1.mp4"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-3">

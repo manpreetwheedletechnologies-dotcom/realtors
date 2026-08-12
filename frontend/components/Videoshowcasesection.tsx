@@ -585,7 +585,7 @@ export default function VideoShowcaseSection() {
   useEffect(() => {
     setVideosState((primaryVideos as VideoData[]).slice(0, MAX_SHOWCASE_VIDEOS));
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
     fetch(`${API_URL}/api/v1/videos`)
       .then((res) => res.json())
       .then((data) => {

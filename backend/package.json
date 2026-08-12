@@ -1,7 +1,7 @@
 {
   "name": "pgi3drelators-backend",
   "version": "0.1.0",
-  "description": "NestJS backend for 3DBharat clone",
+  "description": "NestJS backend for PGI Realtors clone",
   "main": "dist/main.js",
   "scripts": {
     "prebuild": "rimraf dist",

@@ -14,6 +14,13 @@ export default function App({ Component, pageProps }: AppProps) {
   router.pathname === '/login';
 
 useEffect(() => {
+  // Lenis hijacks page-level wheel scrolling for the smooth-scroll marketing
+  // site. The admin dashboard has its own internal scrollable container
+  // (AdminLayout's <main>), so Lenis must not run there — otherwise it
+  // intercepts the mouse wheel and the inner panel only scrolls via the
+  // scrollbar thumb/buttons, not the wheel.
+  if (hideLayout) return;
+
   const lenis = new Lenis({
     lerp: 0.1,
     smoothWheel: true,
@@ -43,7 +50,7 @@ useEffect(() => {
       (window as any).lenis = null;
     }
   };
-}, []);
+}, [hideLayout]);
 
   return (
     <>

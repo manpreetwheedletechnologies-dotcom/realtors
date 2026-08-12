@@ -14,8 +14,8 @@ async function bootstrap() {
     if (!pageExists) {
         await pagesService.create({
             slug: 'home',
-            title: 'Welcome to 3DBharat Clone',
-            htmlContent: `<h1>3DBharat Clone</h1><p>This is placeholder content. Replace with real scraped HTML.</p>`,
+            title: 'Welcome to PGI Realtors Clone',
+            htmlContent: `<h1>PGI Realtors Clone</h1><p>This is placeholder content. Replace with real scraped HTML.</p>`,
         });
         console.log('✅ Seeded home page');
     }
@@ -300,10 +300,10 @@ async function bootstrap() {
         console.log(`✅ Seeded ${defaultVideos.length} videos`);
     }
     const userModel = app.get((0, mongoose_1.getModelToken)(user_schema_1.User.name));
-    const adminExists = await userModel.findOne({ email: 'admin@3dbharat.com' });
+    const adminExists = await userModel.findOne({ email: 'admin@PGI Realtors.com' });
     if (!adminExists) {
         await userModel.create({
-            email: 'admin@3dbharat.com',
+            email: 'admin@PGI Realtors.com',
             password: 'adminpass',
             name: 'Administrator'
         });

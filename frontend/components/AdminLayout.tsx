@@ -11,7 +11,8 @@ import {
   Search, 
   Menu,
   LogOut,
-  Film
+  Film,
+  Image as ImageIcon
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -21,7 +22,10 @@ export default function AdminLayout({ children, title = "Admin Panel" }: { child
   const router = useRouter();
 
   const handleLogout = () => {
-    // Dummy logout
+    // Clear the auth cookie the middleware checks for, then redirect.
+    // Previously this only redirected without clearing the cookie, so
+    // "logging out" and navigating back to /admin would still let you in.
+    document.cookie = 'auth_token=; path=/; max-age=0; SameSite=Lax';
     router.push('/login');
   };
 
@@ -29,6 +33,7 @@ export default function AdminLayout({ children, title = "Admin Panel" }: { child
     { icon: LayoutDashboard, label: 'Overview', path: '/admin' },
     { icon: FolderKanban, label: 'Manage Plots', path: '/admin/plots' },
     { icon: Film, label: 'Manage Videos', path: '/admin/videos' },
+    { icon: ImageIcon, label: 'Hero Section', path: '/admin/hero' },
     { icon: Settings, label: 'Settings', path: '/admin/settings' }
   ];
 
@@ -100,7 +105,7 @@ export default function AdminLayout({ children, title = "Admin Panel" }: { child
               <button className="flex items-center gap-3 pl-2 pr-4 py-1.5 rounded-full border border-gray-200 hover:bg-gray-50 transition-all">
                 <img src="https://i.pravatar.cc/150?img=11" alt="Profile" className="w-8 h-8 rounded-full border-2 border-white" />
                 <div className="text-left hidden sm:block">
-                  <p className="text-xs font-bold leading-tight text-gray-900">Lokesh Kumar</p>
+                  <p className="text-xs font-bold leading-tight text-gray-900">Admin</p>
                   <p className="text-[10px] text-gray-500">Site Engineer</p>
                 </div>
               </button>

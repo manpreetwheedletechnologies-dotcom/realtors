@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Lock, Mail, ArrowRight } from 'lucide-react';
 import Logo from '../components/Logo';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 export default function Login() {
   const router = useRouter();
@@ -84,7 +84,7 @@ export default function Login() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@3dbharat.com"
+                  placeholder="admin@PGI Realtors.com"
                   className="w-full pl-12 pr-4 py-3.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all text-gray-900 placeholder-gray-400"
                 />
               </div>

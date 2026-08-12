@@ -16,7 +16,7 @@ export default function LandPlotCard({ land, index = 0 }) {
     if (!img || typeof img !== 'string') return '/residential1.png';
     const trimmed = img.trim();
     if (trimmed.startsWith('/uploads/')) {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
       return `${API_URL}${trimmed}`;
     }
     if (trimmed.startsWith('/') || trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:')) {

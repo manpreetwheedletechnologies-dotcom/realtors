@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Search, Plus, Edit2, Trash2, X, Film, Play, Tag, Sparkles } from 'lucide-react';
 import AdminLayout from '../../components/AdminLayout';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 interface Video {
   _id?: string;

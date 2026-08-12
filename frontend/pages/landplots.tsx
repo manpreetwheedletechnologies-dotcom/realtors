@@ -342,7 +342,7 @@ export default function LandPlots() {
   const [lands, setLands] = useState<any[]>(allLands);
 
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
     fetch(`${API_URL}/api/v1/lands`)
       .then((res) => res.json())
       .then((data) => {
