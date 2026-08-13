@@ -12,40 +12,39 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HeroService = void 0;
+exports.LeadsService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const hero_schema_1 = require("./hero.schema");
-const DEFAULT_HERO_IMAGES = [
-    '/hero3.jpg',
-    '/hero5.png',
-    '/hero_8.jpeg',
-    '/hero_9.jpeg',
-    '/hero_10.jpeg',
-];
-const SINGLETON_ID = '000000000000000000000001';
-let HeroService = class HeroService {
-    constructor(heroModel) {
-        this.heroModel = heroModel;
+const lead_schema_1 = require("./lead.schema");
+let LeadsService = class LeadsService {
+    constructor(leadModel) {
+        this.leadModel = leadModel;
     }
-    async getImages() {
-        const doc = await this.heroModel
-            .findOneAndUpdate({ _id: SINGLETON_ID }, { $setOnInsert: { images: DEFAULT_HERO_IMAGES } }, { new: true, upsert: true })
-            .exec();
-        return doc.images;
+    async create(data) {
+        const lead = new this.leadModel(data);
+        return lead.save();
     }
-    async setImages(images) {
-        const doc = await this.heroModel
-            .findOneAndUpdate({ _id: SINGLETON_ID }, { $set: { images } }, { new: true, upsert: true })
-            .exec();
-        return doc.images;
+    async findAll() {
+        return this.leadModel.find().sort({ createdAt: -1 }).exec();
+    }
+    async updateStatus(id, status) {
+        const lead = await this.leadModel.findByIdAndUpdate(id, { status }, { new: true }).exec();
+        if (!lead)
+            throw new common_1.NotFoundException('Lead not found');
+        return lead;
+    }
+    async remove(id) {
+        const lead = await this.leadModel.findByIdAndDelete(id).exec();
+        if (!lead)
+            throw new common_1.NotFoundException('Lead not found');
+        return { deleted: true };
     }
 };
-exports.HeroService = HeroService;
-exports.HeroService = HeroService = __decorate([
+exports.LeadsService = LeadsService;
+exports.LeadsService = LeadsService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(hero_schema_1.HeroSettings.name)),
+    __param(0, (0, mongoose_1.InjectModel)(lead_schema_1.Lead.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
-], HeroService);
-//# sourceMappingURL=hero.service.js.map
+], LeadsService);
+//# sourceMappingURL=Leads.service.js.map

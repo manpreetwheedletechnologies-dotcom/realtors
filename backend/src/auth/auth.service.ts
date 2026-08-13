@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
@@ -35,5 +35,42 @@ export class AuthService {
     } catch (err) {
       throw new UnauthorizedException('Invalid token');
     }
+  }
+
+  async getProfile(userId: string) {
+    const user = await this.userModel.findById(userId).select('-password').exec();
+    if (!user) throw new NotFoundException('User not found');
+    return { _id: user._id, email: user.email, name: user.name };
+  }
+
+  async updateProfile(
+    userId: string,
+    dto: { name?: string; email?: string; currentPassword?: string; newPassword?: string },
+  ) {
+    const user = await this.userModel.findById(userId).exec();
+    if (!user) throw new NotFoundException('User not found');
+
+    if (dto.name !== undefined) user.name = dto.name;
+
+    if (dto.email !== undefined && dto.email !== user.email) {
+      const existing = await this.userModel.findOne({ email: dto.email }).exec();
+      if (existing && existing._id.toString() !== userId) {
+        throw new BadRequestException('That email is already in use.');
+      }
+      user.email = dto.email;
+    }
+
+    if (dto.newPassword) {
+      if (!dto.currentPassword || dto.currentPassword !== user.password) {
+        throw new BadRequestException('Current password is incorrect.');
+      }
+      if (dto.newPassword.length < 6) {
+        throw new BadRequestException('New password must be at least 6 characters.');
+      }
+      user.password = dto.newPassword;
+    }
+
+    await user.save();
+    return { _id: user._id, email: user.email, name: user.name };
   }
 }

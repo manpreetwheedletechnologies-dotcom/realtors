@@ -171,6 +171,24 @@ export default function Contact() {
       if (data.success) {
         setSubmitted(true);
         setForm({ firstName: '', lastName: '', email: '', phone: '', queryType: '', message: '' });
+
+        // Save the enquiry to the database too, so it shows up under
+        // Leads in the admin dashboard. Best-effort: if this fails (e.g.
+        // backend briefly down) the person's email already went through
+        // via Web3Forms above, so we don't show them an error for this.
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+        fetch(`${API_URL}/api/v1/leads`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName: form.firstName,
+            lastName: form.lastName,
+            email: form.email,
+            phone: form.phone,
+            queryType: form.queryType,
+            message: form.message,
+          }),
+        }).catch((err) => console.error('Error saving lead to dashboard:', err));
       } else {
         setSubmitError(data.message || 'Something went wrong. Please try again.');
       }

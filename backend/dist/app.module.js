@@ -16,6 +16,7 @@ const lands_module_1 = require("./lands/lands.module");
 const videos_module_1 = require("./videos/videos.module");
 const upload_module_1 = require("./upload/upload.module");
 const hero_module_1 = require("./hero/hero.module");
+const leads_module_1 = require("./leads/leads.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,6 +31,7 @@ exports.AppModule = AppModule = __decorate([
             videos_module_1.VideosModule,
             upload_module_1.UploadModule,
             hero_module_1.HeroModule,
+            leads_module_1.LeadsModule,
         ],
     })
 ], AppModule);

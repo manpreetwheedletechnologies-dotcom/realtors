@@ -42,6 +42,31 @@ export default function AdminHero() {
     fetchHero();
   }, []);
 
+  // Persists the given image list to the backend. Used both by the manual
+  // "Save Changes" button (for reorder/remove) AND automatically right
+  // after a successful upload — previously an upload only updated local
+  // state, so if the admin didn't separately click Save, the uploaded
+  // image's path never made it into the database at all.
+  const persistImages = async (list: string[]) => {
+    const token = getAuthToken();
+    if (!token) return false;
+    try {
+      const res = await fetch(`${API_URL}/api/v1/hero`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ images: list }),
+      });
+      if (!res.ok) throw new Error('Save failed');
+      return true;
+    } catch (err) {
+      console.error('Error saving hero images:', err);
+      return false;
+    }
+  };
+
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -69,7 +94,19 @@ export default function AdminHero() {
         const data = await res.json();
         uploaded.push(data.url);
       }
-      setImages((prev) => [...prev, ...uploaded]);
+
+      const nextImages = [...images, ...uploaded];
+      setImages(nextImages);
+
+      // Auto-save immediately so the uploaded image is in the database
+      // even if the admin navigates away without pressing Save Changes.
+      const saved = await persistImages(nextImages);
+      if (saved) {
+        setSavedMsg('Image uploaded and saved — it is now live on the home page.');
+        setTimeout(() => setSavedMsg(''), 4000);
+      } else {
+        alert('Image uploaded, but saving it to the database failed. Please click "Save Changes" to retry.');
+      }
     } catch (err: any) {
       alert(err.message || 'Upload failed');
     } finally {
@@ -93,31 +130,21 @@ export default function AdminHero() {
   };
 
   const handleSave = async () => {
-    const token = getAuthToken();
-    if (!token) {
+    if (!getAuthToken()) {
       alert('You must be logged in as admin to save changes.');
       return;
     }
 
     setSaving(true);
     setSavedMsg('');
-    try {
-      const res = await fetch(`${API_URL}/api/v1/hero`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ images }),
-      });
-      if (!res.ok) throw new Error('Save failed');
+    const saved = await persistImages(images);
+    if (saved) {
       setSavedMsg('Hero section updated — changes are now live on the home page.');
       setTimeout(() => setSavedMsg(''), 4000);
-    } catch (err: any) {
-      alert(err.message || 'Could not save hero images. Verify admin authentication.');
-    } finally {
-      setSaving(false);
+    } else {
+      alert('Could not save hero images. Verify admin authentication.');
     }
+    setSaving(false);
   };
 
   return (

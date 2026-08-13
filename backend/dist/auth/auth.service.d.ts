@@ -20,4 +20,19 @@ export declare class AuthService {
         access_token: string;
     }>;
     verifyToken(token: string): Promise<JwtPayload>;
+    getProfile(userId: string): Promise<{
+        _id: import("mongoose").Types.ObjectId;
+        email: string;
+        name: string;
+    }>;
+    updateProfile(userId: string, dto: {
+        name?: string;
+        email?: string;
+        currentPassword?: string;
+        newPassword?: string;
+    }): Promise<{
+        _id: import("mongoose").Types.ObjectId;
+        email: string;
+        name: string;
+    }>;
 }

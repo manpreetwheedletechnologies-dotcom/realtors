@@ -14,6 +14,14 @@ const DEFAULT_HERO_IMAGES = [
   '/hero_10.jpeg',
 ];
 
+// Fixed, well-known id for the single settings document. Using
+// findOneAndUpdate with upsert against this exact id (instead of a plain
+// findOne()/create() pair) guarantees there is ever only ONE HeroSettings
+// document, even under concurrent requests — so a GET (home page) and a
+// PUT (dashboard save) can never end up reading/writing two different
+// documents.
+const SINGLETON_ID = '000000000000000000000001';
+
 @Injectable()
 export class HeroService {
   constructor(
@@ -21,23 +29,25 @@ export class HeroService {
     private readonly heroModel: Model<HeroSettingsDocument>,
   ) {}
 
-  private async getOrCreate(): Promise<HeroSettingsDocument> {
-    let doc = await this.heroModel.findOne().exec();
-    if (!doc) {
-      doc = await this.heroModel.create({ images: DEFAULT_HERO_IMAGES });
-    }
-    return doc;
-  }
-
   async getImages(): Promise<string[]> {
-    const doc = await this.getOrCreate();
+    const doc = await this.heroModel
+      .findOneAndUpdate(
+        { _id: SINGLETON_ID },
+        { $setOnInsert: { images: DEFAULT_HERO_IMAGES } },
+        { new: true, upsert: true },
+      )
+      .exec();
     return doc.images;
   }
 
   async setImages(images: string[]): Promise<string[]> {
-    const doc = await this.getOrCreate();
-    doc.images = images;
-    await doc.save();
+    const doc = await this.heroModel
+      .findOneAndUpdate(
+        { _id: SINGLETON_ID },
+        { $set: { images } },
+        { new: true, upsert: true },
+      )
+      .exec();
     return doc.images;
   }
 }

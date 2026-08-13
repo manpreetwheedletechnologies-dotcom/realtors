@@ -9,6 +9,7 @@ import { LandsModule } from './lands/lands.module';
 import { VideosModule } from './videos/videos.module';
 import { UploadModule } from './upload/upload.module';
 import { HeroModule } from './hero/hero.module';
+import { LeadsModule } from './leads/leads.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { HeroModule } from './hero/hero.module';
     VideosModule,
     UploadModule,
     HeroModule,
+    LeadsModule,
   ],
 })
 export class AppModule {}
