@@ -16,14 +16,14 @@ const RegisterModal = dynamic(() => import('./RegisterModal'), { ssr: false });
 // `category.icon` (desktop dropdown + mobile dropdown) but this array never
 // defined it, so every icon slot was rendering blank.
 const landCategories = [
-  { label: 'Residential Land', href: '/land/residential-land', icon: '🏠' },
-  { label: 'Commercial Land', href: '/land/commercial-land', icon: '🏢' },
+  { label: 'Residential Plots', href: '/land/residential-plots', icon: '🏠' },
+  { label: 'Commercial Shops', href: '/land/commercial-shops', icon: '🏢' },
   { label: 'Agricultural Land', href: '/land/agricultural-land', icon: '🌾' },
   { label: 'Industrial Land', href: '/land/industrial-land', icon: '🏭' },
-  { label: 'Mixed-Use Land', href: '/land/mixed-use-land', icon: '🏘️' },
+  // { label: 'Mixed-Use Land', href: '/land/mixed-use-land', icon: '🏘️' },
   { label: 'Plotted Development', href: '/land/plotted-development', icon: '📐' },
-  { label: 'Farm Land', href: '/land/farm-land', icon: '🌿' },
-  { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' }
+  { label: 'Farm Houses', href: '/land/farm-houses', icon: '🌿' },
+  // { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' }
 ];
 
 export default function NavBar() {

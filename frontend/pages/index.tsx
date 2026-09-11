@@ -87,13 +87,13 @@ const measurementTools = [
 
 
 const landTypes = [
-  'Residential Land',
-  'Commercial Land',
+  'Residential Plots',
+  'Commercial Shops',
   'Agricultural Land',
   'Industrial Land',
   'Mixed-Use Land',
   'Plotted Development',
-  'Farm Land',
+  'Farm Houses',
   'Hill View Plot'
 ];
 
@@ -143,13 +143,13 @@ const landUsefulies = [
 
 
 const landCategoryLinks = [
-  { label: 'Residential Land', href: '/land/residential-land', icon: '🏠' },
-  { label: 'Commercial Land', href: '/land/commercial-land', icon: '🏢' },
+  { label: 'Residential Plots', href: '/land/residential-land', icon: '🏠' },
+  { label: 'Commercial Shops', href: '/land/commercial-land', icon: '🏢' },
   { label: 'Agricultural Land', href: '/land/agricultural-land', icon: '🌾' },
   { label: 'Industrial Land', href: '/land/industrial-land', icon: '🏭' },
   { label: 'Mixed-Use Land', href: '/land/mixed-use-land', icon: '🏘️' },
   { label: 'Plotted Development', href: '/land/plotted-development', icon: '📐' },
-  { label: 'Farm Land', href: '/land/farm-land', icon: '🌿' },
+  { label: 'Farm Houses', href: '/land/farm-land', icon: '🌿' },
   { label: 'Hill View Plot', href: '/land/hill-view-plot', icon: '⛰️' }
 ];
 
@@ -159,7 +159,7 @@ const dummyLandPlots = [
     id: 1,
     title: 'Green Meadows Residential Plot',
     location: '',
-    type: 'Residential Land',
+    type: 'Residential Plots',
     zoning: 'Residential R-1',
     facing: 'North-East',
     area: 240,
@@ -171,7 +171,7 @@ const dummyLandPlots = [
     id: 2,
     title: 'Riverfront Commercial Plot',
     location: 'Sector 62, Noida',
-    type: 'Commercial Land',
+    type: 'Commercial Shops',
     zoning: 'Commercial C-1',
     facing: 'East',
     area: 600,
@@ -265,9 +265,9 @@ const dummyLandPlots = [
   },
   {
     id: 10,
-    title: 'Organic Farm Land',
+    title: 'Organic Farm Houses',
     location: 'Coimbatore, Tamil Nadu',
-    type: 'Farm Land',
+    type: 'Farm Houses',
     zoning: 'Agricultural Zone',
     facing: 'South-West',
     area: 1500,

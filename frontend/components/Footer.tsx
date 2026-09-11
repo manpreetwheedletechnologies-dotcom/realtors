@@ -77,7 +77,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-4 tracking-wide">Explore</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/land/residential-land" className="hover:text-emerald-300 transition-colors duration-200">Residential Land</Link></li>
+              <li><Link href="/land/residential-land" className="hover:text-emerald-300 transition-colors duration-200">Residential Plots</Link></li>
               <li><Link href="/measurement" className="hover:text-emerald-300 transition-colors duration-200">Measurement Tools</Link></li>
               <li><Link href="/videos" className="hover:text-emerald-300 transition-colors duration-200">Video Walkthroughs</Link></li>
             </ul>

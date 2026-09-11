@@ -404,7 +404,7 @@ export default function AdminVideos() {
                       <option value="Agricultural">Agricultural</option>
                       <option value="Industrial">Industrial</option>
                       <option value="Waterfront">Waterfront</option>
-                      <option value="Farm Land">Farm Land</option>
+                      <option value="Farm Houses">Farm Houses</option>
                     </select>
                   </div>
 

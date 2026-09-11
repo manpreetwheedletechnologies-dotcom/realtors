@@ -38,7 +38,7 @@ export default function AdminPlots() {
     location: '',
     price: '',
     size: '',
-    type: 'Residential Land',
+    type: 'Residential Plots',
     dimensions: '',
     facing: '',
     owner: '',
@@ -133,7 +133,7 @@ export default function AdminPlots() {
       location: '',
       price: '',
       size: '',
-      type: 'Residential Land',
+      type: 'Residential Plots',
       dimensions: '',
       facing: '',
       owner: '',
@@ -421,11 +421,11 @@ export default function AdminPlots() {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 text-gray-900"
                   >
-                    <option value="Residential Land">Residential Land</option>
-                    <option value="Commercial Land">Commercial Land</option>
+                    <option value="Residential Plots">Residential Plots</option>
+                    <option value="Commercial Shops">Commercial Shops</option>
                     <option value="Agricultural Land">Agricultural Land</option>
                     <option value="Industrial Land">Industrial Land</option>
-                    <option value="Farm Land">Farm Land</option>
+                    <option value="Farm Houses">Farm Houses</option>
                   </select>
                 </div>
 

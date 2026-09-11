@@ -19,7 +19,7 @@ export const allLands = [
     location: '',
     price: '₹2.5 Cr',
     size: '450 sq.yds',
-    type: 'Residential Land',
+    type: 'Residential Plots',
     dimensions: '30ft × 45ft',
     facing: 'North-East',
     owner: 'Shree Builders Pvt Ltd',
@@ -62,11 +62,11 @@ export const allLands = [
   },
   {
     id: 3,
-    title: 'Commercial Land',
+    title: 'Commercial Shops',
     location: '',
     price: '₹8.5 Cr',
     size: '1200 sq.yds',
-    type: 'Commercial Land',
+    type: 'Commercial Shops',
     dimensions: '60ft × 80ft',
     facing: 'West',
     owner: 'Bombay Land Developers',
@@ -107,7 +107,7 @@ export const allLands = [
     location: '',
     price: '₹4.1 Cr',
     size: '800 sq.yds',
-    type: 'Residential Land',
+    type: 'Residential Plots',
     dimensions: '40ft × 90ft',
     facing: 'East',
     owner: 'Coastal Estates',
@@ -125,7 +125,7 @@ export const allLands = [
     location: '',
     price: '₹95 Lakh',
     size: '1 acre',
-    type: 'Farm Land',
+    type: 'Farm Houses',
     dimensions: '150ft × 290ft',
     facing: 'North',
     owner: 'Sahyadri Farms',
@@ -139,23 +139,23 @@ export const allLands = [
   }
 ];
 
-const landTypes = ['All', 'Residential Land', 'Commercial Land', 'Agricultural Land', 'Industrial Land', 'Farm Land'];
+const landTypes = ['All', 'Residential Plots', 'Commercial Shops', 'Agricultural Land', 'Industrial Land', 'Farm Houses'];
 
 // Category cards shown at the top — background image + count pulled live from allLands
 const categories = [
   {
-    label: 'Residential Land',
+    label: 'Residential Plots',
     route : 'residential-land',
     icon: '🏡',
     image: '/residential3.png',
-    match: (l) => l.type === 'Residential Land'
+    match: (l) => l.type === 'Residential Plots'
   },
   {
-    label: 'Commercial Land',
+    label: 'Commercial Shops',
     route : 'commercial-land',
     icon: '🏢',
     image: '/commercial1.jpg',
-    match: (l) => l.type === 'Commercial Land'
+    match: (l) => l.type === 'Commercial Shops'
   },
   {
     label: 'Agricultural Land',
@@ -186,11 +186,11 @@ const categories = [
     match: (l) => /plotted|layout/i.test(l.title)
   },
   {
-    label: 'Farm Land',
+    label: 'Farm Houses',
     route : 'farm-land',
     icon: '🌱',
     image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
-    match: (l) => l.type === 'Farm Land'
+    match: (l) => l.type === 'Farm Houses'
   },
   {
     label: 'Hill View Plot',

@@ -108,4 +108,4 @@ exports.LeadsController = LeadsController = __decorate([
     (0, common_1.Controller)('api/v1/leads'),
     __metadata("design:paramtypes", [leads_service_1.LeadsService])
 ], LeadsController);
-//# sourceMappingURL=Leads.controller.js.map
+//# sourceMappingURL=leads.controller.js.map
