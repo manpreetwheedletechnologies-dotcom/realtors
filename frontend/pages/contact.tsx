@@ -262,7 +262,7 @@ export default function Contact() {
 
                   <div className="hidden md:flex flex-col gap-4 mt-10">
                     {[
-                      { icon: Phone, label: '+91 99909 60187' },
+                      { icon: Phone, label: '+91 9891960300' },
                       { icon: Mail, label: 'greenspragati@gmail.com' },
                       { icon: Clock, label: 'Mon–Sat, 10am – 7pm IST' },
                     ].map((item, i) => (
@@ -446,7 +446,7 @@ export default function Contact() {
               className="grid sm:grid-cols-2 gap-4 content-start"
             >
               {[
-                { icon: Phone, title: 'Phone', value: '+91 99909 60187', href: 'tel:+919990960187' },
+                { icon: Phone, title: 'Phone', value: '+91 99909 6018', href: 'tel:+919990960187' },
                 { icon: Mail, title: 'Email', value: 'greenspragati@gmail.com', href: 'mailto:greenspragati@gmail.com' },
                 { icon: MapPin, title: 'Address', value: 'Pilot no. 8c, near 100 x school, techzone 4, Greater Noida, India' },
                 { icon: Clock, title: 'Hours', value: 'Mon–Sat, 10am – 7pm IST' },

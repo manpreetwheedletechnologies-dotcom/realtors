@@ -98,7 +98,7 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-4 tracking-wide">Get in Touch</h4>
             <ul className="space-y-2 text-sm text-gray-300/80">
               <li className="flex items-center gap-2">📍 Pilot no. 8c near 100x school  techzone 4, Greator noida, India</li>
-              <li className="flex items-center gap-2">📞 +91 9990960187</li>
+              <li className="flex items-center gap-2">📞 +91 9891960300</li>
               <li className="flex items-center gap-2">✉️ greenspragati@gmail.com</li>
             </ul>
           </div>
