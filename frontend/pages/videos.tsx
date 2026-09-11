@@ -49,7 +49,7 @@ const tagIcons: Record<string, any> = {
   'Industrial': Factory,
   'Residential': Building2,
   'Waterfront': Waves,
-  'Farm Land': Mountain,
+  'Farm Houses': Mountain,
 };
 
 // Shared hook: detect mobile / touch viewport so heavy 3D + hover-only effects

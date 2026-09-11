@@ -17,8 +17,8 @@ const stats = [
 
 // Land categories we specialize in
 const expertise = [
-  { icon: '🏘️', title: 'Residential Land' },
-  { icon: '🏢', title: 'Commercial Land' },
+  { icon: '🏘️', title: 'Residential Plots' },
+  { icon: '🏢', title: 'Commercial Shops' },
   { icon: '🏭', title: 'Industrial Land' },
   { icon: '🌾', title: 'Agricultural Land' },
   { icon: '🏛️', title: 'Institutional Land' },

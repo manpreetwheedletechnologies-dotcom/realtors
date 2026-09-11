@@ -9,13 +9,13 @@ const fadeInUp = {
 };
 
 const landTypes = [
-  { name: 'Residential Land', icon: '🏠', desc: 'Plots approved for homes, apartments, and housing colonies.' },
-  { name: 'Commercial Land', icon: '🏢', desc: 'Ideal for offices, retail, and mixed commercial development.' },
+  { name: 'Residential Plots', icon: '🏠', desc: 'Plots approved for homes, apartments, and housing colonies.' },
+  { name: 'Commercial Shops', icon: '🏢', desc: 'Ideal for offices, retail, and mixed commercial development.' },
   { name: 'Agricultural Land', icon: '🌾', desc: 'Fertile plots for farming and cultivation.' },
   { name: 'Industrial Land', icon: '🏭', desc: 'Zoned for factories, warehouses, and manufacturing units.' },
   { name: 'Mixed-Use Land', icon: '🏘️', desc: 'Flexible plots for combined residential and commercial use.' },
   { name: 'Plotted Development', icon: '📐', desc: 'Pre-approved layouts ready for individual plot sale.' },
-  { name: 'Farm Land', icon: '🌿', desc: 'Countryside plots for farmhouses and agri-tourism.' },
+  { name: 'Farm Houses', icon: '🌿', desc: 'Countryside plots for farmhouses and agri-tourism.' },
   { name: 'Hill View Plot', icon: '⛰️', desc: 'Scenic elevated land, popular for weekend homes.' },
 ];
 

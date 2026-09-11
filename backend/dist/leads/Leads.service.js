@@ -47,4 +47,4 @@ exports.LeadsService = LeadsService = __decorate([
     __param(0, (0, mongoose_1.InjectModel)(lead_schema_1.Lead.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
 ], LeadsService);
-//# sourceMappingURL=Leads.service.js.map
+//# sourceMappingURL=leads.service.js.map

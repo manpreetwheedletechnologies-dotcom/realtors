@@ -46,4 +46,4 @@ exports.Lead = Lead = __decorate([
     (0, mongoose_1.Schema)({ timestamps: true })
 ], Lead);
 exports.LeadSchema = mongoose_1.SchemaFactory.createForClass(Lead);
-//# sourceMappingURL=Lead.schema.js.map
+//# sourceMappingURL=lead.schema.js.map

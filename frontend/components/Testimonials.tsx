@@ -5,7 +5,7 @@ const testimonials = [
   {
     name: 'Rajesh Kumar',
     location: 'Mumbai',
-    text: 'Found the perfect commercial land in BKC through PGI Land Realtors. Complete legal verification made the process smooth.',
+    text: 'Found the perfect Commercial Shops in BKC through PGI Land Realtors. Complete legal verification made the process smooth.',
     rating: 5,
     image: '👨'
   },

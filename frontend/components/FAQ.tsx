@@ -6,7 +6,7 @@ import Link from 'next/dist/client/link';
 const faqs = [
   {
     question: 'What types of land plots are available on PGI Land Realtors?',
-    answer: 'We offer a wide variety of land plots including Residential Land, Commercial Land, Agricultural Land, Industrial Land, Mixed-Use Land, Plotted Development, Farm Land, Hill View Plot, Waterfront Land, and Corner Plots across 50+ cities in India.'
+    answer: 'We offer a wide variety of land plots including Residential Plots, Commercial Shops, Agricultural Land, Industrial Land, Mixed-Use Land, Plotted Development, Farm Houses, Hill View Plot, Waterfront Land, and Corner Plots across 50+ cities in India.'
   },
   {
     question: 'How can I verify the legal status of a land plot?',
