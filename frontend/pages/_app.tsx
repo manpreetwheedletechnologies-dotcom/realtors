@@ -1,10 +1,11 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Lenis from 'lenis';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import Preloader from '../components/Preloader';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -12,6 +13,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const hideLayout =
   router.pathname.startsWith('/admin') ||
   router.pathname === '/login';
+
+// Preloader sirf tab dikhao jab site ka PEHLA page public ho (admin / login par nahi),
+// aur sirf ek baar - page change par dobara nahi aata.
+const [showPreloader, setShowPreloader] = useState(!hideLayout);
+const handlePreloaderFinish = useCallback(() => setShowPreloader(false), []);
 
 useEffect(() => {
   // Lenis hijacks page-level wheel scrolling for the smooth-scroll marketing
@@ -52,8 +58,17 @@ useEffect(() => {
   };
 }, [hideLayout]);
 
+  // Preloader ke peeche smooth-scroll (Lenis) band rakho, khatam hote hi chalu
+  useEffect(() => {
+    const lenis = (window as any).lenis;
+    if (!lenis) return;
+    if (showPreloader) lenis.stop?.();
+    else lenis.start?.();
+  }, [showPreloader]);
+
   return (
     <>
+     {showPreloader && <Preloader minDuration={4500} onFinish={handlePreloaderFinish} theme="light"/>}
      {!hideLayout && <NavBar />}
 
 <Component {...pageProps} />

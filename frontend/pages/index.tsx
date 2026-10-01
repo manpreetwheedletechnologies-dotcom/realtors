@@ -7,6 +7,7 @@ import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import CTASection from '../components/Ctasection';
 import VideoShowcaseSection from '../components/Videoshowcasesection';
+import ProjectsSection from '../components/ProjectsSection';
 import { resolveMediaUrl } from '../utils/resolveMediaUrl';
 
 // Custom hook for scroll animations
@@ -1017,6 +1018,11 @@ useEffect(() => {
           <FeaturedLandPlotsSection />
 
         </motion.section>
+
+        {/* PROJECTS SECTION (dynamic – managed from Admin > Manage Projects) */}
+        <div className="relative bg-white z-30">
+          <ProjectsSection />
+        </div>
 
         {/* ADVANCED MEASUREMENT TOOLS SECTION */}
         <motion.section

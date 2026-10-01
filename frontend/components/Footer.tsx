@@ -108,6 +108,17 @@ export default function Footer() {
         <div className="border-t border-emerald-700/30 pt-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-400/70">
           <span>© {new Date().getFullYear()} PGI Land Realtors. All rights reserved.</span>
           <span className="tracking-wide">Made for land buyers &amp; owners across India</span>
+          <span className="tracking-wide">
+            Developed by{' '}
+            <a
+              href="https://wheedletechnologies.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors duration-200"
+            >
+              Wheedle Technologies
+            </a>
+          </span>
         </div>
       </div>
     </footer>

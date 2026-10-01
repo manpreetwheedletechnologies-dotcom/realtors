@@ -16,6 +16,7 @@ import {
   Users,
   MapPin,
   Mail,
+  Building2,
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -55,6 +56,7 @@ export default function AdminLayout({ children, title = "Admin Panel" }: { child
   const navItems = [
     { icon: LayoutDashboard, label: 'Overview', path: '/admin' },
     { icon: FolderKanban, label: 'Manage Plots', path: '/admin/plots' },
+    { icon: Building2, label: 'Manage Projects', path: '/admin/projects' },
     { icon: Film, label: 'Manage Videos', path: '/admin/videos' },
     { icon: ImageIcon, label: 'Hero Section', path: '/admin/hero' },
     { icon: Users, label: 'Leads', path: '/admin/leads' },
